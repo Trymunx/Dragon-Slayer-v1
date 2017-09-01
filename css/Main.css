@@ -1,0 +1,95 @@
+@import "./Colours.css";
+
+#entity-bar {
+  grid-area: entity;
+  padding: 10px;
+  color: var(--text-blur);
+  background-color: var(--ui-dark);
+  font-family: "SourceCode Pro", monospace;
+}
+
+#output {
+  grid-area: output;
+  padding: 10px;
+  color: var(--text);
+  background-color: var(--ui);
+  font-family: "SourceCode Pro", monospace;
+  overflow-y: auto;
+
+}
+
+#output::-webkit-scrollbar {
+  width: 8px;
+}
+
+#output::-webkit-scrollbar-track {
+  background-color: var(--ui-dark);
+}
+
+#output::-webkit-scrollbar-thumb {
+  background-color: var(--ui-darker);
+}
+
+#input-bar {
+  grid-area: input;
+  padding: 4px 10px 4px 10px;
+  color: var(--text);
+  background-color: var(--ui-darker);
+  font-family: "SourceCode Pro", monospace;
+}
+
+#input-text {
+  grid-area: input;
+  width: 92%;
+  resize: auto;
+  padding: 4px 0px 4px 0px;
+  border-style: none;
+  outline: none;
+  background-color: var(--ui-darker);
+  /* Text */
+  color: var(--text);
+  font-size: 0.95em;
+  font-family: "SourceCode Pro", monospace;
+  caret-color: transparent;
+}
+
+#map {
+  grid-area: map;
+  padding: 10px;
+  margin-bottom: 2px;
+  color: var(--text-blur);
+  background-color: var(--ui-darker);
+  border-color: var(--ui-border);
+  border-radius: 4px;
+  font-family: "SourceCode Pro", monospace;
+  font-size: 2vmin;
+  white-space: pre-wrap;
+}
+
+#inventory {
+  grid-area: inventory;
+  padding: 10px;
+  color: var(--text-blur);
+  background-color: var(--ui-darker);
+  border-color: var(--ui-border);
+  border-radius: 4px;
+  font-family: "SourceCode Pro", monospace;
+}
+
+.container {
+  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 5fr 3fr;
+  grid-template-rows: 5fr 4fr 30px;
+  grid-template-areas:
+    "entity output map"
+    "entity output inventory"
+    "input input inventory";
+  background-color: var(--ui-dark);
+  font-size: 0.95em;
+}
+
+.container, html, body {
+  height: 100%;
+  margin: 0;
+}

@@ -1,0 +1,42 @@
+:root {
+  /* UI colours */
+  --ui: #333231;
+  --ui-darker: #262626;
+  --ui-border: #1E1E1E;
+  --ui-dark: #2B2B2B;
+  /* Text colours */
+  --text: #DADDD8;
+  --text-blur: #BABABA;
+}
+
+.colour-ui {
+  color: var(--ui);
+}
+
+.colour-ui-bg {
+  background-color: var(--ui);
+}
+
+.colour-ui-darker {
+  color: var(--ui-darker);
+}
+
+.colour-ui-darker-bg {
+  color: var(--ui-darker);
+}
+
+.colour-text {
+  color: var(--text);
+}
+
+.colour-text-bg {
+  background-color: var(--text);
+}
+
+.colour-text-blur {
+  color: var(--text-blur);
+}
+
+.colour-text-blur-bg {
+  background-color: var(--text-blur);
+}
