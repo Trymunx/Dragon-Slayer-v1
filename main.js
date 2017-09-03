@@ -15,6 +15,10 @@ app.on("ready", function () {
     acceptFirstMouse: true
   });
 
+  mainWindow.setMenu(null);
+
+  // mainWindow.webContents.openDevTools();
+
   mainWindow.loadURL("file://" + __dirname + "/index.html");
 
   mainWindow.on("closed", function () {
