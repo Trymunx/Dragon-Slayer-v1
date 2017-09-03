@@ -1,0 +1,60 @@
+{
+  "name": "",
+  "attributes": {
+    "totalHP": 100,
+    "currentHP": 100,
+    "experience": 0,
+    "level": 0,
+    "attackChance": 0,
+    "damage": 0,
+    "armour": 0
+  },
+  "inventory": {
+    "potions": 3,
+    "gold": 0,
+    "items": []
+  },
+  "equipped": {
+    "head": "none",
+    "torso": "tunic",
+    "legs": "trousers",
+    "rightHand": "none",
+    "leftHand": "none",
+    "gloves": "none",
+    "boots": "old shoes"
+  },
+  "creaturesSlain": {
+    "slainNonDragon": false,
+    "total": 0,
+    "byType": {
+      "dragon": {
+        "totalSlain": 0,
+        "namePlural": "dragons"
+      },
+      "rat": {
+        "totalSlain": 0,
+        "namePlural": "rats"
+      },
+      "wolf": {
+        "totalSlain": 0,
+        "namePlural": "wolves"
+      },
+      "troll": {
+        "totalSlain": 0,
+        "namePlural": "trolls"
+      },
+      "snake": {
+        "totalSlain": 0,
+        "namePlural": "snakes"
+      },
+      "ghost": {
+        "totalSlain": 0,
+        "namePlural": "ghosts"
+      },
+      "thief": {
+        "totalSlain": 0,
+        "namePlural": "thieves"
+      }
+    }
+  }
+}

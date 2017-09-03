@@ -1,0 +1,1326 @@
+{
+  "dragon": {
+    "name": "dragon",
+    "namePlural": "dragons",
+    "attributes": {
+      "maxTotalHP": 50000,
+      "minTotalHP": 15000,
+      "totalHP": 0,
+      "currentHP": 0,
+      "healthBar": "#",
+      "spawnChance": 0.15,
+      "aggressive": true
+    },
+    "missChance": 0.2,
+    "attacks": [
+      {
+        "name": "maul",
+        "chance": 0.64,
+        "minDamage": 12,
+        "maxDamage": 27,
+        "damage": 0,
+        "messages": [
+          "The dragon mauls you, hitting you for ",
+          "The dragon's claws lacerate your flesh, hitting you for "
+        ]
+      },
+      {
+        "name": "breath",
+        "chance": 0.16,
+        "minDamage": 17,
+        "maxDamage": 50,
+        "damage": 0,
+        "messages": [
+          "You raise you shield but the dragon breaths fire. You lose ",
+          "Your vision erupts in blazing fire as the dragon's breath surrounds you. You lose "
+        ]
+      }
+    ],
+    "drops": {
+      "gold": {
+        "dropChance": 1,
+        "multiplier": 1500
+      },
+      "potions": {
+        "dropChance": 0.95,
+        "maxPotions": 18
+      },
+      "items": [
+        "dragon hide",
+        "dragon scales",
+        "dragon claws",
+        "dragon blood"
+      ],
+      "equipment": [
+        "longsword",
+        "halberd",
+        "shortsword",
+        "dagger",
+        "shield",
+        "kiteshield",
+        "spear",
+        "battleaxe",
+        "axe",
+        "gauntlets",
+        "boots",
+        "hauberk",
+        "chausses",
+        "helmet",
+        "helm",
+        "coif",
+        "brigandine",
+        "cuirass",
+        "gloves",
+        "cuisse",
+        "greaves",
+        "sabatons"
+      ]
+    },
+    "messages": {
+      "onSpawn": [
+        "It roars and spreads its wings as you attack.",
+        "It lifts its head and a pillar of scorching flames erupt from its mouth. Its fierce eyes then lock onto you."
+      ],
+      "onDeath": [
+        "With a deafening roar, the dragon lets out a final burst of flaming breath and falls, shaking the ground.",
+        "With a final blow you hack the dragon's head off to emerge victorious, surrounded by its blood."
+      ]
+    }
+  },
+
+  "giant": {
+    "name": "giant",
+    "namePlural": "giants",
+    "attributes": {
+      "maxTotalHP": 25000,
+      "minTotalHP": 10000,
+      "totalHP": 0,
+      "currentHP": 0,
+      "healthBar": ">",
+      "spawnChance": 0.2,
+      "aggressive": true
+    },
+    "missChance": 0.25,
+    "attacks": [
+      {
+        "name": "club",
+        "chance": 0.6,
+        "minDamage": 8,
+        "maxDamage": 22,
+        "damage": 0,
+        "messages": [
+          "The giant clubs you, hitting you for ",
+          "The giant's club smashes into your torso. You lose "
+        ]
+      },
+      {
+        "name": "hurl",
+        "chance": 0.15,
+        "minDamage": 15,
+        "maxDamage": 40,
+        "damage": 0,
+        "messages": [
+          "The giant picks you up and hurls you against the ground. You lose ",
+          "The giant grabs you by your leg and smashes you against the ground. You lose "
+        ]
+      }
+    ],
+    "drops": {
+      "gold": {
+        "dropChance": 0.95,
+        "multiplier": 500
+      },
+      "potions": {
+        "dropChance": 0.9,
+        "maxPotions": 15
+      },
+      "items": [
+        "giant bones"
+      ],
+      "equipment": [
+        "club",
+        "longsword",
+        "dagger",
+        "shield",
+        "spear",
+        "boots",
+        "hauberk",
+        "coif",
+        "brigandine",
+        "gloves"
+      ]
+    },
+    "messages": {
+      "onSpawn": [
+        "It lets out a booming roar as it walks towards you, each step shaking the earth.",
+        "It strides towards you, dragging its club along the ground behind it. The earth shakes with each step it takes."
+      ],
+      "onDeath": [
+        "With a sickening bellow, the giant falls to the ground with a mighty thud.",
+        "The giant staggers backwards, its hands grasping the air, before collapsing on the ground with a resonating crash."
+      ]
+    }
+  },
+
+  "troll": {
+    "name": "troll",
+    "namePlural": "trolls",
+    "attributes": {
+      "maxTotalHP": 17500,
+      "minTotalHP": 6500,
+      "totalHP": 0,
+      "currentHP": 0,
+      "healthBar": "»",
+      "spawnChance": 0.25,
+      "aggressive": true
+    },
+    "missChance": 0.3,
+    "attacks": [
+      {
+        "name": "maul",
+        "chance": 0.56,
+        "minDamage": 8,
+        "maxDamage": 18,
+        "damage": 0,
+        "messages": [
+          "The troll mauls you for ",
+          "The trolls claws rip through your flesh. You lose "
+        ]
+      },
+      {
+        "name": "savage",
+        "chance": 0.14,
+        "minDamage": 12,
+        "maxDamage": 32,
+        "damage": 0,
+        "messages": [
+          "The troll rushes at you, knocking you off your feet and savaging you for ",
+          "The troll savages you with its teeth and claws, ripping your flesh. You lose "
+        ]
+      }
+    ],
+    "drops": {
+      "gold": {
+        "dropChance": 0.95,
+        "multiplier": 365
+      },
+      "potions": {
+        "dropChance": 0.85,
+        "maxPotions": 12
+      },
+      "items": [
+        "troll fat"
+      ],
+      "equipment": []
+    },
+    "messages": {
+      "onSpawn": [
+        "It roars incoherently as you attack, beating its chest.",
+        "It roars and swings its arms clumsily in your direction as you approach"
+      ],
+      "onDeath": [
+        "The troll bellows and keels over, dead.",
+        "The troll lets out a howl as you strike it down, its body covered in wounds."
+      ]
+    }
+  },
+
+  "orc": {
+    "name": "orc",
+    "namePlural": "orcs",
+    "attributes": {
+      "maxTotalHP": 600,
+      "minTotalHP": 120,
+      "totalHP": 0,
+      "currentHP": 0,
+      "healthBar": "©",
+      "spawnChance": 0.58,
+      "aggressive": true
+    },
+    "missChance": 0.3,
+    "attacks": [
+      {
+        "name": "slash",
+        "chance": 0.56,
+        "minDamage": 4,
+        "maxDamage": 15,
+        "damage": 0,
+        "messages": [
+          "The orc swings its sword and slashes you for ",
+          "The orc's sword cuts into you, you lose "
+        ]
+      },
+      {
+        "name": "bash",
+        "chance": 0.14,
+        "minDamage": 8,
+        "maxDamage": 16,
+        "damage": 0,
+        "messages": [
+          "The orc suddenly lunges at you, bashing you with its shield then stabbing you with a piercing blow while your guard is down. You lose ",
+          "The orc slams its shield into you, following up with a slash. You lose "
+        ]
+      }
+    ],
+    "drops": {
+      "gold": {
+        "dropChance": 0.85,
+        "multiplier": 55
+      },
+      "potions": {
+        "dropChance": 0.75,
+        "maxPotions": 6
+      },
+      "items": [],
+      "equipment": [
+        "longsword",
+        "halberd",
+        "shortsword",
+        "dagger",
+        "shield",
+        "kiteshield",
+        "spear",
+        "battleaxe",
+        "axe",
+        "gauntlets",
+        "boots",
+        "hauberk",
+        "chausses",
+        "helmet",
+        "helm",
+        "coif",
+        "brigandine",
+        "cuirass",
+        "gloves",
+        "cuisse",
+        "greaves",
+        "sabatons"
+      ]
+    },
+    "messages": {
+      "onSpawn": [
+        "The orc shouts at you in a language you don't recognise. It spits, then attacks.",
+        "The orc bashes its sword against its shield before pissing menacingly at you."
+      ],
+      "onDeath": [
+        "With a final swing of your sword the orc's headless corpse falls at your feet.",
+        "The orc's lifeless body crumples at your feet."
+      ]
+    }
+  },
+
+  "goblin": {
+    "name": "goblin",
+    "namePlural": "goblins",
+    "attributes": {
+      "maxTotalHP": 140,
+      "minTotalHP": 50,
+      "totalHP": 0,
+      "currentHP": 0,
+      "healthBar": "¢",
+      "spawnChance": 0.7,
+      "aggressive": true
+    },
+    "missChance": 0.4,
+    "attacks": [
+      {
+        "name": "slash",
+        "chance": 0.48,
+        "minDamage": 2,
+        "maxDamage": 12,
+        "damage": 0,
+        "messages": [
+          "The goblin slashes you for ",
+          "The goblin's sword cuts you, you lose "
+        ]
+      },
+      {
+        "name": "stab",
+        "chance": 0.12,
+        "minDamage": 4,
+        "maxDamage": 18,
+        "damage": 0,
+        "messages": [
+          "The goblin lunges at you, stabbing you with its sword. You lose ",
+          "The goblin's sword pierces you for "
+        ]
+      }
+    ],
+    "drops": {
+      "gold": {
+        "dropChance": 0.75,
+        "multiplier": 26
+      },
+      "potions": {
+        "dropChance": 0.55,
+        "maxPotions": 5
+      },
+      "items": [],
+      "equipment": [
+        "longsword",
+        "halberd",
+        "shortsword",
+        "dagger",
+        "shield",
+        "kiteshield",
+        "spear",
+        "battleaxe",
+        "axe",
+        "gauntlets",
+        "boots",
+        "hauberk",
+        "chausses",
+        "helmet",
+        "helm",
+        "coif",
+        "brigandine",
+        "cuirass",
+        "gloves",
+        "cuisse",
+        "greaves",
+        "sabatons"
+      ]
+    },
+    "messages": {
+      "onSpawn": [
+        "The goblin shrieks at you and waves its sword as you attack.",
+        "The goblin cackles at you, beating the ground with its hands."
+      ],
+      "onDeath": [
+        "The goblin recoils, but not in time. Its corpse falls to the ground.",
+        "The goblin's lifeless body crumples at your feet."
+      ]
+    }
+  },
+
+  "thief": {
+    "name": "thief",
+    "namePlural": "thieves",
+    "attributes": {
+      "maxTotalHP": 200,
+      "minTotalHP": 60,
+      "totalHP": 0,
+      "currentHP": 0,
+      "healthBar": "¦",
+      "spawnChance": 0.72,
+      "aggressive": true
+    },
+    "missChance": 0.4,
+    "attacks": [
+      {
+        "name": "punch",
+        "chance": 0.36,
+        "minDamage": 1,
+        "maxDamage": 3,
+        "damage": 0,
+        "messages": [
+          "The thief lashes out, punching you for ",
+          "The thief punches you. You lose "
+        ]
+      },
+      {
+        "name": "kick",
+        "chance": 0.18,
+        "minDamage": 2,
+        "maxDamage": 5,
+        "damage": 0,
+        "messages": [
+          "The thief kicks you, hitting you for ",
+          "The thief kicks you, making you stagger backwards. You lose "
+        ]
+      },
+      {
+        "name": "stab",
+        "chance": 0.06,
+        "minDamage": 5,
+        "maxDamage": 12,
+        "damage": 0,
+        "message": [
+          "The thief draws his dagger and lunges, stabbing you for ",
+          "The thief manages to get behind you and stabs you with his dagger. You lose "
+        ]
+      }
+    ],
+    "drops": {
+      "gold": {
+        "dropChance": 0.9,
+        "multiplier": 36
+      },
+      "potions": {
+        "dropChance": 0.75,
+        "maxPotions": 5
+      },
+      "items": [],
+      "equipment": [
+        "longsword",
+        "halberd",
+        "shortsword",
+        "dagger",
+        "shield",
+        "kiteshield",
+        "spear",
+        "battleaxe",
+        "axe",
+        "gauntlets",
+        "boots",
+        "hauberk",
+        "chausses",
+        "helmet",
+        "helm",
+        "coif",
+        "brigandine",
+        "cuirass",
+        "gloves",
+        "cuisse",
+        "greaves",
+        "sabatons"
+      ]
+    },
+    "messages": {
+      "onSpawn": [
+        "He makes a grab for your gold but you are too quick. He attacks you angerily.",
+        "He tries to pilfer some of your possessions, but you catch him in the act and attack."
+      ],
+      "onDeath": [
+        "You strike the final blow, killing the thief. All of his possessions are yours now!",
+        "With a cry the thief dies, falling at your feet. All of his possessions are yours now!"
+      ]
+    }
+  },
+
+  "skeleton": {
+    "name": "skeleton",
+    "namePlural": "skeletons",
+    "attributes": {
+      "maxTotalHP": 500,
+      "minTotalHP": 120,
+      "totalHP": 0,
+      "currentHP": 0,
+      "healthBar": "X",
+      "spawnChance": 0.68,
+      "aggressive": true
+    },
+    "missChance": 0.4,
+    "attacks": [
+      {
+        "name": "slash",
+        "chance": 0.48,
+        "minDamage": 1,
+        "maxDamage": 5,
+        "damage": 0,
+        "messages": [
+          "The skeleton slashes you for ",
+          "The skeleton's sword cuts you, you lose "
+        ]
+      },
+      {
+        "name": "stab",
+        "chance": 0.12,
+        "minDamage": 3,
+        "maxDamage": 7,
+        "damage": 0,
+        "messages": [
+          "The skeleton stabs you with its sword. You lose ",
+          "The skeleton's sword pierces you for "
+        ]
+      }
+    ],
+    "drops": {
+      "gold": {
+        "dropChance": 0.75,
+        "multiplier": 10
+      },
+      "potions": {
+        "dropChance": 0.65,
+        "maxPotions": 4
+      },
+      "items": [],
+      "equipment": [
+        "longsword",
+        "halberd",
+        "shortsword",
+        "dagger",
+        "shield",
+        "kiteshield",
+        "spear",
+        "battleaxe",
+        "axe",
+        "gauntlets",
+        "boots",
+        "hauberk",
+        "chausses",
+        "helmet",
+        "helm",
+        "coif",
+        "brigandine",
+        "cuirass",
+        "gloves",
+        "cuisse",
+        "greaves",
+        "sabatons"
+      ]
+    },
+    "messages": {
+      "onSpawn": [
+        "The skeleton walks towards you, its bones rattling against each other.",
+        "The skeleton walks towards you, swinging its weapon."
+      ],
+      "onDeath": [
+        "With an almighty clattering noise the skeleton collapses into a pile of bones.",
+        "The skeleton explodes in a shower of bone fragments from your final attack."
+      ]
+    }
+  },
+
+  "ghost": {
+    "name": "ghost",
+    "namePlural": "ghosts",
+    "attributes": {
+      "maxTotalHP": 120,
+      "minTotalHP": 38,
+      "totalHP": 0,
+      "currentHP": 0,
+      "healthBar": "~",
+      "spawnChance": 0.65,
+      "aggressive": true
+    },
+    "missChance": 0.55,
+    "attacks": [
+      {
+        "name": "fear",
+        "chance": 0.36,
+        "minDamage": 1,
+        "maxDamage": 6,
+        "damage": 0,
+        "messages": [
+          "The ghost rears its spectral form, fearing you for ",
+          "The ghost takes on many forms in rapid succession, rushing at you and fearing you for "
+        ]
+      },
+      {
+        "name": "magic",
+        "chance": 0.09,
+        "minDamage": 5,
+        "maxDamage": 12,
+        "damage": 0,
+        "messages": [
+          "The ghost channels spectral energy into a magical attack that hits you for ",
+          "The ghost begins summoning dark forces with its whispery moaning voice. You are hit by a magical barrage and lose "
+        ]
+      }
+    ],
+    "drops": {
+      "gold": {
+        "dropChance": 0.7,
+        "multiplier": 8
+      },
+      "potions": {
+        "dropChance": 0.65,
+        "maxPotions": 4
+      },
+      "items": [
+        "magical runestones"
+      ],
+      "equipment": []
+    },
+    "messages": {
+      "onSpawn": [
+        "You see its face contort in anger as you attack, swirling in and out of view.",
+        "It lets out a wailing cry as you attack, swirling in and out of view."
+      ],
+      "onDeath": [
+        "The ghost's form dissipates into the surroundings, released from the physical world.",
+        "The ghost lets out a final wailing cry as its form drifts apart, scattered by the wind."
+      ]
+    }
+  },
+
+  "giantRat": {
+    "name": "giant rat",
+    "namePlural": "giant rats",
+    "attributes": {
+      "maxTotalHP": 150,
+      "minTotalHP": 60,
+      "totalHP": 0,
+      "currentHP": 0,
+      "healthBar": "O",
+      "spawnChance": 0.85,
+      "aggressive": true
+    },
+    "missChance": 0.5,
+    "attacks": [
+      {
+        "name": "scratch",
+        "chance": 0.4,
+        "minDamage": 1,
+        "maxDamage": 5,
+        "damage": 0,
+        "messages": [
+          "The giant rat scratches you for ",
+          "The giant rat's claws scratch you. You lose "
+        ]
+      },
+      {
+        "name": "bite",
+        "chance": 0.1,
+        "minDamage": 1,
+        "maxDamage": 9,
+        "damage": 0,
+        "messages": [
+          "The giant rat bites you for ",
+          "The giant rat's teeth sink into your arm. You lose "
+        ]
+      }
+    ],
+    "drops": {
+      "gold": {
+        "dropChance": 0.4,
+        "multiplier": 5
+      },
+      "potions": {
+        "dropChance": 0.3,
+        "maxPotions": 2
+      },
+      "items": [
+        "rat tail",
+        "rat meat"
+      ],
+      "equipment": []
+    },
+    "messages": {
+      "onSpawn": [
+        "It squeaks and bares its teeth as you attack.",
+        "It squeaks and scurries towards you, teeth bared."
+      ],
+      "onDeath": [
+        "The giant rat lets out a squeal as it dies.",
+        "With a squeal the giant rat dies at your feet."
+      ]
+    }
+  },
+
+  "giantSpider": {
+    "name": "giant spider",
+    "namePlural": "giant spiders",
+    "attributes": {
+      "maxTotalHP": 120,
+      "minTotalHP": 45,
+      "totalHP": 0,
+      "currentHP": 0,
+      "healthBar": "S",
+      "spawnChance": 0.85,
+      "aggressive": true
+    },
+    "missChance": 0.45,
+    "attacks": [
+      {
+        "name": "bite",
+        "chance": 0.44,
+        "minDamage": 1,
+        "maxDamage": 6,
+        "damage": 0,
+        "messages": [
+          "The giant spider rears up, pulling you towards it with its front legs. It bites you for ",
+          "With a sudden scuttling movement the giant spider sinks its fangs into you. You lose "
+        ]
+      },
+      {
+        "name": "poison",
+        "chance": 0.11,
+        "minDamage": 2,
+        "maxDamage": 12,
+        "damage": 0,
+        "messages": [
+          "The giant spider launches itself at you. You see its stinger plunge into you. You lose ",
+          "The giant spider suddenly scuttles onto you, swinging its abdomen towards you. You see its stinger stab into you. You lose "
+        ]
+      }
+    ],
+    "drops": {
+      "gold": {
+        "dropChance": 0.35,
+        "multiplier": 4.5
+      },
+      "potions": {
+        "dropChance": 0.3,
+        "maxPotions": 2
+      },
+      "items": [
+        "spider silk",
+        "venom"
+      ],
+      "equipment": []
+    },
+    "messages": {
+      "onSpawn": [
+        "You notice a large stinger protruding between its spinnerets. It scuttles towards you.",
+        "As it scuttles out of its web, you notice a large stinger protruding between its spinnerets."
+      ],
+      "onDeath": [
+        "The giant spider's legs curl inwards towards its body as it dies.",
+        "The giant spider makes some final feeble jabs at you with its stinger before curling up, twitching."
+      ]
+    }
+  },
+
+  "wolf": {
+    "name": "wolf",
+    "namePlural": "wolves",
+    "attributes": {
+      "maxTotalHP": 280,
+      "minTotalHP": 60,
+      "totalHP": 0,
+      "currentHP": 0,
+      "healthBar": "Ø",
+      "spawnChance": 0.75,
+      "aggressive": true
+    },
+    "missChance": 0.4,
+    "attacks": [
+      {
+        "name": "slash",
+        "chance": 0.42,
+        "minDamage": 2,
+        "maxDamage": 8,
+        "damage": 0,
+        "messages": [
+          "The wolf rears up and slashes you, its claws slicing through your skin. You lose ",
+          "The wolf swipes at you with its claws, hitting you for "
+        ]
+      },
+      {
+        "name": "bite",
+        "chance": 0.1,
+        "minDamage": 1,
+        "maxDamage": 9,
+        "damage": 0,
+        "messages": [
+          "The wolf leaps at you, sinking its teeth into your arm. You lose ",
+          "The wolf grips you in its teeth, shaking its head from side to side. You lose "
+        ]
+      }
+    ],
+    "drops": {
+      "gold": {
+        "dropChance": 0.45,
+        "multiplier": 5.5
+      },
+      "potions": {
+        "dropChance": 0.45,
+        "maxPotions": 3
+      },
+      "items": [
+        "wolf fur",
+        "claws"
+      ],
+      "equipment": []
+    },
+    "messages": {
+      "onSpawn": [
+        "It circles you slowly with its hackles raised, growling menacingly.",
+        "It growls menacingly, pawing the ground, then lifts its head and howls."
+      ],
+      "onDeath": [
+        "The wolf lets out a whine as it falls to the ground.",
+        "The wolf whimpers as it limps backwards then collapses, dead."
+      ]
+    }
+  },
+
+  "boar": {
+    "name": "boar",
+    "namePlural": "boars",
+    "attributes": {
+      "maxTotalHP": 180,
+      "minTotalHP": 120,
+      "totalHP": 0,
+      "currentHP": 0,
+      "healthBar": "@",
+      "spawnChance": 0.8,
+      "aggressive": true
+    },
+    "missChance": 0.45,
+    "attacks": [
+      {
+        "name": "ram",
+        "chance": 0.44,
+        "minDamage": 2,
+        "maxDamage": 7,
+        "damage": 0,
+        "messages": [
+          "The boar rams into you, its tusks digging in. You lose ",
+          "The boar lowers its head and lurches forward into you, hitting you for "
+        ]
+      },
+      {
+        "name": "charge",
+        "chance": 0.11,
+        "minDamage": 5,
+        "maxDamage": 13,
+        "damage": 0,
+        "messages": [
+          "The boar moves away before rushing back at high speed, slamming headfirst into you, the force knocking you to the ground. It turns and rams you again while you are down. You lose ",
+          "With a swift run up the boar slams into you headfirst, knocking you off your feet. It turns and rams you again while you are on the ground. You lose "
+        ]
+      }
+    ],
+    "drops": {
+      "gold": {
+        "dropChance": 0.45,
+        "multiplier": 5.5
+      },
+      "potions": {
+        "dropChance": 0.3,
+        "maxPotions": 2
+      },
+      "items": [
+        "tusks",
+        "hide",
+        "meat"
+      ],
+      "equipment": []
+    },
+    "messages": {
+      "onSpawn": [
+        "It lowers its head, pawing at the ground ready to charge at you.",
+        "It squeals and lowers its head before rushing towards you."
+      ],
+      "onDeath": [
+        "The boar lets out a high pitched squeal and collapses to the ground, its legs kicking out furiously until its final breath.",
+        "The boar falls to the ground covered in wounds, furiously kicking at the air and squealing until it finally lies still."
+      ]
+    }
+  },
+
+  "snake": {
+    "name": "snake",
+    "namePlural": "snakes",
+    "attributes": {
+      "maxTotalHP": 50,
+      "minTotalHP": 20,
+      "totalHP": 0,
+      "currentHP": 0,
+      "healthBar": "v",
+      "spawnChance": 0.75,
+      "aggressive": false
+    },
+    "missChance": 0.5,
+    "attacks": [
+      {
+        "name": "constrict",
+        "chance": 0.4,
+        "minDamage": 1,
+        "maxDamage": 4,
+        "damage": 0,
+        "messages": [
+          "The snake wraps itself around you, constricting you. You lose ",
+          "The snake grips you in its coils, squeezing you. You lose "
+        ]
+      },
+      {
+        "name": "bite",
+        "chance": 0.1,
+        "minDamage": 6,
+        "maxDamage": 18,
+        "damage": 0,
+        "messages": [
+          "The snake's head lunges forward at lightning speed as it bites, hitting you for ",
+          "With a lightning-fast movement the snake bites you for "
+        ]
+      }
+    ],
+    "drops": {
+      "gold": {
+        "dropChance": 0.35,
+        "multiplier": 3
+      },
+      "potions": {
+        "dropChance": 0.35,
+        "maxPotions": 2
+      },
+      "items": [
+        "venom"
+      ],
+      "equipment": []
+    },
+    "messages": {
+      "onSpawn": [
+        "It hisses and bares its fangs as you attack.",
+        "It hisses, its tongue flicking in and out of its mouth as it watches you. Its head sways to follow you as you attack."
+      ],
+      "onDeath": [
+        "The snake tries to slither away before curling up, dead.",
+        "The lifeless snake falls to the ground in two pieces."
+      ]
+    }
+  },
+
+  "rat": {
+    "name": "rat",
+    "namePlural": "rats",
+    "attributes": {
+      "maxTotalHP": 25,
+      "minTotalHP": 1,
+      "totalHP": 0,
+      "currentHP": 0,
+      "healthBar": "o",
+      "spawnChance": 0.8,
+      "aggressive": false
+    },
+    "missChance": 0.8,
+    "attacks": [
+      {
+        "name": "scratch",
+        "chance": 0.16,
+        "minDamage": 1,
+        "maxDamage": 2,
+        "damage": 0,
+        "messages": [
+          "The rat scratches you for ",
+          "The rat's claws scratch you for "
+        ]
+      },
+      {
+        "name": "bite",
+        "chance": 0.04,
+        "minDamage": 1,
+        "maxDamage": 3,
+        "damage": 0,
+        "messages": [
+          "The rat bites you for ",
+          "The rat sinks its teeth into you. You lose "
+        ]
+      }
+    ],
+    "drops": {
+      "gold": {
+        "dropChance": 0.1,
+        "multiplier": 0.5
+      },
+      "potions": {
+        "dropChance": 0.05,
+        "maxPotions": 1
+      },
+      "items": [
+        "rat tail"
+      ],
+      "equipment": []
+    },
+    "messages": {
+      "onSpawn": [
+        "It squeaks and runs in circles.",
+        "It squeaks and scurries towards you."
+      ],
+      "onDeath": [
+        "With a squeak the rat dies.",
+        "The rat lets out a final squeak before dying."
+      ]
+    }
+  },
+
+  "spider": {
+    "name": "spider",
+    "namePlural": "spiders",
+    "attributes": {
+      "maxTotalHP": 18,
+      "minTotalHP": 1,
+      "totalHP": 0,
+      "currentHP": 0,
+      "healthBar": "s",
+      "spawnChance": 0.75,
+      "aggressive": false
+    },
+    "missChance": 0.75,
+    "attacks": [
+      {
+        "name": "bite",
+        "chance": 0.2,
+        "minDamage": 1,
+        "maxDamage": 3,
+        "damage": 0,
+        "messages": [
+          "The spider bites you for ",
+          "You feel the spider bite you for "
+        ]
+      },
+      {
+        "name": "web",
+        "chance": 0.05,
+        "minDamage": 2,
+        "maxDamage": 5,
+        "damage": 0,
+        "messages": [
+          "Your foot gets caught in a cobweb, tripping you. You fall and hit your head. You lose ",
+          "Your arm catches on a cobweb and you drop your weapon on your foot. You lose "
+        ]
+      }
+    ],
+    "drops": {
+      "gold": {
+        "dropChance": 0.05,
+        "multiplier": 0.5
+      },
+      "potions": {
+        "dropChance": 0.05,
+        "maxPotions": 1
+      },
+      "items": [
+        "spider silk"
+      ],
+      "equipment": []
+    },
+    "messages": {
+      "onSpawn": [
+        "It scuttles towards you as you attack.",
+        "It slowly drops down from above on a long strand of web."
+      ],
+      "onDeath": [
+        "The spider curls its legs into its body, dead.",
+        "The spider lies dead, splayed on the ground."
+      ]
+    }
+  },
+
+  "fox": {
+    "name": "fox",
+    "namePlural": "foxes",
+    "attributes": {
+      "maxTotalHP": 35,
+      "minTotalHP": 10,
+      "totalHP": 0,
+      "currentHP": 0,
+      "healthBar": "+",
+      "spawnChance": 0.8,
+      "aggressive": false
+    },
+    "missChance": 0.8,
+    "attacks": [
+      {
+        "name": "scratch",
+        "chance": 0.14,
+        "minDamage": 1,
+        "maxDamage": 2,
+        "damage": 0,
+        "messages": [
+          "The fox scratches you for ",
+          "The fox's claws scratch you for "
+        ]
+      },
+      {
+        "name": "bite",
+        "chance": 0.06,
+        "minDamage": 1,
+        "maxDamage": 4,
+        "damage": 0,
+        "messages": [
+          "The fox bites you for ",
+          "The fox sinks its teeth into you. You lose "
+        ]
+      }
+    ],
+    "drops": {
+      "gold": {
+        "dropChance": 0.01,
+        "multiplier": 0.5
+      },
+      "potions": {
+        "dropChance": 0.05,
+        "maxPotions": 1
+      },
+      "items": [
+        "hide"
+      ],
+      "equipment": []
+    },
+    "messages": {
+      "onSpawn": [
+        "It looks around at you, then with a bark runs towards you.",
+        "It barks then prepares to attack."
+      ],
+      "onDeath": [
+        "The fox's lifeless body collapses to the ground.",
+        "The fox wimpers as it limps away before collapsing, dead."
+      ]
+    }
+  },
+
+  "deer": {
+    "name": "deer",
+    "namePlural": "deer",
+    "attributes": {
+      "maxTotalHP": 80,
+      "minTotalHP": 45,
+      "totalHP": 0,
+      "currentHP": 0,
+      "healthBar": "Þ",
+      "spawnChance": 0.5,
+      "aggressive": false
+    },
+    "missChance": 0.65,
+    "attacks": [
+      {
+        "name": "ram",
+        "chance": 0.28,
+        "minDamage": 1,
+        "maxDamage": 4,
+        "damage": 0,
+        "messages": [
+          "The deer lowers its head and rams into you, hitting you for ",
+          "The deer takes a step back then rams its head into you. You lose "
+        ]
+      },
+      {
+        "name": "kick",
+        "chance": 0.07,
+        "minDamage": 2,
+        "maxDamage": 6,
+        "damage": 0,
+        "messages": [
+          "Turning, the deer kicks you with its hind leg, hitting you for ",
+          "The deer turns and kicks you hard with its hind leg. You lose "
+        ]
+      }
+    ],
+    "drops": {
+      "gold": {
+        "dropChance": 0.05,
+        "multiplier": 2
+      },
+      "potions": {
+        "dropChance": 0.05,
+        "maxPotions": 1
+      },
+      "items": [
+        "hide",
+        "meat",
+        "venison",
+        "antlers"
+      ],
+      "equipment": []
+    },
+    "messages": {
+      "onSpawn": [
+        "The deer leaps gracefully away from you as you approach, before turning and attacking.",
+        "The deer watches you carefully as you attack."
+      ],
+      "onDeath": [
+        "The deer's lifeless body collapses to the ground.",
+        "The deer lets out a low squeal as it staggers away before collapsing, dead."
+      ]
+    }
+  },
+
+  "pig": {
+    "name": "pig",
+    "namePlural": "pigs",
+    "attributes": {
+      "maxTotalHP": 65,
+      "minTotalHP": 45,
+      "totalHP": 0,
+      "currentHP": 0,
+      "healthBar": "&",
+      "spawnChance": 0.5,
+      "aggressive": false
+    },
+    "missChance": 0.7,
+    "attacks": [
+      {
+        "name": "ram",
+        "chance": 0.24,
+        "minDamage": 1,
+        "maxDamage": 2,
+        "damage": 0,
+        "messages": [
+          "The pig rams into you. You lose ",
+          "The pig lowers its head and lurches forward into you, hitting you for "
+        ]
+      },
+      {
+        "name": "charge",
+        "chance": 0.06,
+        "minDamage": 1,
+        "maxDamage": 3,
+        "damage": 0,
+        "messages": [
+          "The pig moves away before rushing back at speed, knocking you to the ground. You lose ",
+          "With a swift run up the pig slams into you headfirst, knocking you off your feet. You lose "
+        ]
+      }
+    ],
+    "drops": {
+      "gold": {
+        "dropChance": 0.05,
+        "multiplier": 1
+      },
+      "potions": {
+        "dropChance": 0.05,
+        "maxPotions": 1
+      },
+      "items": [
+        "meat"
+      ],
+      "equipment": []
+    },
+    "messages": {
+      "onSpawn": [
+        "The pig grunts and squeals as you attack.",
+        "The pig paws the ground, grunting frantically as you attack."
+      ],
+      "onDeath": [
+        "With a high squeal the pig's lifeless body collapses to the ground.",
+        "The pig lets out a loud squeal as it staggers away before collapsing, dead."
+      ]
+    }
+  },
+
+  "rabbit": {
+    "name": "rabbit",
+    "namePlural": "rabbits",
+    "attributes": {
+      "maxTotalHP": 10,
+      "minTotalHP": 1,
+      "totalHP": 0,
+      "currentHP": 0,
+      "healthBar": "r",
+      "spawnChance": 0.75,
+      "aggressive": false
+    },
+    "missChance": 0.85,
+    "attacks": [
+      {
+        "name": "scratch",
+        "chance": 0.15,
+        "minDamage": 1,
+        "maxDamage": 2,
+        "damage": 0,
+        "messages": [
+          "The rabbit scratches you for "
+        ]
+      }
+    ],
+    "drops": {
+      "gold": {
+        "dropChance": 0.05,
+        "multiplier": 0.25
+      },
+      "potions": {
+        "dropChance": 0,
+        "maxPotions": 0
+      },
+      "items": [
+        "meat"
+      ],
+      "equipment": []
+    },
+    "messages": {
+      "onSpawn": [
+        "The rabbit squeaks as you attack.",
+        "The jumps up as you attack, squeaking."
+      ],
+      "onDeath": [
+        "The rabbit dies with a wimper.",
+        "The rabbit lets out a quiet wimper as it dies."
+      ]
+    }
+  }
+}
