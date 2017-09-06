@@ -11,7 +11,7 @@ GS_GenerateMap.setPlayer = function (player) {
 }
 
 GS_GenerateMap.runState = function () {
-    var CurrentMap = genMap(Math.round(RNG(5, 16)));
+    var CurrentMap = genMap(Math.round(RNG(8, 20)));
     drawMap(CurrentMap);
 
     GS_GenerateMap.emit("generated", {
