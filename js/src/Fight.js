@@ -1,7 +1,7 @@
 // const CreatureDb = require("../db/Creatures.json");
 // const creatures = Object.keys(CreatureDb);
-const RNG = require("./src/utils/RNG.js");
-const dimRNG = require("./src/utils/dimRNG.js");
+const RNG = require("./utils/RNG.js");
+const dimRNG = require("./utils/DimRNG.js");
 
 
 
@@ -231,17 +231,6 @@ function creatureSlain(creature) {
   }
   creatureDrop(creature);
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

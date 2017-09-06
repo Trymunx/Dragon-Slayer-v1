@@ -1,4 +1,4 @@
-const PlayerTemplate = require("./Player.json");
+const PlayerTemplate = require("../db/Player.json");
 const getName = require("../src/utils/NameGenerator.js");
 
 

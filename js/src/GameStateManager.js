@@ -5,58 +5,64 @@ const Shop = require("./GameStates/GS_Shop.js");
 const Fight = require("./GameStates/GS_Fight.js");
 const EndGame = require("./GameStates/GS_EndGame.js");
 
-const GameStates = [
-  StartGame,
-  GenerateMap,
-  Main,
-  Shop,
-  Fight,
-  EndGame
-];
+var currentState;
 
-var currentState = null;
-
-gameState.on("start", function () {
+function begin () {
   currentState = StartGame;
-});
+  currentState.runState();
+  initEventHandlers();
+}
 
-gameState.on("spawn", function (data) {
-  currentState = GenerateMap;
-  "player": data.player;
-});
 
-gameState.on("generated", function (data) {
-  currentState = Main;
-  "player": data.player;
-  "map": data.map;
-});
+function initEventHandlers () {
+  currentState.on("start", function () {
+    currentState = StartGame;
+    currentState.runState();
+  });
 
-gameState.on("fight", function (data) {
-  currentState = Fight;
-  "player": data.player;
-  "creature": data.creature;
-  "map": data.map;
-});
+  currentState.on("playerCreated", function (data) {
+    currentState = GenerateMap;
+    currentState.setPlayer(data.player);
+    currentState.runState();
+  });
 
-gameState.on("enterShop", function (data) {
-  currentState = Shop;
-  "player": data.player;
-  "map": data.map;
-});
+  currentState.on("generated", function (data) {
+    currentState = Main;
+    console.log("Main state set.");
+    currentState.setPlayer(data.player);
+    currentState.setMap(data.map);
+    currentState.runState();
+  });
 
-gameState.on("exitShop", function (data) {
-  currentState = Main;
-  "player": data.player;
-  "map": data.map;
-});
+  currentState.on("fight", function (data) {
+    currentState = Fight;
+    currentState.setPlayer(data.player);
+    currentState.setCreature(data.creature);
+    currentState.setMap(data.map);
+  });
 
-gameState.on("won", function (data) {
-  currentState = Main;
-  "player": data.player;
-  "map": data.map;
-});
+  currentState.on("enterShop", function (data) {
+    currentState = Shop;
+    currentState.setPlayer(data.player);
+    currentState.setMap(data.map);
+  });
 
-gameState.on("slain", function (data) {
-  currentState = EndGame;
-  "player": data.player;
-});
+  currentState.on("exitShop", function (data) {
+    currentState = Main;
+    currentState.setPlayer(data.player);
+    currentState.setMap(data.map);
+  });
+
+  currentState.on("win", function (data) {
+    currentState = Main;
+    currentState.setPlayer(data.player);
+    currentState.setMap(data.map);
+  });
+
+  currentState.on("slain", function (data) {
+    currentState = EndGame;
+    currentState.setPlayer(data.player);
+  });
+}
+
+module.exports = begin;

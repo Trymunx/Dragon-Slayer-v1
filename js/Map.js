@@ -1,9 +1,8 @@
 "use strict"
-const drawMap = require("./src/drawMap.js");
-const genMap = require("./src/mapGen.js");
-console.log(Input);
+const drawMap = require("./src/DrawMap.js");
+const genMap = require("./src/GenerateMap.js");
 const RNG = require("./src/utils/RNG.js");
 
-var map = genMap(Math.round(Math.random() * (20 - 5) + 5));
-document.getElementById("map").innerHTML = drawMap(map);
+var map = genMap(Math.round(RNG(5,20)));
+drawMap(map);
 // console.log(drawMap(map));

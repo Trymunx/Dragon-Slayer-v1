@@ -102,7 +102,8 @@ function drawMap (map) {
     mapOutput += drawnMap[i] + "<br>";
   }
 
-  return mapOutput;
+
+  document.getElementById("map").innerHTML = mapOutput;
 }
 
 module.exports = drawMap;

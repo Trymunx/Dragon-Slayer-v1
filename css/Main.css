@@ -120,6 +120,7 @@ body {
   background-color: var(--ui-darker);
   border-color: var(--ui-border);
   font-family: "SourceCode Pro", monospace;
+  white-space: pre-wrap;
   min-width: 70px;
   max-width: 400px;
 }

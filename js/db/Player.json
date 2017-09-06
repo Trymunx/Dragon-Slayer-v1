@@ -15,13 +15,13 @@
     "items": []
   },
   "equipped": {
-    "head": "none",
-    "torso": "tunic",
-    "legs": "trousers",
-    "rightHand": "none",
-    "leftHand": "none",
-    "gloves": "none",
-    "boots": "old shoes"
+    "head": "None",
+    "torso": "Tunic",
+    "legs": "Trousers",
+    "rightHand": "None",
+    "leftHand": "None",
+    "gloves": "None",
+    "boots": "Old shoes"
   },
   "creaturesSlain": {
     "slainNonDragon": false,
