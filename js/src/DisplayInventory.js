@@ -1,7 +1,7 @@
 function DisplayInventory (player) {
 
   // Display item array with indentation
-  var itemList;
+  var itemList = [""];
   for (let i in player.inventory.items) {
     itemList[i] = "\n    " + player.inventory.items[i];
   }
