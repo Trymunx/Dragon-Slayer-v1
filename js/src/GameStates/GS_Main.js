@@ -21,11 +21,6 @@ GS_Main.setMap = function (map) {
 }
 
 GS_Main.runState = function () {
-  console.log("Running Main game state.");
-  Output.addElement({
-    "entity": "Main state",
-    "content": "Test output"
-  });
   // Receive command
   // If movement, move the playerPos
   //    then update the map
