@@ -10,7 +10,7 @@ app.on("ready", function () {
     width: 1200,
     height: 800,
 
-    minWidth: 800,
+    minWidth: 1000,
     minHeight: 500,
     acceptFirstMouse: true
   });
