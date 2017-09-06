@@ -11,6 +11,7 @@ body {
   grid-template-columns: 20% 80%;
   grid-template-areas: "entity messages";
   overflow-y: auto;
+  min-width: 500px
 }
 
 /*#output>.container {
@@ -99,17 +100,30 @@ body {
 
 #map {
   grid-area: map;
-  padding: 2px 10px 15px 10px;
+  padding: 2px 10px 10px 10px;
   margin-bottom: 2px;
   color: var(--text-blur);
   background-color: var(--ui-darker);
   border-color: var(--ui-border);
   font-family: "SourceCode Pro", monospace;
-  font-size: 2vmin;
+  font-size: 0.65vw;
   white-space: pre-wrap;
   align-content: center;
   min-width: 70px;
-  max-width: 400px;
+  max-height: 75vh;
+  overflow-y: auto;
+}
+
+#map::-webkit-scrollbar {
+  width: 8px;
+}
+
+#map::-webkit-scrollbar-track {
+  background-color: var(--ui-darker);
+}
+
+#map::-webkit-scrollbar-thumb {
+  background-color: var(--ui-border);
 }
 
 #inventory {
@@ -122,7 +136,6 @@ body {
   font-family: "SourceCode Pro", monospace;
   white-space: pre-wrap;
   min-width: 70px;
-  max-width: 400px;
 }
 
 #inventory::-webkit-scrollbar {
@@ -141,7 +154,7 @@ body {
   display: flex;
   display: grid;
   grid-template-columns: 6fr auto;
-  grid-template-rows: 5fr 4fr 30px;
+  grid-template-rows: auto 4fr 30px;
   grid-template-areas:
     "output map"
     "output inventory"
