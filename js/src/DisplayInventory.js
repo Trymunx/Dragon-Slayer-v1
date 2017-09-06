@@ -1,4 +1,12 @@
 function DisplayInventory (player) {
+
+  // Display item array with indentation
+  var itemList;
+  for (let i in player.inventory.items) {
+    itemList[i] = "\n    " + player.inventory.items[i];
+  }
+
+  // Display inventory with indentation
   var inventory = [
     "Equipped items:\n",
     "  Head: " + player.equipped.head + "\n",
@@ -12,7 +20,7 @@ function DisplayInventory (player) {
     "Inventory:\n",
     "  Gold: " + player.inventory.gold + "\n",
     "  Potions: " + player.inventory.potions + "\n",
-    "  Items: " + player.inventory.items
+    "  Items: " + itemList
   ];
   var inventoryString = "";
   for (let i in inventory) {
