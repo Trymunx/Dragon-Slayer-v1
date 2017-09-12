@@ -14,13 +14,6 @@ body {
   min-width: 500px
 }
 
-/*#output>.container {
-  display: grid;
-  grid-template-columns: 1fr 5fr;
-  grid-template-areas: "entity messages";
-  height: auto;
-}*/
-
 #messagesBg {
   grid-column: 2;
   grid-row: 1;
@@ -40,6 +33,8 @@ body {
 
 #output-table {
   padding-top: 10px;
+  font-size: 0.95em;
+  font-family: "SourceCode Pro", monospace;
 }
 
 #output-table>tr>.entity {
@@ -49,7 +44,6 @@ body {
   padding: 3px 10px;
   color: var(--text-blur);
   background-color: var(--ui-dark);
-  font-family: "SourceCode Pro", monospace;
 }
 
 #output-table>tr>.messages {
@@ -60,7 +54,6 @@ body {
   margin: none;
   color: var(--text);
   background-color: var(--ui);
-  font-family: "SourceCode Pro", monospace;
 }
 
 #output::-webkit-scrollbar {
@@ -134,6 +127,7 @@ body {
   background-color: var(--ui-darker);
   border-color: var(--ui-border);
   font-family: "SourceCode Pro", monospace;
+  font-size: 0.85em;
   white-space: pre-wrap;
   min-width: 70px;
 }
