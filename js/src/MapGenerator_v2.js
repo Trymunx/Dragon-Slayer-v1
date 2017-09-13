@@ -10,7 +10,7 @@ const creatures = Object.keys(CreatureDb);
         (in future - type of map? Forest / hills / dungeon etc?)
 
   Place nodes:
-    100 100
+    Origin is at 100+10n where n is number of nodes.
     Place node between 5 and 20 tiles away from origin,
       then place nodes between 5 and 20 tiles from all other nodes (checking
       when placing whether there is another node less than 5 tiles away,
@@ -55,6 +55,37 @@ const creatures = Object.keys(CreatureDb);
       on each tile.
     Maybe have blank tiles have a null option?
     
-
-
 */
+
+function generateMap (nodes) {
+
+  var map; // This will be a 2d array.
+
+
+  // Set origin of map
+  var origin = 100 + 10 * nodes; // Should allow the map to expand to fit more nodes
+                                 // Note origin is both X and Y coords (0 indexed)
+
+  // First node will be at origin                    
+  var lastNodeX = origin;
+  var lastNodeY = origin;
+
+  // Array of all node coords
+  var nodeList = [];
+
+  // Place nodes, starting at origin
+  // Loop through until all nodes have been placed
+  for (let n = nodes; n > 0; n--) {
+    map[lastNodeX][lastNodeY] = addNode();
+    var nodeList += [lastNodeX, lastNodeY];
+  }
+
+}
+
+function addNode () {
+  // Adds objects to map indexes to show they are nodes. These will be
+  // overwritten later when tiles are populated.
+  return {
+    "node": true
+  };
+}
