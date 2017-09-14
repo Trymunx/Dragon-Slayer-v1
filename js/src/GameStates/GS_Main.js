@@ -67,15 +67,63 @@ GS_Main.runState = function (GameStateManager) {
             break;
           case "NORTH":
             MovePlayer(CurrentMap, "north");
+            if (CurrentMap[playerPos].creature.attributes.aggressive) {
+              Output.addElement({
+                "entity": "",
+                "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
+              });
+              // Aggressive creatures attack on sight
+              GameStateManager.emit("fight", {
+                player: Player,
+                map: CurrentMap,
+                creature: CurrentMap[playerPos].creature
+              });
+            }
             break;
           case "SOUTH":
             MovePlayer(CurrentMap, "south");
+            if (CurrentMap[playerPos].creature.attributes.aggressive) {
+              Output.addElement({
+                "entity": "",
+                "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
+              });
+              // Aggressive creatures attack on sight
+              GameStateManager.emit("fight", {
+                player: Player,
+                map: CurrentMap,
+                creature: CurrentMap[playerPos].creature
+              });
+            }
             break;
           case "EAST":
             MovePlayer(CurrentMap, "east");
+            if (CurrentMap[playerPos].creature.attributes.aggressive) {
+              Output.addElement({
+                "entity": "",
+                "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
+              });
+              // Aggressive creatures attack on sight
+              GameStateManager.emit("fight", {
+                player: Player,
+                map: CurrentMap,
+                creature: CurrentMap[playerPos].creature
+              });
+            }
             break;
           case "WEST":
             MovePlayer(CurrentMap, "west");
+            if (CurrentMap[playerPos].creature.attributes.aggressive) {
+              Output.addElement({
+                "entity": "",
+                "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
+              });
+              // Aggressive creatures attack on sight
+              GameStateManager.emit("fight", {
+                player: Player,
+                map: CurrentMap,
+                creature: CurrentMap[playerPos].creature
+              });
+            }
             break;
           case "LOOK":
             Look(CurrentMap);
