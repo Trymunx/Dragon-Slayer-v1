@@ -4,64 +4,55 @@ const Main = require("./GameStates/GS_Main.js");
 const Shop = require("./GameStates/GS_Shop.js");
 const Fight = require("./GameStates/GS_Fight.js");
 const EndGame = require("./GameStates/GS_EndGame.js");
+const EventEmitter = require("events");
 
-var currentState;
+var GameStateManager = new EventEmitter();
 
 function begin () {
-  currentState = StartGame;
-  currentState.runState();
+  StartGame.runState(GameStateManager);
   initEventHandlers();
 }
 
 
 function initEventHandlers () {
-  currentState.on("start", function () {
-    currentState = StartGame;
-    currentState.runState();
+  GameStateManager.on("start", function () {
+    StartGame.runState(GameStateManager);
   });
 
-  currentState.on("playerCreated", function (data) {
-    currentState = GenerateMap;
-    currentState.setPlayer(data.player);
-    currentState.runState();
+  GameStateManager.on("playerCreated", function (data) {
+    GenerateMap.setPlayer(data.player);
+    GenerateMap.runState(GameStateManager);
   });
 
-  currentState.on("generated", function (data) {
-    currentState = Main;
-    console.log("Main state set.");
-    currentState.setPlayer(data.player);
-    currentState.setMap(data.map);
-    currentState.runState();
+  GameStateManager.on("generated", function (data) {
+    Main.setPlayer(data.player);
+    Main.setMap(data.map);
+    Main.runState(GameStateManager);
   });
 
-  currentState.on("fight", function (data) {
-    currentState = Fight;
-    currentState.setPlayer(data.player);
-    currentState.setCreature(data.creature);
-    currentState.setMap(data.map);
+  GameStateManager.on("fight", function (data) {
+    Fight.setPlayer(data.player);
+    Fight.setCreature(data.creature);
+    Fight.setMap(data.map);
   });
 
-  currentState.on("enterShop", function (data) {
-    currentState = Shop;
-    currentState.setPlayer(data.player);
-    currentState.setMap(data.map);
+  GameStateManager.on("enterShop", function (data) {
+    Shop.setPlayer(data.player);
+    Shop.setMap(data.map);
   });
 
-  currentState.on("exitShop", function (data) {
-    currentState = Main;
-    currentState.setPlayer(data.player);
-    currentState.setMap(data.map);
+  GameStateManager.on("exitShop", function (data) {
+    Main.setPlayer(data.player);
+    Main.setMap(data.map);
   });
 
-  currentState.on("win", function (data) {
-    currentState = Main;
-    currentState.setPlayer(data.player);
-    currentState.setMap(data.map);
+  GameStateManager.on("win", function (data) {
+    Main.setPlayer(data.player);
+    Main.setMap(data.map);
   });
 
-  currentState.on("slain", function (data) {
-    currentState = EndGame;
-    currentState.setPlayer(data.player);
+  GameStateManager.on("slain", function (data) {
+    EndGame.setPlayer(data.player);
   });
 }
 
