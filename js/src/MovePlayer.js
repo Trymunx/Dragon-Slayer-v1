@@ -34,19 +34,16 @@ function movePlayer(map, direction) {
           "entity": "",
           "content": "You can't move any further North!"
         });
-        // console.log("You can't move any further North!");
       } else if (map[(playerPos - sideLength)].terrain === "river" || map[(playerPos - sideLength)].terrain === "bridgeUpper" || map[(playerPos - sideLength)].terrain === "bridgeLower") {
         Output.addElement({
           "entity": "",
-          "content": "You can't cross the river."
+          "content": "You can't cross the river. Try finding a bridge."
         });
-        // console.log("You can't cross the river.");
       } else {
         Output.addElement({
           "entity": "",
           "content": "Moving North..."
         });
-        // console.log("Moving North...");
         playerPos -= sideLength;
       }
       break;
@@ -56,19 +53,16 @@ function movePlayer(map, direction) {
           "entity": "",
           "content": "You can't move any further South!"
         });
-        // console.log("You can't move any further South!");
       } else if (map[(playerPos + sideLength)].terrain === "river" || map[(playerPos + sideLength)].terrain === "bridgeUpper" || map[(playerPos + sideLength)].terrain === "bridgeLower") {
         Output.addElement({
           "entity": "",
-          "content": "You can't cross the river."
+          "content": "You can't cross the river. Try finding a bridge."
         });
-        // console.log("You can't cross the river.");
       } else {
         Output.addElement({
           "entity": "",
           "content": "Moving South..."
         });
-        // console.log("Moving South...");
         playerPos += sideLength;
       }
       break;
@@ -78,19 +72,16 @@ function movePlayer(map, direction) {
           "entity": "",
           "content": "You can't move any further East!"
         });
-        // console.log("You can't move any further East!");
       } else if (map[(playerPos + 1)].terrain === "river" || map[(playerPos + 1)].terrain === "bridgeUpper" || map[(playerPos + 1)].terrain === "bridgeLower") {
         Output.addElement({
           "entity": "",
           "content": "You can't cross the river."
         });
-        // Console.log("You can't cross the river.");
       } else {
         Output.addElement({
           "entity": "",
           "content": "Moving East..."
         });
-        // console.log("Moving East...");
         playerPos++;
       }
       break;
@@ -100,19 +91,16 @@ function movePlayer(map, direction) {
           "entity": "",
           "content": "You can't move any further West!"
         });
-        // console.log("You can't move any further West!");
       } else if (map[(playerPos - 1)].terrain === "river" || map[(playerPos - 1)].terrain === "bridgeUpper" || map[(playerPos - 1)].terrain === "bridgeLower") {
         Output.addElement({
           "entity": "",
-          "content": "You can't cross the river."
+          "content": "You can't cross the river. Try finding a bridge."
         });
-        // Console.log("You can't cross the river.");
       } else {
         Output.addElement({
           "entity": "",
           "content": "Moving West..."
         });
-        // console.log("Moving West...");
         playerPos--;
       }
       break;
@@ -121,7 +109,6 @@ function movePlayer(map, direction) {
         "entity": "Error:",
         "content": "Direction not found. Please enter North, South, East or West."
       });
-      // console.log("Direction not found. Please enter north, south, east or west.");
       break;
     }
 
