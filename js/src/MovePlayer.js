@@ -1,6 +1,7 @@
 const getPlayerPosition = require("./PlayerPosition.js");
 const DrawMap = require("./DrawMap.js");
 const Look = require("./Look.js");
+const Output = require("../Output.js");
 
 function movePlayer(map, direction) {
   var sideLength = Math.sqrt(map.length);
