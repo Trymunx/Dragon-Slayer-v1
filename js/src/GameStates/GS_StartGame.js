@@ -5,12 +5,12 @@ const Splash = require("../splash/Splash.json");
 const DisplayInventory = require("../DisplayInventory.js");
 const Input_Text = document.getElementById("input-text");
 
-var GS_StartGame = new EventEmitter();
+var GS_StartGame = {};
 var Player;
 var Trymunx = Splash["Trymunx"];
 
 
-GS_StartGame.runState = function () {
+GS_StartGame.runState = function (GameStateManager) {
 
   // Display welcome message
   Output.addElement({
@@ -46,7 +46,7 @@ GS_StartGame.runState = function () {
 
       DisplayInventory(Player);
 
-      GS_StartGame.emit("playerCreated", {
+      GameStateManager.emit("playerCreated", {
         player: Player
       });
     }

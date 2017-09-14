@@ -3,18 +3,18 @@ const genMap = require("../GenerateMap.js");
 const drawMap = require("../DrawMap.js");
 const RNG = require("../utils/RNG.js");
 
-var GS_GenerateMap = new EventEmitter();
+var GS_GenerateMap = {};
 var Player;
 
 GS_GenerateMap.setPlayer = function (player) {
     Player = player;
 }
 
-GS_GenerateMap.runState = function () {
+GS_GenerateMap.runState = function (GameStateManager) {
     var CurrentMap = genMap(Math.round(RNG(8, 20)));
     drawMap(CurrentMap);
 
-    GS_GenerateMap.emit("generated", {
+    GameStateManager.emit("generated", {
       player: Player,
       map: CurrentMap
     });

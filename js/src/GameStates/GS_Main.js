@@ -8,7 +8,7 @@ const Look = require("../Look.js");
 // const Parse = require("../Parse.js");
 
 
-var GS_Main = new EventEmitter();
+var GS_Main = {};
 var Player;
 var CurrentMap;
 
@@ -20,7 +20,7 @@ GS_Main.setMap = function (map) {
     CurrentMap = map;
 }
 
-GS_Main.runState = function () {
+GS_Main.runState = function (GameStateManager) {
   // Receive command
   // If movement, move the playerPos
   //    then update the map
@@ -53,7 +53,7 @@ GS_Main.runState = function () {
             if (CurrentMap[playerPos].creature) {
               // Emit "fight" with Player, CurrentMap, Creature args
               // Not sure if this will work:
-              GS_Main.emit("fight", {
+              GameStateManager.emit("fight", {
                 player: Player,
                 map: CurrentMap,
                 creature: CurrentMap[playerPos].creature
@@ -81,7 +81,7 @@ GS_Main.runState = function () {
             Look(CurrentMap);
             break;
           case "RESTART":
-            GS_Main.emit("start");
+          GameStateManager.emit("start");
             break;
           default:
             Output.addElement({
