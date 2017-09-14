@@ -39,11 +39,11 @@
     "drops": {
       "gold": {
         "dropChance": 1,
-        "multiplier": 1500
+        "max": 16500
       },
       "potions": {
         "dropChance": 0.95,
-        "maxPotions": 18
+        "max": 18
       },
       "items": [
         "dragon hide",
@@ -128,11 +128,11 @@
     "drops": {
       "gold": {
         "dropChance": 0.95,
-        "multiplier": 500
+        "max": 5500
       },
       "potions": {
         "dropChance": 0.9,
-        "maxPotions": 15
+        "max": 15
       },
       "items": [
         "giant bones"
@@ -202,11 +202,11 @@
     "drops": {
       "gold": {
         "dropChance": 0.95,
-        "multiplier": 365
+        "max": 4015
       },
       "potions": {
         "dropChance": 0.85,
-        "maxPotions": 12
+        "max": 12
       },
       "items": [
         "troll fat"
@@ -265,11 +265,11 @@
     "drops": {
       "gold": {
         "dropChance": 0.85,
-        "multiplier": 55
+        "max": 605
       },
       "potions": {
         "dropChance": 0.75,
-        "maxPotions": 6
+        "max": 6
       },
       "items": [],
       "equipment": [
@@ -349,11 +349,11 @@
     "drops": {
       "gold": {
         "dropChance": 0.75,
-        "multiplier": 26
+        "max": 286
       },
       "potions": {
         "dropChance": 0.55,
-        "maxPotions": 5
+        "max": 5
       },
       "items": [],
       "equipment": [
@@ -444,11 +444,11 @@
     "drops": {
       "gold": {
         "dropChance": 0.9,
-        "multiplier": 36
+        "max": 396
       },
       "potions": {
         "dropChance": 0.75,
-        "maxPotions": 5
+        "max": 5
       },
       "items": [],
       "equipment": [
@@ -528,11 +528,11 @@
     "drops": {
       "gold": {
         "dropChance": 0.75,
-        "multiplier": 10
+        "max": 110
       },
       "potions": {
         "dropChance": 0.65,
-        "maxPotions": 4
+        "max": 4
       },
       "items": [],
       "equipment": [
@@ -612,11 +612,11 @@
     "drops": {
       "gold": {
         "dropChance": 0.7,
-        "multiplier": 8
+        "max": 88
       },
       "potions": {
         "dropChance": 0.65,
-        "maxPotions": 4
+        "max": 4
       },
       "items": [
         "magical runestones"
@@ -675,11 +675,11 @@
     "drops": {
       "gold": {
         "dropChance": 0.4,
-        "multiplier": 5
+        "max": 55
       },
       "potions": {
         "dropChance": 0.3,
-        "maxPotions": 2
+        "max": 2
       },
       "items": [
         "rat tail",
@@ -739,11 +739,11 @@
     "drops": {
       "gold": {
         "dropChance": 0.35,
-        "multiplier": 4.5
+        "max": 50
       },
       "potions": {
         "dropChance": 0.3,
-        "maxPotions": 2
+        "max": 2
       },
       "items": [
         "spider silk",
@@ -803,11 +803,11 @@
     "drops": {
       "gold": {
         "dropChance": 0.45,
-        "multiplier": 5.5
+        "max": 60
       },
       "potions": {
         "dropChance": 0.45,
-        "maxPotions": 3
+        "max": 3
       },
       "items": [
         "wolf fur",
@@ -867,11 +867,11 @@
     "drops": {
       "gold": {
         "dropChance": 0.45,
-        "multiplier": 5.5
+        "max": 60
       },
       "potions": {
         "dropChance": 0.3,
-        "maxPotions": 2
+        "max": 2
       },
       "items": [
         "tusks",
@@ -932,11 +932,11 @@
     "drops": {
       "gold": {
         "dropChance": 0.35,
-        "multiplier": 3
+        "max": 33
       },
       "potions": {
         "dropChance": 0.35,
-        "maxPotions": 2
+        "max": 2
       },
       "items": [
         "venom"
@@ -995,11 +995,11 @@
     "drops": {
       "gold": {
         "dropChance": 0.1,
-        "multiplier": 0.5
+        "max": 6
       },
       "potions": {
         "dropChance": 0.05,
-        "maxPotions": 1
+        "max": 1
       },
       "items": [
         "rat tail"
@@ -1058,11 +1058,11 @@
     "drops": {
       "gold": {
         "dropChance": 0.05,
-        "multiplier": 0.5
+        "max": 6
       },
       "potions": {
         "dropChance": 0.05,
-        "maxPotions": 1
+        "max": 1
       },
       "items": [
         "spider silk"
@@ -1121,11 +1121,11 @@
     "drops": {
       "gold": {
         "dropChance": 0.01,
-        "multiplier": 0.5
+        "max": 6
       },
       "potions": {
         "dropChance": 0.05,
-        "maxPotions": 1
+        "max": 1
       },
       "items": [
         "hide"
@@ -1184,11 +1184,11 @@
     "drops": {
       "gold": {
         "dropChance": 0.05,
-        "multiplier": 2
+        "max": 22
       },
       "potions": {
         "dropChance": 0.05,
-        "maxPotions": 1
+        "max": 1
       },
       "items": [
         "hide",
@@ -1250,11 +1250,11 @@
     "drops": {
       "gold": {
         "dropChance": 0.05,
-        "multiplier": 1
+        "max": 11
       },
       "potions": {
         "dropChance": 0.05,
-        "maxPotions": 1
+        "max": 1
       },
       "items": [
         "meat"
@@ -1301,11 +1301,11 @@
     "drops": {
       "gold": {
         "dropChance": 0.05,
-        "multiplier": 0.25
+        "max": 3
       },
       "potions": {
         "dropChance": 0,
-        "maxPotions": 0
+        "max": 0
       },
       "items": [
         "meat"
