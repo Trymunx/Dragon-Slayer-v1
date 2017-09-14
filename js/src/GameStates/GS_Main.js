@@ -47,7 +47,7 @@ GS_Main.runState = function () {
         // Parse(text, Player, CurrentMap);
 
         playerPos = PlayerPosition(CurrentMap);
-        var command = text.toUpper().split(" ");
+        var command = text.toUpperCase().split(" ");
         switch (command[0]) {
           case "ATTACK":
             if (CurrentMap[playerPos].creature) {
