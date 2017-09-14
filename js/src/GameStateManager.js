@@ -34,6 +34,7 @@ function initEventHandlers () {
     Fight.setPlayer(data.player);
     Fight.setCreature(data.creature);
     Fight.setMap(data.map);
+    Fight.runState(GameStateManager);
   });
 
   GameStateManager.on("enterShop", function (data) {
