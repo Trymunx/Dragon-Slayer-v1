@@ -5,8 +5,8 @@
     "currentHP": 100,
     "experience": 0,
     "level": 0,
-    "attackChance": 0,
-    "damage": 0,
+    "attackChance": 0.6,
+    "maxDamage": 30,
     "armour": 0
   },
   "inventory": {
