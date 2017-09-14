@@ -18,6 +18,10 @@ const Message = {
     row.appendChild(content);
 
     Output.appendChild(row);
+
+    // Scroll to bottom on new output
+    let scrollOutput = document.getElementById("output");
+    scrollOutput.scrollTop = Output.scrollHeight;
   }
 };
 
