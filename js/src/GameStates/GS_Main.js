@@ -32,7 +32,7 @@ GS_Main.runState = function (GameStateManager) {
   // if restart, start game again (emit "start")
 
   // Receive command
-  function command (e) {
+  function getInputAndParse (e) {
     if (e.keyCode === 13) {
       e.preventDefault();
 
@@ -48,104 +48,9 @@ GS_Main.runState = function (GameStateManager) {
 
         playerPos = PlayerPosition(CurrentMap);
         var command = text.toUpperCase().split(" ");
-        switch (command[0]) {
-          case "ATTACK":
-            if (CurrentMap[playerPos].creature) {
-              Input_Text.removeEventListener("keydown", command);
 
-              GameStateManager.emit("fight", {
-                player: Player,
-                map: CurrentMap,
-                creature: CurrentMap[playerPos].creature
-              });
-
-            } else {
-              Output.addElement({
-                "entity": "Error:",
-                "content": "There's nothing here to attack!"
-              });
-            }
-            break;
-          case "NORTH":
-            MovePlayer(CurrentMap, "north");
-            if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
-              Output.addElement({
-                "entity": "",
-                "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
-              });
-              // Aggressive creatures attack on sight
-              GameStateManager.emit("fight", {
-                player: Player,
-                map: CurrentMap,
-                creature: CurrentMap[playerPos].creature
-              });
-
-              Input_Text.removeEventListener("keydown", command);
-            }
-            break;
-          case "SOUTH":
-            MovePlayer(CurrentMap, "south");
-            if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
-              Output.addElement({
-                "entity": "",
-                "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
-              });
-              // Aggressive creatures attack on sight
-              GameStateManager.emit("fight", {
-                player: Player,
-                map: CurrentMap,
-                creature: CurrentMap[playerPos].creature
-              });
-
-              Input_Text.removeEventListener("keydown", command);
-            }
-            break;
-          case "EAST":
-            MovePlayer(CurrentMap, "east");
-            if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
-              Output.addElement({
-                "entity": "",
-                "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
-              });
-              // Aggressive creatures attack on sight
-              GameStateManager.emit("fight", {
-                player: Player,
-                map: CurrentMap,
-                creature: CurrentMap[playerPos].creature
-              });
-
-              Input_Text.removeEventListener("keydown", command);
-            }
-            break;
-          case "WEST":
-            MovePlayer(CurrentMap, "west");
-            if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
-              Output.addElement({
-                "entity": "",
-                "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
-              });
-              // Aggressive creatures attack on sight
-              GameStateManager.emit("fight", {
-                player: Player,
-                map: CurrentMap,
-                creature: CurrentMap[playerPos].creature
-              });
-
-              Input_Text.removeEventListener("keydown", command);
-            }
-            break;
-          case "LOOK":
-            Look(CurrentMap);
-            break;
-          case "RESTART":
-          GameStateManager.emit("start");
-            break;
-          default:
-            Output.addElement({
-              "entity": "Error:",
-              "content": "At this time, you can only enter [NORTH / SOUTH / EAST / WEST / ATTACK / LOOK / RESTART]."
-            });
-        }
+        commandParse(command, 0)
+        Input_Text.removeEventListener("keydown", getInputAndParse);
       }
 
       Input_Text.value = "";
@@ -154,10 +59,138 @@ GS_Main.runState = function (GameStateManager) {
   }
 
   // Initialise above function
-  Input_Text.addEventListener("keydown", command);
+  Input_Text.addEventListener("keydown", getInputAndParse);
   
 
 
 }
 
 module.exports = GS_Main;
+
+
+function commandParse(input, index) {
+  switch (input[index]) {
+    case "ATTACK":
+      if (CurrentMap[playerPos].creature) {
+        Input_Text.removeEventListener("keydown", input);
+
+        GameStateManager.emit("fight", {
+          player: Player,
+          map: CurrentMap,
+          creature: CurrentMap[playerPos].creature
+        });
+
+      } else {
+        Output.addElement({
+          "entity": "Error:",
+          "content": "There's nothing here to attack!"
+        });
+      }
+      break;
+    case "FIGHT":
+      if (CurrentMap[playerPos].creature) {
+        Input_Text.removeEventListener("keydown", input);
+
+        GameStateManager.emit("fight", {
+          player: Player,
+          map: CurrentMap,
+          creature: CurrentMap[playerPos].creature
+        });
+
+      } else {
+        Output.addElement({
+          "entity": "Error:",
+          "content": "There's nothing here to attack!"
+        });
+      }
+      break;
+    case "WALK":
+      commandParse(input, 1);
+      break;
+    case "MOVE":
+      commandParse(input, 1);
+      break;
+    case "GO":
+      commandParse(input, 1);
+      break;
+    case "NORTH":
+      MovePlayer(CurrentMap, "north");
+      if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
+        Output.addElement({
+          "entity": "",
+          "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
+        });
+        // Aggressive creatures attack on sight
+        GameStateManager.emit("fight", {
+          player: Player,
+          map: CurrentMap,
+          creature: CurrentMap[playerPos].creature
+        });
+
+        // Input_Text.removeEventListener("keydown", command);
+      }
+      break;
+    case "SOUTH":
+      MovePlayer(CurrentMap, "south");
+      if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
+        Output.addElement({
+          "entity": "",
+          "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
+        });
+        // Aggressive creatures attack on sight
+        GameStateManager.emit("fight", {
+          player: Player,
+          map: CurrentMap,
+          creature: CurrentMap[playerPos].creature
+        });
+
+        // Input_Text.removeEventListener("keydown", command);
+      }
+      break;
+    case "EAST":
+      MovePlayer(CurrentMap, "east");
+      if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
+        Output.addElement({
+          "entity": "",
+          "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
+        });
+        // Aggressive creatures attack on sight
+        GameStateManager.emit("fight", {
+          player: Player,
+          map: CurrentMap,
+          creature: CurrentMap[playerPos].creature
+        });
+
+        // Input_Text.removeEventListener("keydown", command);
+      }
+      break;
+    case "WEST":
+      MovePlayer(CurrentMap, "west");
+      if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
+        Output.addElement({
+          "entity": "",
+          "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
+        });
+        // Aggressive creatures attack on sight
+        GameStateManager.emit("fight", {
+          player: Player,
+          map: CurrentMap,
+          creature: CurrentMap[playerPos].creature
+        });
+
+        // Input_Text.removeEventListener("keydown", command);
+      }
+      break;
+    case "LOOK":
+      Look(CurrentMap);
+      break;
+    case "RESTART":
+    GameStateManager.emit("start");
+      break;
+    default:
+      Output.addElement({
+        "entity": "Error:",
+        "content": "At this time, you can only enter [NORTH / SOUTH / EAST / WEST / ATTACK / LOOK / RESTART]."
+      });
+  }
+}
