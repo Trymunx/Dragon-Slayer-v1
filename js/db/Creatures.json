@@ -11,8 +11,11 @@
       "spawnChance": 0.15,
       "aggressive": true
     },
-    "missChance": 0.2,
     "attacks": [
+      {
+        "name": "miss",
+        "chance": "0.2"
+      },
       {
         "name": "maul",
         "chance": 0.64,
@@ -100,8 +103,11 @@
       "spawnChance": 0.2,
       "aggressive": true
     },
-    "missChance": 0.25,
     "attacks": [
+      {
+        "name": "miss",
+        "chance": "0.25"
+      },
       {
         "name": "club",
         "chance": 0.6,
@@ -174,8 +180,11 @@
       "spawnChance": 0.25,
       "aggressive": true
     },
-    "missChance": 0.3,
     "attacks": [
+      {
+        "name": "miss",
+        "chance": "0.3"
+      },
       {
         "name": "maul",
         "chance": 0.56,
@@ -237,8 +246,11 @@
       "spawnChance": 0.58,
       "aggressive": true
     },
-    "missChance": 0.3,
     "attacks": [
+      {
+        "name": "miss",
+        "chance": "0.3"
+      },
       {
         "name": "slash",
         "chance": 0.56,
@@ -321,8 +333,11 @@
       "spawnChance": 0.7,
       "aggressive": true
     },
-    "missChance": 0.4,
     "attacks": [
+      {
+        "name": "miss",
+        "chance": "0.4"
+      },
       {
         "name": "slash",
         "chance": 0.48,
@@ -405,8 +420,11 @@
       "spawnChance": 0.72,
       "aggressive": true
     },
-    "missChance": 0.4,
     "attacks": [
+      {
+        "name": "miss",
+        "chance": "0.4"
+      },
       {
         "name": "punch",
         "chance": 0.36,
@@ -500,8 +518,11 @@
       "spawnChance": 0.68,
       "aggressive": true
     },
-    "missChance": 0.4,
     "attacks": [
+      {
+        "name": "miss",
+        "chance": "0.4"
+      },
       {
         "name": "slash",
         "chance": 0.48,
@@ -584,8 +605,11 @@
       "spawnChance": 0.65,
       "aggressive": true
     },
-    "missChance": 0.55,
     "attacks": [
+      {
+        "name": "miss",
+        "chance": "0.55"
+      },
       {
         "name": "fear",
         "chance": 0.36,
@@ -647,8 +671,11 @@
       "spawnChance": 0.85,
       "aggressive": true
     },
-    "missChance": 0.5,
     "attacks": [
+      {
+        "name": "miss",
+        "chance": "0.5"
+      },
       {
         "name": "scratch",
         "chance": 0.4,
@@ -711,8 +738,11 @@
       "spawnChance": 0.85,
       "aggressive": true
     },
-    "missChance": 0.45,
     "attacks": [
+      {
+        "name": "miss",
+        "chance": "0.45"
+      },
       {
         "name": "bite",
         "chance": 0.44,
@@ -775,8 +805,11 @@
       "spawnChance": 0.75,
       "aggressive": true
     },
-    "missChance": 0.4,
     "attacks": [
+      {
+        "name": "miss",
+        "chance": "0.4"
+      },
       {
         "name": "slash",
         "chance": 0.42,
@@ -839,8 +872,11 @@
       "spawnChance": 0.8,
       "aggressive": true
     },
-    "missChance": 0.45,
     "attacks": [
+      {
+        "name": "miss",
+        "chance": "0.45"
+      },
       {
         "name": "ram",
         "chance": 0.44,
@@ -904,8 +940,11 @@
       "spawnChance": 0.75,
       "aggressive": false
     },
-    "missChance": 0.5,
     "attacks": [
+      {
+        "name": "miss",
+        "chance": "0.5"
+      },
       {
         "name": "constrict",
         "chance": 0.4,
@@ -967,8 +1006,11 @@
       "spawnChance": 0.8,
       "aggressive": false
     },
-    "missChance": 0.8,
     "attacks": [
+      {
+        "name": "miss",
+        "chance": "0.8"
+      },
       {
         "name": "scratch",
         "chance": 0.16,
@@ -1030,8 +1072,11 @@
       "spawnChance": 0.75,
       "aggressive": false
     },
-    "missChance": 0.75,
     "attacks": [
+      {
+        "name": "miss",
+        "chance": "0.75"
+      },
       {
         "name": "bite",
         "chance": 0.2,
@@ -1093,8 +1138,11 @@
       "spawnChance": 0.8,
       "aggressive": false
     },
-    "missChance": 0.8,
     "attacks": [
+      {
+        "name": "miss",
+        "chance": "0.8"
+      },
       {
         "name": "scratch",
         "chance": 0.14,
@@ -1156,8 +1204,11 @@
       "spawnChance": 0.5,
       "aggressive": false
     },
-    "missChance": 0.65,
     "attacks": [
+      {
+        "name": "miss",
+        "chance": "0.65"
+      },
       {
         "name": "ram",
         "chance": 0.28,
@@ -1222,8 +1273,11 @@
       "spawnChance": 0.5,
       "aggressive": false
     },
-    "missChance": 0.7,
     "attacks": [
+      {
+        "name": "miss",
+        "chance": "0.7"
+      },
       {
         "name": "ram",
         "chance": 0.24,
@@ -1285,8 +1339,11 @@
       "spawnChance": 0.75,
       "aggressive": false
     },
-    "missChance": 0.85,
     "attacks": [
+      {
+        "name": "miss",
+        "chance": "0.85"
+      },
       {
         "name": "scratch",
         "chance": 0.15,
