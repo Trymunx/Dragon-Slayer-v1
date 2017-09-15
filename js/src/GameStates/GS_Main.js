@@ -67,7 +67,7 @@ GS_Main.runState = function (GameStateManager) {
             break;
           case "NORTH":
             MovePlayer(CurrentMap, "north");
-            if (CurrentMap[playerPos].creature.attributes.aggressive) {
+            if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
               Output.addElement({
                 "entity": "",
                 "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
@@ -82,7 +82,7 @@ GS_Main.runState = function (GameStateManager) {
             break;
           case "SOUTH":
             MovePlayer(CurrentMap, "south");
-            if (CurrentMap[playerPos].creature.attributes.aggressive) {
+            if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
               Output.addElement({
                 "entity": "",
                 "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
@@ -97,7 +97,7 @@ GS_Main.runState = function (GameStateManager) {
             break;
           case "EAST":
             MovePlayer(CurrentMap, "east");
-            if (CurrentMap[playerPos].creature.attributes.aggressive) {
+            if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
               Output.addElement({
                 "entity": "",
                 "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
@@ -112,7 +112,7 @@ GS_Main.runState = function (GameStateManager) {
             break;
           case "WEST":
             MovePlayer(CurrentMap, "west");
-            if (CurrentMap[playerPos].creature.attributes.aggressive) {
+            if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
               Output.addElement({
                 "entity": "",
                 "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
