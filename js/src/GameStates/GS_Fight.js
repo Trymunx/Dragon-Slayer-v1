@@ -3,6 +3,7 @@ const Input_Text = document.getElementById("input-text");
 const RNG = require("../utils/RNG");
 const dimRNG = require("../utils/DimRNG.js");
 const PlayerPosition = require("../PlayerPosition.js");
+const DisplayInventory = require("../DisplayInventory.js");
 
 var GS_Fight = {};
 var Player;
@@ -24,8 +25,9 @@ GS_Fight.setMap = function (map) {
 GS_Fight.runState = function (GameStateManager) {
 
   var playerPos = PlayerPosition(CurrentMap);
+
   // Receive command
-  Input_Text.addEventListener("keydown", function (e) {
+  function option (e) {
     if (e.keyCode === 13) {
       e.preventDefault();
 
@@ -47,6 +49,8 @@ GS_Fight.runState = function (GameStateManager) {
                 GameStateManager.emit("slain", {
                     player: Player
                 });
+
+                Input_Text.removeEventListener("keydown", option);
               }
             } else {
               CurrentMap[playerPos].creature = null;
@@ -54,6 +58,8 @@ GS_Fight.runState = function (GameStateManager) {
                 player: Player,
                 map: CurrentMap
               });
+
+              Input_Text.removeEventListener("keydown", option);
             }
             break;
           case "DRINK":
@@ -64,6 +70,8 @@ GS_Fight.runState = function (GameStateManager) {
                 GameStateManager.emit("slain", {
                     player: Player
                 });
+
+                Input_Text.removeEventListener("keydown", option);
               }
             } else {
               CurrentMap[playerPos].creature = null;
@@ -71,6 +79,8 @@ GS_Fight.runState = function (GameStateManager) {
                 player: Player,
                 map: CurrentMap
               });
+
+              Input_Text.removeEventListener("keydown", option);
             }
             break;
           case "POTION":
@@ -81,6 +91,8 @@ GS_Fight.runState = function (GameStateManager) {
                 GameStateManager.emit("slain", {
                     player: Player
                 });
+
+                Input_Text.removeEventListener("keydown", option);
               }
             } else {
               CurrentMap[playerPos].creature = null;
@@ -88,6 +100,8 @@ GS_Fight.runState = function (GameStateManager) {
                 player: Player,
                 map: CurrentMap
               });
+
+              Input_Text.removeEventListener("keydown", option);
             }
             break;
           case "HEAL":
@@ -98,6 +112,8 @@ GS_Fight.runState = function (GameStateManager) {
                 GameStateManager.emit("slain", {
                     player: Player
                 });
+
+                Input_Text.removeEventListener("keydown", option);
               }
             } else {
               CurrentMap[playerPos].creature = null;
@@ -105,6 +121,8 @@ GS_Fight.runState = function (GameStateManager) {
                 player: Player,
                 map: CurrentMap
               });
+
+              Input_Text.removeEventListener("keydown", option);
             }
             break;
           case "RUN":
@@ -120,6 +138,8 @@ GS_Fight.runState = function (GameStateManager) {
                 player: Player,
                 map: CurrentMap
               });
+
+              Input_Text.removeEventListener("keydown", option);
             }
             break;
           default:
@@ -133,7 +153,11 @@ GS_Fight.runState = function (GameStateManager) {
 
       Input_Text.value = "";
     }
-  });
+  }
+
+  // Initialise above function
+  Input_Text.addEventListener("keydown", option);
+  
 }
 
 module.exports = GS_Fight;
@@ -212,6 +236,7 @@ function creatureDrop(creature) {
       "content": "The " + creature.name + " drops " + goldDrop + " gold and " + potionDrop + (potionDrop === 1 ? " potion." : " potions.")
     });
   }
+  DisplayInventory(Player);
 }
 
 function creatureHPBar(creature) {

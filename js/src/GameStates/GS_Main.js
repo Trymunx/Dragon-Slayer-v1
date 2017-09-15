@@ -32,7 +32,7 @@ GS_Main.runState = function (GameStateManager) {
   // if restart, start game again (emit "start")
 
   // Receive command
-  Input_Text.addEventListener("keydown", function (e) {
+  function command (e) {
     if (e.keyCode === 13) {
       e.preventDefault();
 
@@ -58,6 +58,8 @@ GS_Main.runState = function (GameStateManager) {
                 map: CurrentMap,
                 creature: CurrentMap[playerPos].creature
               });
+
+              Input_Text.removeEventListener("keydown", command);
             } else {
               Output.addElement({
                 "entity": "Error:",
@@ -78,6 +80,8 @@ GS_Main.runState = function (GameStateManager) {
                 map: CurrentMap,
                 creature: CurrentMap[playerPos].creature
               });
+
+              Input_Text.removeEventListener("keydown", command);
             }
             break;
           case "SOUTH":
@@ -93,6 +97,8 @@ GS_Main.runState = function (GameStateManager) {
                 map: CurrentMap,
                 creature: CurrentMap[playerPos].creature
               });
+
+              Input_Text.removeEventListener("keydown", command);
             }
             break;
           case "EAST":
@@ -108,6 +114,8 @@ GS_Main.runState = function (GameStateManager) {
                 map: CurrentMap,
                 creature: CurrentMap[playerPos].creature
               });
+
+              Input_Text.removeEventListener("keydown", command);
             }
             break;
           case "WEST":
@@ -123,6 +131,8 @@ GS_Main.runState = function (GameStateManager) {
                 map: CurrentMap,
                 creature: CurrentMap[playerPos].creature
               });
+
+              Input_Text.removeEventListener("keydown", command);
             }
             break;
           case "LOOK":
@@ -142,8 +152,11 @@ GS_Main.runState = function (GameStateManager) {
       Input_Text.value = "";
 
     }
-  });
+  }
 
+  // Initialise above function
+  Input_Text.addEventListener("keydown", command);
+  
 
 
 }
