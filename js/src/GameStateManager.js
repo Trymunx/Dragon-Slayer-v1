@@ -52,6 +52,11 @@ function initEventHandlers () {
     Main.setMap(data.map);
   });
 
+  GameStateManager.on("run", function (data) {
+    Main.setPlayer(data.player);
+    Main.setMap(data.map);
+  });
+
   GameStateManager.on("slain", function (data) {
     EndGame.setPlayer(data.player);
   });
