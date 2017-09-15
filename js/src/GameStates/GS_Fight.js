@@ -23,7 +23,7 @@ GS_Fight.setMap = function (map) {
 }
 
 GS_Fight.runState = function (GameStateManager) {
-
+  
   var playerPos = PlayerPosition(CurrentMap);
 
   // Receive command
@@ -38,6 +38,7 @@ GS_Fight.runState = function (GameStateManager) {
           "entity": Player.name,
           "content": text
         });
+        console.log("Input received:", text);
         // Parse and process command
         var command = text.toUpperCase().split(" ");
         switch (command[0]) {

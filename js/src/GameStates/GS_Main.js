@@ -51,15 +51,14 @@ GS_Main.runState = function (GameStateManager) {
         switch (command[0]) {
           case "ATTACK":
             if (CurrentMap[playerPos].creature) {
-              // Emit "fight" with Player, CurrentMap, Creature args
-              // Not sure if this will work:
+              Input_Text.removeEventListener("keydown", command);
+
               GameStateManager.emit("fight", {
                 player: Player,
                 map: CurrentMap,
                 creature: CurrentMap[playerPos].creature
               });
 
-              Input_Text.removeEventListener("keydown", command);
             } else {
               Output.addElement({
                 "entity": "Error:",
