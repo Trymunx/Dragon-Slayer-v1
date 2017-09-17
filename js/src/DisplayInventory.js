@@ -27,7 +27,9 @@ function DisplayInventory (player) {
     inventoryString += inventory[i];
   }
 
-  document.getElementById("inventory").innerHTML = inventoryString;
+  var HPDisplay = "HP: " + player.attributes.currentHP + " / " + player.attributes.totalHP;
+  var PanelContent = HPDisplay + "\n" + inventoryString;
+  document.getElementById("inventory").innerHTML = PanelContent;
 }
 
 module.exports = DisplayInventory;
