@@ -29,6 +29,7 @@ body {
   /*height: 100%;*/
   border: none;
   border-spacing: 0px;
+  white-space: pre-wrap;  
 }
 
 #output-table {
