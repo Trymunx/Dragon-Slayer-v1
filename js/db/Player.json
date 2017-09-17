@@ -31,29 +31,77 @@
         "totalSlain": 0,
         "namePlural": "dragons"
       },
-      "rat": {
+      "giant": {
         "totalSlain": 0,
-        "namePlural": "rats"
-      },
-      "wolf": {
-        "totalSlain": 0,
-        "namePlural": "wolves"
+        "namePlural": "giants"
       },
       "troll": {
         "totalSlain": 0,
         "namePlural": "trolls"
       },
-      "snake": {
+      "orc": {
         "totalSlain": 0,
-        "namePlural": "snakes"
+        "namePlural": "orcs"
+      },
+      "goblin": {
+        "totalSlain": 0,
+        "namePlural": "goblins"
+      },
+      "thief": {
+        "totalSlain": 0,
+        "namePlural": "thieves"
+      },
+      "skeleton": {
+        "totalSlain": 0,
+        "namePlural": "skeletons"
       },
       "ghost": {
         "totalSlain": 0,
         "namePlural": "ghosts"
       },
-      "thief": {
+      "giantRat": {
         "totalSlain": 0,
-        "namePlural": "thieves"
+        "namePlural": "giant rats"
+      },
+      "giantSpider": {
+        "totalSlain": 0,
+        "namePlural": "giant spiders"
+      },
+      "wolf": {
+        "totalSlain": 0,
+        "namePlural": "wolves"
+      },
+      "boar": {
+        "totalSlain": 0,
+        "namePlural": "boars"
+      },
+      "snake": {
+        "totalSlain": 0,
+        "namePlural": "snakes"
+      },
+      "rat": {
+        "totalSlain": 0,
+        "namePlural": "rats"
+      },
+      "spider": {
+        "totalSlain": 0,
+        "namePlural": "spiders"
+      },
+      "fox": {
+        "totalSlain": 0,
+        "namePlural": "foxes"
+      },
+      "deer": {
+        "totalSlain": 0,
+        "namePlural": "deer"
+      },
+      "pig": {
+        "totalSlain": 0,
+        "namePlural": "pigs"
+      },
+      "rabbit": {
+        "totalSlain": 0,
+        "namePlural": "rabbits"
       }
     }
   }
