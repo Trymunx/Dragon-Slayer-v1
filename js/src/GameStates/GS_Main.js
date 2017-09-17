@@ -21,15 +21,6 @@ GS_Main.setMap = function (map) {
 }
 
 GS_Main.runState = function (GameStateManager) {
-  // Receive command
-  // If movement, move the playerPos
-  //    then update the map
-  // if fight, fight creature on the spot
-  //    (emit "fight" to enter fight state)
-  // if look, look at tile
-  // if shop, enter shop
-  //    (emit "enterShop" to enter shop state)
-  // if restart, start game again (emit "start")
 
   // Receive command
   function getInputAndParse (e) {
@@ -49,8 +40,8 @@ GS_Main.runState = function (GameStateManager) {
         playerPos = PlayerPosition(CurrentMap);
         var command = text.toUpperCase().split(" ");
 
-        commandParse(command, 0)
-        Input_Text.removeEventListener("keydown", getInputAndParse);
+        commandParse(command, 0, GameStateManager)
+        // Input_Text.removeEventListener("keydown", getInputAndParse);
       }
 
       Input_Text.value = "";
@@ -68,7 +59,7 @@ GS_Main.runState = function (GameStateManager) {
 module.exports = GS_Main;
 
 
-function commandParse(input, index) {
+function commandParse(input, index, GameStateManager) {
   switch (input[index]) {
     case "ATTACK":
       if (CurrentMap[playerPos].creature) {
