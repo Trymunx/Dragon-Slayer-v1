@@ -43,7 +43,14 @@ GS_Fight.runState = function (GameStateManager) {
         var command = text.toUpperCase().split(" ");
         switch (command[0]) {
           case "ATTACK":
-            playerAttack(Creature);
+            if (Creature.attributes.currentHP > 0) {
+              playerAttack(Creature);
+            } else {
+              Output.addElement({
+                "entity": "Error:",
+                "content": "It's already dead. Attacking it won't help."
+              })
+            }
             if (Creature.attributes.currentHP > 0) {
               creatureAttack(Creature);
               if (Player.currentHP <= 0) {
@@ -165,15 +172,15 @@ module.exports = GS_Fight;
 
 function playerAttack(creature) {
   if (RNG() < Player.attributes.attackChance) {
-    let damage = RNG(1, Player.attributes.maxDamage);
+    let damage = Math.round(RNG(1, Player.attributes.maxDamage));
     creature.attributes.currentHP -= damage;
     Output.addElement({
-      "entity": "Hit:",
+      "entity": "",
       "content": "You attack the " + creature.name + " for " + damage + "HP."
     });
   } else {
     Output.addElement({
-      "entity": "Miss:",
+      "entity": "",
       "content": "You miss the " + creature.name + "."
     });
   }
@@ -266,7 +273,7 @@ function creatureHPBar(creature) {
   }
 
   Output.addElement({
-    "entity": creature.name,
+    "entity": "",
     "content": "[" + bar + "] (" + hitpointsPercent + "%"
   });
 }
@@ -300,22 +307,23 @@ function creatureAttack(creature) {
     let messagePicker = RNG();
     if(messagePicker < 0.35){
       Output.addElement({
-        "entity": "",
+        "entity": creature.name,
         "content": "You raise your shield and block the " + creature.name + "'s attack."
       });
     } else if (messagePicker < 0.60) {
       Output.addElement({
-        "entity": "",
+        "entity": creature.name,
         "content": "You sidestep the " + creature.name + "'s attack."
       });
     } else {
       Output.addElement({
-        "entity": "",
+        "entity": creature.name,
         "content": "The " + creature.name + "'s attack misses you."
       });
     }
+    playerHPReport(Player.attributes.currentHP);
   } else {
-    damage = RNG(attack.minDamage, attack.maxDamage);
+    damage = Math.round(RNG(attack.minDamage, attack.maxDamage));
     let messagePicker = Math.round(RNG(attack.messages.length-1));
     Output.addElement({
       "entity": creature.name,
@@ -333,6 +341,7 @@ function playerHPReport(playerHP) {
       "content": "You have " + playerHP + "HP remaining."
     });
     playerHPBar(playerHP);
+    DisplayInventory(Player);
   } else {
     Output.addElement({
       "entity": "",
@@ -352,7 +361,7 @@ function playerHPBar(playerHP) {
     bar += " "
   }
   Output.addElement({
-    "entity": Player.name,
+    "entity": "",
     "content": "[" + bar + "] (" + playerHP + "%)"
   });
 }
@@ -363,8 +372,9 @@ function drinkPotion() {
     Player.inventory.potions--;
     Output.addElement({
       "entity": "",
-      "content": "You drink a potion, restoring 50HP. You have " + player.inventory.potions + " potions remaining."
+      "content": "You drink a potion, restoring 50HP. You have " + Player.inventory.potions + " potions remaining."
     });    
+    DisplayInventory(Player);
   } else {
     Output.addElement({
       "entity": "",
@@ -375,7 +385,7 @@ function drinkPotion() {
 }
 
 function heal() {
-  let healing = RNG(1, 8);
+  let healing = Math.round(RNG(1, 8));
   Player.attributes.currentHP += healing;
   Output.addElement({
     "entity": "",
