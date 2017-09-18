@@ -46,6 +46,10 @@ body {
   color: #318C5B;
 }
 
+.hp-bar-warning {
+  color: #EA8B5B;
+}
+
 .gold {
   color: #D6C740;
 }
