@@ -191,7 +191,8 @@ function commandParse(input, index) {
       Look(CurrentMap);
       break;
     case "RESTART":
-    GameStateManager.emit("start");
+      Input_Text.removeEventListener("keydown", getInputAndParse);
+      GameStateManager.emit("start");
       break;
     default:
       Output.addElement({
