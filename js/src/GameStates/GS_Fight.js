@@ -341,13 +341,13 @@ function playerHPReport(player) {
       "content": "You have " + player.attributes.currentHP + "HP remaining."
     });
     playerHPBar(player);
-    DisplayInventory(player);
   } else {
     Output.addElement({
       "entity": "",
       "content": "You have been slain."
     });
   }
+  DisplayInventory(player);
 }
 
 function playerHPBar(player) {
@@ -394,7 +394,7 @@ function drinkPotion() {
       "content": "You have no potions left to drink!"
     });
   }
-  playerHPReport(Player.attributes.currentHP);
+  playerHPReport(Player);
 }
 
 function heal() {
@@ -404,5 +404,5 @@ function heal() {
     "entity": "",
     "content": "You tend to your wounds as best you can, healing " + healing + "HP."
   });
-  playerHPReport(Player.attributes.currentHP);
+  playerHPReport(Player);
 }
