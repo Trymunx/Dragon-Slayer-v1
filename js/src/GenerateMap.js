@@ -28,7 +28,7 @@ function spawnCreature() {
     }
   }
   if (creatureIndex === creatures.length) {
-    creatureSpawned = CreatureDb["none"];
+    creatureSpawned = "none";
   } else {
     creatureSpawned = creatures[creatureIndex];
   }
@@ -143,7 +143,7 @@ function genMap(sideLength) {
     } else {
       // Check to see if there is a creature on that tile, if not set to null
       var spawnedCreature = spawnCreature();
-      if (spawnedCreature) {
+      if (spawnedCreature !== "none") {
         map[i].creature = newCreature(spawnedCreature);
       } else {
         map[i].creature = null;
