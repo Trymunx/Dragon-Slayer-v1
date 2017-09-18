@@ -219,7 +219,7 @@ function creatureDrop(creature) {
   let potionDrop;
   if (RNG() <= creature.drops.potions.dropChance) {
     potionDrop = dimRNG(1, creature.drops.potions.max);
-    Player.potions += potionDrop;
+    Player.inventory.potions += potionDrop;
   } else {
     potionDrop = false;
   }
