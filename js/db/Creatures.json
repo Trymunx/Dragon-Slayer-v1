@@ -24,7 +24,7 @@
         "damage": 0,
         "messages": [
           "The dragon mauls you, hitting you for ",
-          "The dragon's claws lacerate your flesh, hitting you for "
+          "The dragon's claws lacerate your flesh. You lose "
         ]
       },
       {
