@@ -8,7 +8,7 @@ body {
 #output {
   grid-area: output;
   display: grid;
-  grid-template-columns: 20% 80%;
+  grid-template-columns: 160px 1fr;
   grid-template-areas: "entity messages";
   overflow-y: auto;
   min-width: 500px
@@ -60,7 +60,7 @@ body {
 
 #output-table>tr>.entity {
   /*grid-area: entity;*/
-  width: 20%;
+  width: 140px;
   vertical-align: top;
   padding: 3px 10px;
   color: var(--text-blur);
@@ -69,7 +69,7 @@ body {
 
 #output-table>tr>.messages {
   /*grid-area: messages;*/
-  width: 80%;
+  width: 1fr;
   vertical-align: top;
   padding: 3px 10px;
   margin: none;
