@@ -274,7 +274,7 @@ function creatureHPBar(creature) {
 
   Output.addElement({
     "entity": "",
-    "content": "<p class='hp-bar-foe'>[" + bar + "] (" + hitpointsPercent + "%)</p>"
+    "content": "[<span class='hp-bar-foe'>" + bar + "</span>] (" + hitpointsPercent + "%)"
   });
 }
 
@@ -321,7 +321,7 @@ function creatureAttack(creature) {
         "content": "The " + creature.name + "'s attack misses you."
       });
     }
-    playerHPReport(Player.attributes.currentHP);
+    playerHPReport(Player);
   } else {
     damage = Math.round(RNG(attack.minDamage, attack.maxDamage));
     let messagePicker = Math.round(RNG(attack.messages.length-1));
@@ -330,18 +330,18 @@ function creatureAttack(creature) {
       "content": attack.messages[messagePicker] + damage + "HP."
     });
     Player.attributes.currentHP -= damage;
-    playerHPReport(Player.attributes.currentHP);
+    playerHPReport(Player);
   }
 }
 
-function playerHPReport(playerHP) {
-  if (playerHP > 0) {
+function playerHPReport(player) {
+  if (player.attributes.currentHP > 0) {
     Output.addElement({
       "entity": "",
-      "content": "You have " + playerHP + "HP remaining."
+      "content": "You have " + player.attributes.currentHP + "HP remaining."
     });
-    playerHPBar(playerHP);
-    DisplayInventory(Player);
+    playerHPBar(player);
+    DisplayInventory(player);
   } else {
     Output.addElement({
       "entity": "",
@@ -350,8 +350,8 @@ function playerHPReport(playerHP) {
   }
 }
 
-function playerHPBar(playerHP) {
-  let barLength = Math.round(0.6 * playerHP);
+function playerHPBar(player) {
+  let barLength = Math.round(0.6 * player.attributes.currentHP);
   let emptyLength = 60 - barLength;
   let bar = "";
   for (let i = 0; i < barLength; i++) {
@@ -360,10 +360,23 @@ function playerHPBar(playerHP) {
   for (let i = 0; i < emptyLength; i++) {
     bar += " "
   }
-  Output.addElement({
-    "entity": "",
-    "content": "<p class='hp-bar-player'>[" + bar + "] (" + playerHP + "%)</p>"
-  });
+  // Change colour based on HP percentage
+    if (player.attributes.currentHP / player.attributes.totalHP > 0.25) {
+    Output.addElement({
+      "entity": "",
+      "content": "[<span class='hp-bar-player'>" + bar + "</span>] (" + player.attributes.currentHP + "%)"
+    });
+  } else if (player.attributes.currentHP / player.attributes.totalHP > 0.1) {
+    Output.addElement({
+      "entity": "",
+      "content": "[<span class='hp-bar-warning'>" + bar + "</span>] (" + player.attributes.currentHP + "%)"
+    });
+  } else {
+    Output.addElement({
+      "entity": "",
+      "content": "[<span class='hp-bar-foe'>" + bar + "</span>] (" + player.attributes.currentHP + "%)"
+    });
+  }
 }
 
 function drinkPotion() {
