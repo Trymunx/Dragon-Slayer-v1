@@ -38,6 +38,14 @@ body {
   font-family: "SourceCode Pro", monospace;
 }
 
+.hp-bar-foe {
+  color: #AF4441;
+}
+
+.hp-bar-player {
+  color: #318C5B;
+}
+
 #output-table>tr>.entity {
   /*grid-area: entity;*/
   width: 20%;
