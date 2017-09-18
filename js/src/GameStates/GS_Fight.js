@@ -27,7 +27,7 @@ GS_Fight.runState = function (GameStateManager) {
   var playerPos = PlayerPosition(CurrentMap);
 
   // Receive command
-  function option (e) {
+  function fightCommands (e) {
     if (e.keyCode === 13) {
       e.preventDefault();
 
@@ -58,7 +58,7 @@ GS_Fight.runState = function (GameStateManager) {
                     player: Player
                 });
 
-                Input_Text.removeEventListener("keydown", option);
+                Input_Text.removeEventListener("keydown", fightCommands);
               }
             } else {
               CurrentMap[playerPos].creature = null;
@@ -67,7 +67,7 @@ GS_Fight.runState = function (GameStateManager) {
                 map: CurrentMap
               });
 
-              Input_Text.removeEventListener("keydown", option);
+              Input_Text.removeEventListener("keydown", fightCommands);
             }
             break;
           case "DRINK":
@@ -79,7 +79,7 @@ GS_Fight.runState = function (GameStateManager) {
                     player: Player
                 });
 
-                Input_Text.removeEventListener("keydown", option);
+                Input_Text.removeEventListener("keydown", fightCommands);
               }
             } else {
               CurrentMap[playerPos].creature = null;
@@ -88,7 +88,7 @@ GS_Fight.runState = function (GameStateManager) {
                 map: CurrentMap
               });
 
-              Input_Text.removeEventListener("keydown", option);
+              Input_Text.removeEventListener("keydown", fightCommands);
             }
             break;
           case "POTION":
@@ -100,7 +100,7 @@ GS_Fight.runState = function (GameStateManager) {
                     player: Player
                 });
 
-                Input_Text.removeEventListener("keydown", option);
+                Input_Text.removeEventListener("keydown", fightCommands);
               }
             } else {
               CurrentMap[playerPos].creature = null;
@@ -109,7 +109,7 @@ GS_Fight.runState = function (GameStateManager) {
                 map: CurrentMap
               });
 
-              Input_Text.removeEventListener("keydown", option);
+              Input_Text.removeEventListener("keydown", fightCommands);
             }
             break;
           case "HEAL":
@@ -121,7 +121,7 @@ GS_Fight.runState = function (GameStateManager) {
                     player: Player
                 });
 
-                Input_Text.removeEventListener("keydown", option);
+                Input_Text.removeEventListener("keydown", fightCommands);
               }
             } else {
               CurrentMap[playerPos].creature = null;
@@ -130,7 +130,7 @@ GS_Fight.runState = function (GameStateManager) {
                 map: CurrentMap
               });
 
-              Input_Text.removeEventListener("keydown", option);
+              Input_Text.removeEventListener("keydown", fightCommands);
             }
             break;
           case "RUN":
@@ -147,7 +147,7 @@ GS_Fight.runState = function (GameStateManager) {
                 map: CurrentMap
               });
 
-              Input_Text.removeEventListener("keydown", option);
+              Input_Text.removeEventListener("keydown", fightCommands);
             }
             break;
           default:
@@ -164,7 +164,7 @@ GS_Fight.runState = function (GameStateManager) {
   }
 
   // Initialise above function
-  Input_Text.addEventListener("keydown", option);
+  Input_Text.addEventListener("keydown", fightCommands);
   
 }
 
