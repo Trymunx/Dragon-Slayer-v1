@@ -30,8 +30,10 @@ function DisplayInventory (player) {
   var HPDisplay;
   if (player.attributes.currentHP > 10) {
     HPDisplay = "HP: <span class='hp-bar-player'>" + player.attributes.currentHP + "</span> / <span class='hp-bar-player'>" + player.attributes.totalHP + "</span>";    
-  } else {
+  } else if (player.attributes.currentHP > 0) {
     HPDisplay = "HP: <span class='hp-bar-foe'>" + player.attributes.currentHP + "</span> / <span class='hp-bar-player'>" + player.attributes.totalHP + "</span>";        
+  } else {
+    HPDisplay = "HP: <span class='hp-bar-foe'>" + 0 + "</span> / <span class='hp-bar-player'>" + player.attributes.totalHP + "</span>";
   }
   var PanelContent = HPDisplay + "\n" + inventoryString;
   document.getElementById("inventory").innerHTML = PanelContent;
