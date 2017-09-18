@@ -58,6 +58,18 @@ body {
   color: #477998;
 }
 
+.river {
+  color: #477998;
+}
+
+.bridge {
+  color: #7A4B3F;
+}
+
+.empty-tile {
+  color: #19603A;
+}
+
 #output-table>tr>.entity {
   /*grid-area: entity;*/
   width: 140px;
