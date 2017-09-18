@@ -65,6 +65,7 @@ body {
   padding: 3px 10px;
   color: var(--text-blur);
   background-color: var(--ui-dark);
+  text-transform: capitalize;
 }
 
 #output-table>tr>.messages {
