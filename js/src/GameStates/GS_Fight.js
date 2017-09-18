@@ -45,12 +45,38 @@ GS_Fight.runState = function (GameStateManager) {
             // Is the creature alive?
             if (Creature.attributes.currentHP > 0) {
               playerAttack(Creature);
+              // Is the creature still alive after player's attack?
+              if (Creature.attributes.currentHP <= 0) {
+                CurrentMap[playerPos].creature = null;
+                GameStateManager.emit("win", {
+                  player: Player,
+                  map: CurrentMap
+                });
+  
+                Input_Text.removeEventListener("keydown", fightCommands);
+              } else {
+                creatureAttack(Creature);
+                if (Player.currentHP <= 0) {
+                  GameStateManager.emit("slain", {
+                      player: Player
+                  });
+  
+                  Input_Text.removeEventListener("keydown", fightCommands);
+                }
+              }
             } else {
               Output.addElement({
                 "entity": "Error:",
                 "content": "It's already dead. Attacking it won't help."
-              })
-            }
+              });
+              CurrentMap[playerPos].creature = null;
+              GameStateManager.emit("win", {
+                player: Player,
+                map: CurrentMap
+              });
+
+              Input_Text.removeEventListener("keydown", fightCommands);
+            }/* 
             // Is the creature still alive?
             if (Creature.attributes.currentHP > 0) {
               creatureAttack(Creature);
@@ -69,7 +95,7 @@ GS_Fight.runState = function (GameStateManager) {
               });
 
               Input_Text.removeEventListener("keydown", fightCommands);
-            }
+            } */
             break;
           case "DRINK":
             drinkPotion();
