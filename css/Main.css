@@ -46,6 +46,14 @@ body {
   color: #318C5B;
 }
 
+.gold {
+  color: #D6C740;
+}
+
+.potions {
+  color: #477998;
+}
+
 #output-table>tr>.entity {
   /*grid-area: entity;*/
   width: 20%;

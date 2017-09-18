@@ -18,8 +18,8 @@ function DisplayInventory (player) {
     "  Boots: " + player.equipped.boots + "\n",
     "\n",
     "Inventory:\n",
-    "  Gold: " + player.inventory.gold + "\n",
-    "  Potions: " + player.inventory.potions + "\n",
+    "  Gold: <span class='gold'>" + player.inventory.gold + "</span>\n",
+    "  Potions: <span class='potions'>" + player.inventory.potions + "</span>\n",
     "  Items: " + itemList
   ];
   var inventoryString = "";
@@ -27,7 +27,12 @@ function DisplayInventory (player) {
     inventoryString += inventory[i];
   }
 
-  var HPDisplay = "<p class='hp-bar-player'>HP: " + player.attributes.currentHP + " / " + player.attributes.totalHP + "</p>";
+  var HPDisplay;
+  if (player.attributes.currentHP > 10) {
+    HPDisplay = "HP: <span class='hp-bar-player'>" + player.attributes.currentHP + "</span> / <span class='hp-bar-player'>" + player.attributes.totalHP + "</span>";    
+  } else {
+    HPDisplay = "HP: <span class='hp-bar-foe'>" + player.attributes.currentHP + "</span> / <span class='hp-bar-player'>" + player.attributes.totalHP + "</span>";        
+  }
   var PanelContent = HPDisplay + "\n" + inventoryString;
   document.getElementById("inventory").innerHTML = PanelContent;
 }
