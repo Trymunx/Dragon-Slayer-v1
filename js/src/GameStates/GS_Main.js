@@ -115,6 +115,7 @@ function commandParse(input, index) {
       MovePlayer(CurrentMap, "north");
       playerPos = PlayerPosition(CurrentMap);
       if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
+        Input_Text.removeEventListener("keydown", getInputAndParse);
         Output.addElement({
           "entity": "",
           "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
@@ -133,6 +134,7 @@ function commandParse(input, index) {
       MovePlayer(CurrentMap, "south");
       playerPos = PlayerPosition(CurrentMap);
       if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
+        Input_Text.removeEventListener("keydown", getInputAndParse);
         Output.addElement({
           "entity": "",
           "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
@@ -151,6 +153,7 @@ function commandParse(input, index) {
       MovePlayer(CurrentMap, "east");
       playerPos = PlayerPosition(CurrentMap);
       if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
+        Input_Text.removeEventListener("keydown", getInputAndParse);
         Output.addElement({
           "entity": "",
           "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
@@ -169,6 +172,7 @@ function commandParse(input, index) {
       MovePlayer(CurrentMap, "west");
       playerPos = PlayerPosition(CurrentMap);
       if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
+        Input_Text.removeEventListener("keydown", getInputAndParse);
         Output.addElement({
           "entity": "",
           "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
