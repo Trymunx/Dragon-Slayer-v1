@@ -274,7 +274,7 @@ function creatureHPBar(creature) {
 
   Output.addElement({
     "entity": "",
-    "content": "[" + bar + "] (" + hitpointsPercent + "%"
+    "content": "<p class='hp-bar-foe'>[" + bar + "] (" + hitpointsPercent + "%)</p>"
   });
 }
 
@@ -362,7 +362,7 @@ function playerHPBar(playerHP) {
   }
   Output.addElement({
     "entity": "",
-    "content": "[" + bar + "] (" + playerHP + "%)"
+    "content": "<p class='hp-bar-player'>[" + bar + "] (" + playerHP + "%)</p>"
   });
 }
 
