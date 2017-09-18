@@ -27,6 +27,7 @@ function initEventHandlers () {
   GameStateManager.on("generated", function (data) {
     Main.setPlayer(data.player);
     Main.setMap(data.map);
+    Main.includeGSManager(GameStateManager);
     Main.runState(GameStateManager);
   });
 
@@ -45,16 +46,22 @@ function initEventHandlers () {
   GameStateManager.on("exitShop", function (data) {
     Main.setPlayer(data.player);
     Main.setMap(data.map);
+    Main.includeGSManager(GameStateManager);
+    Main.runState(GameStateManager);
   });
 
   GameStateManager.on("win", function (data) {
     Main.setPlayer(data.player);
     Main.setMap(data.map);
+    Main.includeGSManager(GameStateManager);
+    Main.runState(GameStateManager);
   });
 
   GameStateManager.on("run", function (data) {
     Main.setPlayer(data.player);
     Main.setMap(data.map);
+    Main.includeGSManager(GameStateManager);
+    Main.runState(GameStateManager);
   });
 
   GameStateManager.on("slain", function (data) {
