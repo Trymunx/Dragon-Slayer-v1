@@ -11,6 +11,7 @@ const Look = require("../Look.js");
 var GS_Main = {};
 var Player;
 var CurrentMap;
+var GameStateManager;
 
 GS_Main.setPlayer = function (player) {
     Player = player;
@@ -20,34 +21,40 @@ GS_Main.setMap = function (map) {
     CurrentMap = map;
 }
 
-GS_Main.runState = function (GameStateManager) {
+GS_Main.includeGSManager = function (gsManager) {
+  GameStateManager = gsManager;
+}
 
-  // Receive command
-  function getInputAndParse (e) {
-    if (e.keyCode === 13) {
-      e.preventDefault();
+// Receive command
+function getInputAndParse (e) {
+  if (e.keyCode === 13) {
+    e.preventDefault();
 
-      let text = Input_Text.value;
+    let text = Input_Text.value;
 
-      if (text) {
-        Output.addElement({
-          "entity": Player.name,
-          "content": text
-        });
-        // Parse and process command
-        // Parse(text, Player, CurrentMap);
+    if (text) {
+      Output.addElement({
+        "entity": Player.name,
+        "content": text
+      });
+      // Parse and process command
+      // Parse(text, Player, CurrentMap);
 
-        playerPos = PlayerPosition(CurrentMap);
-        var command = text.toUpperCase().split(" ");
+      playerPos = PlayerPosition(CurrentMap);
+      var command = text.toUpperCase().split(" ");
 
-        commandParse(command, 0, GameStateManager)
-        // Input_Text.removeEventListener("keydown", getInputAndParse);
-      }
-
-      Input_Text.value = "";
-
+      commandParse(command, 0)
+      // Input_Text.removeEventListener("keydown", getInputAndParse);
     }
+
+    Input_Text.value = "";
+
   }
+}
+
+GS_Main.runState = function () {
+
+
 
   // Initialise above function
   Input_Text.addEventListener("keydown", getInputAndParse);
@@ -59,12 +66,12 @@ GS_Main.runState = function (GameStateManager) {
 module.exports = GS_Main;
 
 
-function commandParse(input, index, GameStateManager) {
+function commandParse(input, index) {
   switch (input[index]) {
     case "ATTACK":
       if (CurrentMap[playerPos].creature) {
-        Input_Text.removeEventListener("keydown", input);
-
+        Input_Text.removeEventListener("keydown", getInputAndParse);
+        playerPos = PlayerPosition(CurrentMap);
         GameStateManager.emit("fight", {
           player: Player,
           map: CurrentMap,
@@ -80,8 +87,8 @@ function commandParse(input, index, GameStateManager) {
       break;
     case "FIGHT":
       if (CurrentMap[playerPos].creature) {
-        Input_Text.removeEventListener("keydown", input);
-
+        Input_Text.removeEventListener("keydown", getInputAndParse);
+        playerPos = PlayerPosition(CurrentMap);
         GameStateManager.emit("fight", {
           player: Player,
           map: CurrentMap,
@@ -106,6 +113,7 @@ function commandParse(input, index, GameStateManager) {
       break;
     case "NORTH":
       MovePlayer(CurrentMap, "north");
+      playerPos = PlayerPosition(CurrentMap);
       if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
         Output.addElement({
           "entity": "",
@@ -123,6 +131,7 @@ function commandParse(input, index, GameStateManager) {
       break;
     case "SOUTH":
       MovePlayer(CurrentMap, "south");
+      playerPos = PlayerPosition(CurrentMap);
       if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
         Output.addElement({
           "entity": "",
@@ -140,6 +149,7 @@ function commandParse(input, index, GameStateManager) {
       break;
     case "EAST":
       MovePlayer(CurrentMap, "east");
+      playerPos = PlayerPosition(CurrentMap);
       if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
         Output.addElement({
           "entity": "",
@@ -157,6 +167,7 @@ function commandParse(input, index, GameStateManager) {
       break;
     case "WEST":
       MovePlayer(CurrentMap, "west");
+      playerPos = PlayerPosition(CurrentMap);
       if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
         Output.addElement({
           "entity": "",
