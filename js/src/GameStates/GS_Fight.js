@@ -42,6 +42,7 @@ GS_Fight.runState = function (GameStateManager) {
         var command = text.toUpperCase().split(" ");
         switch (command[0]) {
           case "ATTACK":
+            // Is the creature alive?
             if (Creature.attributes.currentHP > 0) {
               playerAttack(Creature);
             } else {
@@ -50,6 +51,7 @@ GS_Fight.runState = function (GameStateManager) {
                 "content": "It's already dead. Attacking it won't help."
               })
             }
+            // Is the creature still alive?
             if (Creature.attributes.currentHP > 0) {
               creatureAttack(Creature);
               if (Player.currentHP <= 0) {
