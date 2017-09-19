@@ -72,6 +72,10 @@ function commandParse(input, index) {
       if (CurrentMap[playerPos].creature) {
         Input_Text.removeEventListener("keydown", getInputAndParse);
         playerPos = PlayerPosition(CurrentMap);
+        Output.addElement({
+          "entity": "",
+          "content": "You are now fighting the " + CurrentMap[playerPos].creature.name + "."
+        });
         GameStateManager.emit("fight", {
           player: Player,
           map: CurrentMap,
@@ -89,6 +93,10 @@ function commandParse(input, index) {
       if (CurrentMap[playerPos].creature) {
         Input_Text.removeEventListener("keydown", getInputAndParse);
         playerPos = PlayerPosition(CurrentMap);
+        Output.addElement({
+          "entity": "",
+          "content": "You are now fighting the " + CurrentMap[playerPos].creature.name + "."
+        });
         GameStateManager.emit("fight", {
           player: Player,
           map: CurrentMap,

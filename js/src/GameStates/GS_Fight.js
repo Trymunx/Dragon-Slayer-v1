@@ -190,10 +190,10 @@ GS_Fight.runState = function (GameStateManager) {
     }
   }
 
-  Output.addElement({
-    "entity": "",
-    "content": "You are now fighting a " + Creature.name + "."
-  });
+  // Output.addElement({
+  //   "entity": "",
+  //   "content": "You are now fighting the " + Creature.name + "."
+  // });
   
   // Initialise above function
   Input_Text.addEventListener("keydown", fightCommands);
