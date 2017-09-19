@@ -82,7 +82,7 @@ function drawMap (map) {
       } else if (map[j].terrain === "bridgeUpper" || map[j].terrain === "bridgeLower") {
         mapContent[i] += "<span class='river'>| |</span>";
       } else {
-        mapContent[i] += "<span class='empty-tile'> · </span>";
+        mapContent[i] += "<span class='empty-tile'> · </span>"; // Can try to use ↟ to look like trees
       }
     }
   }
