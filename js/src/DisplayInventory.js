@@ -28,8 +28,10 @@ function DisplayInventory (player) {
   }
 
   var HPDisplay;
-  if (player.attributes.currentHP > 10) {
+  if (player.attributes.currentHP / player.attributes.totalHP > 0.25) {
     HPDisplay = "HP: <span class='hp-bar-player'>" + player.attributes.currentHP + "</span> / <span class='hp-bar-player'>" + player.attributes.totalHP + "</span>";    
+  } else if (player.attributes.currentHP / player.attributes.totalHP > 0.1) {
+    HPDisplay = "HP: <span class='hp-bar-warning'>" + player.attributes.currentHP + "</span> / <span class='hp-bar-player'>" + player.attributes.totalHP + "</span>";
   } else if (player.attributes.currentHP > 0) {
     HPDisplay = "HP: <span class='hp-bar-foe'>" + player.attributes.currentHP + "</span> / <span class='hp-bar-player'>" + player.attributes.totalHP + "</span>";        
   } else {
