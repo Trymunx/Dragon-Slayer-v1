@@ -49,6 +49,18 @@ function getInputAndParse (e) {
 
     Input_Text.value = "";
 
+  } else if (e.keyCode === 37) { // Left arrow key
+    e.preventDefault();
+    commandParse(["WEST"], 0);
+  } else if (e.keyCode === 38) { // Up arrow key
+    e.preventDefault();
+    commandParse(["NORTH"], 0);
+  } else if (e.keyCode === 39) { // Right arrow key
+    e.preventDefault();
+    commandParse(["EAST"], 0);
+  } else if (e.keyCode === 40) { // Down arrow key
+    e.preventDefault();
+    commandParse(["SOUTH"], 0);
   }
 }
 
@@ -123,76 +135,68 @@ function commandParse(input, index) {
       MovePlayer(CurrentMap, "north");
       playerPos = PlayerPosition(CurrentMap);
       if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
+        // Aggressive creatures attack on sight
         Input_Text.removeEventListener("keydown", getInputAndParse);
         Output.addElement({
           "entity": "",
           "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
         });
-        // Aggressive creatures attack on sight
         GameStateManager.emit("fight", {
           player: Player,
           map: CurrentMap,
           creature: CurrentMap[playerPos].creature
         });
-
-        // Input_Text.removeEventListener("keydown", command);
       }
       break;
     case "SOUTH":
       MovePlayer(CurrentMap, "south");
       playerPos = PlayerPosition(CurrentMap);
       if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
+        // Aggressive creatures attack on sight
         Input_Text.removeEventListener("keydown", getInputAndParse);
         Output.addElement({
           "entity": "",
           "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
         });
-        // Aggressive creatures attack on sight
         GameStateManager.emit("fight", {
           player: Player,
           map: CurrentMap,
           creature: CurrentMap[playerPos].creature
         });
-
-        // Input_Text.removeEventListener("keydown", command);
       }
       break;
     case "EAST":
       MovePlayer(CurrentMap, "east");
       playerPos = PlayerPosition(CurrentMap);
       if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
+        // Aggressive creatures attack on sight
         Input_Text.removeEventListener("keydown", getInputAndParse);
         Output.addElement({
           "entity": "",
           "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
         });
-        // Aggressive creatures attack on sight
         GameStateManager.emit("fight", {
           player: Player,
           map: CurrentMap,
           creature: CurrentMap[playerPos].creature
         });
-
-        // Input_Text.removeEventListener("keydown", command);
       }
       break;
     case "WEST":
       MovePlayer(CurrentMap, "west");
       playerPos = PlayerPosition(CurrentMap);
       if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
+        // Aggressive creatures attack on sight
         Input_Text.removeEventListener("keydown", getInputAndParse);
         Output.addElement({
           "entity": "",
           "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
         });
-        // Aggressive creatures attack on sight
         GameStateManager.emit("fight", {
           player: Player,
           map: CurrentMap,
           creature: CurrentMap[playerPos].creature
         });
-
-        // Input_Text.removeEventListener("keydown", command);
       }
       break;
     case "LOOK":
