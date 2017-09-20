@@ -450,6 +450,7 @@ function heal() {
       "entity": "",
       "content": "You tend to your wounds as best you can, healing " + healing + "HP."
     });
+    DisplayInventory(Player);
     playerHPReport(Player);
   } else { // Heal up to 8HP
     let healing = Math.round(RNG(1, 8));
@@ -458,6 +459,7 @@ function heal() {
       "entity": "",
       "content": "You tend to your wounds as best you can, healing " + healing + "HP."
     });
+    DisplayInventory(Player);
     playerHPReport(Player);
   }
 }
