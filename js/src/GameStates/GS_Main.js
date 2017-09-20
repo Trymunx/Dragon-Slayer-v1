@@ -5,6 +5,8 @@ const Output = require("../../Output.js");
 const DrawMap = require("../DrawMap.js");
 const PlayerPosition = require("../PlayerPosition.js");
 const Look = require("../Look.js");
+const DisplayInventory = require("../DisplayInventory.js");
+const RNG = require("../utils/RNG.js");
 // const Parse = require("../Parse.js");
 
 
@@ -202,6 +204,27 @@ function commandParse(input, index) {
     case "LOOK":
       Look(CurrentMap);
       break;
+    case "POTION":
+      drinkPotion();
+      break;
+    case "DRINK":
+      if (input[1] === "POTION") {
+        drinkPotion();
+      } else if (input.length > 1) {
+        Output.addElement({
+          "entity": "",
+          "content": "You can't drink the " + input[1].toLowerCase() + "!"
+        });
+      } else {
+        Output.addElement({
+          "entity": "Error:",
+          "content": "Drink what?"
+        });
+      }
+      break;
+    case "HEAL":
+      heal();
+      break;
     case "RESTART":
       Input_Text.removeEventListener("keydown", getInputAndParse);
       GameStateManager.emit("start");
@@ -211,5 +234,55 @@ function commandParse(input, index) {
         "entity": "Error:",
         "content": "At this time, you can only enter [NORTH / SOUTH / EAST / WEST / ATTACK / LOOK / RESTART]."
       });
+  }
+}
+
+function drinkPotion() {
+  if (Player.attributes.currentHP >= Player.attributes.totalHP) {
+    Output.addElement({
+      "entity": "",
+      "content": "You already have full health!"
+    });
+  } else {
+    if (Player.inventory.potions > 0) {
+      let healing = (Math.min(50, Player.attributes.totalHP - Player.attributes.currentHP));
+      Player.attributes.currentHP += healing;
+      Player.inventory.potions--;
+      Output.addElement({
+        "entity": "",
+        "content": "You drink a potion, restoring " + healing + "HP. You have " + Player.inventory.potions + " potions remaining."
+      });
+      DisplayInventory(Player);
+    } else {
+      Output.addElement({
+        "entity": "",
+        "content": "You have no potions left to drink!"
+      });
+    } 
+  }
+}
+
+function heal() {
+  if (Player.attributes.currentHP >= Player.attributes.totalHP) { // Don't heal at full HP
+    Output.addElement({
+      "entity": "",
+      "content": "You already have full health!"
+    });
+  } else if (Player.attributes.currentHP >= Player.attributes.totalHP - 8) { // Heal up to full HP but not over it (with limit of 8HP)
+    let healing = Math.round(RNG(1, (100 - Player.attributes.currentHP)));
+    Player.attributes.currentHP += healing;
+    Output.addElement({
+      "entity": "",
+      "content": "You tend to your wounds as best you can, healing " + healing + "HP."
+    });
+    DisplayInventory(Player);
+  } else { // Heal up to 8HP
+    let healing = Math.round(RNG(1, 8));
+    Player.attributes.currentHP += healing;
+    Output.addElement({
+      "entity": "",
+      "content": "You tend to your wounds as best you can, healing " + healing + "HP."
+    });
+    DisplayInventory(Player);
   }
 }
