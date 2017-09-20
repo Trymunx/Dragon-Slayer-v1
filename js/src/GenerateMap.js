@@ -1,6 +1,6 @@
 "use strict"
 const RNG = require("./utils/RNG.js");
-const newCreature = require("./NewCreature.js");
+const Creature = require("./NewCreature.js");
 const CreatureDb = require("../db/Creatures.json");
 const creatures = Object.keys(CreatureDb);
 
@@ -144,7 +144,7 @@ function genMap(sideLength) {
       // Check to see if there is a creature on that tile, if not set to null
       var spawnedCreature = spawnCreature();
       if (spawnedCreature !== "none") {
-        map[i].creature = newCreature(spawnedCreature);
+        map[i].creature = new Creature(spawnedCreature);
       } else {
         map[i].creature = null;
       }
