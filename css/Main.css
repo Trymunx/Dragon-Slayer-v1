@@ -133,7 +133,7 @@ body {
   background-color: var(--ui-darker);
   border-color: var(--ui-border);
   font-family: "SourceCode Pro", monospace;
-  font-size: 0.65vw;
+  font-size: 0.9em;
   white-space: pre-wrap;
   align-content: center;
   min-width: 70px;
