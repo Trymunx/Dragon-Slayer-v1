@@ -20,8 +20,7 @@ function CreatureClass(creatureJson) {
 	// Set creature totalHP and currentHP equeal to a random value between min and max HP values.
 	this.attributes.totalHP = this.attributes.currentHP = Math.round(RNG(jsonAttributes.minTotalHP, jsonAttributes.maxTotalHP));
 	this.attributes.aggressive = jsonAttributes.agressive;
-	/* Not convinced that this is an attribute */
-	this.healthBar = jsonAttributes.healthBar;
+	this.attributes.healthBar = jsonAttributes.healthBar;
 	/* Don't care about spawnchance etc. so leave it out
     "attributes": {
       "maxTotalHP": 50000,
