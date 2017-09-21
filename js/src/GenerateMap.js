@@ -1,6 +1,6 @@
 "use strict"
 const RNG = require("./utils/RNG.js");
-const Creature = require("./NewCreature.js");
+const Creature = require("./Creature.js");//Changed to point to new creature creation file
 const CreatureDb = require("../db/Creatures.json");
 const creatures = Object.keys(CreatureDb);
 
