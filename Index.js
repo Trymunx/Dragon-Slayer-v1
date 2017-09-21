@@ -6,4 +6,4 @@
 // Run Game immediately
 const begin = require("./js/src/GameStateManager.js");
 
-window.onLoad = begin;
+begin();
