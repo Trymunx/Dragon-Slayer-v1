@@ -231,6 +231,7 @@ function creatureHPReport (creature) {
       "entity": "",
       "content": "You have slain the " + creature.name + ". You have " + Player.attributes.currentHP + "HP remaining."
     });
+    if (creature !== "dragon") { Player.creaturesSlain.slainNonDragon = true; }
     Player.creaturesSlain.total++;
     Player.creaturesSlain.byType[creature.name].totalSlain++;
     creatureDrop(creature);

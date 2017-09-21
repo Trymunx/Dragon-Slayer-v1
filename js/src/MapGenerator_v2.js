@@ -77,7 +77,7 @@ function generateMap (nodes) {
   // Loop through until all nodes have been placed
   for (let n = nodes; n > 0; n--) {
     map[lastNodeX][lastNodeY] = addNode();
-    var nodeList += [lastNodeX, lastNodeY];
+    nodeList += [lastNodeX, lastNodeY];
   }
 
 }
