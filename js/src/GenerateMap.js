@@ -1,6 +1,6 @@
 "use strict"
 const RNG = require("./utils/RNG.js");
-const Creature = require("./Creature.js");//Changed to point to new creature creation file
+const NewCreature = require("./Creature.js");
 const CreatureDb = require("../db/Creatures.json");
 const creatures = Object.keys(CreatureDb);
 
@@ -110,29 +110,6 @@ function genMap(sideLength) {
         riverAtBottom = true;
       }
     }
-
-
-  //   // Starting position somewhere along top of map
-  //   var riverStart = Math.round(RNG(sideLength-1));
-  //   map[riverStart].terrain = "river";
-  //   var lastRiverTile = riverStart;
-  //   var riverTile;
-  //
-  //   for (i = 1; i < sideLength; i++) {
-  //     if (lastRiverTile % sideLength === 0) { // last tile is on the left edge of the map
-  //       riverTile = Math.round(RNG((lastRiverTile + sideLength), (lastRiverTile + sideLength + 1)));
-  //       map[riverTile].terrain = "river";
-  //       lastRiverTile = riverTile;
-  //     } else if ((lastRiverTile + 1) % sideLength === 0) { // last tile is on the right edge of map
-  //       riverTile = Math.round(RNG((lastRiverTile + sideLength - 1), (lastRiverTile + sideLength)));
-  //       map[riverTile].terrain = "river";
-  //       lastRiverTile = riverTile;
-  //     } else { // Start is not at an edge
-  //       riverTile = Math.round(RNG((lastRiverTile + sideLength - 1), (lastRiverTile + sideLength + 1)));
-  //       map[riverTile].terrain = "river";
-  //       lastRiverTile = riverTile;
-  //     }
-  //   }
   }
 
   // Generate up to one creature per empty tile
@@ -144,7 +121,7 @@ function genMap(sideLength) {
       // Check to see if there is a creature on that tile, if not set to null
       var spawnedCreature = spawnCreature();
       if (spawnedCreature !== "none") {
-        map[i].creature = new Creature(spawnedCreature);
+        map[i].creature = NewCreature(spawnedCreature);
       } else {
         map[i].creature = null;
       }
