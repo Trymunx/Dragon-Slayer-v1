@@ -66,6 +66,7 @@ function initEventHandlers () {
 
   GameStateManager.on("slain", function (data) {
     EndGame.setPlayer(data.player);
+    EndGame.runState(GameStateManager);
   });
 }
 
