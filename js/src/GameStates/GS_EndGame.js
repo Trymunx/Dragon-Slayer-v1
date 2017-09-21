@@ -1,4 +1,5 @@
 const Output = require("../../Output.js");
+const CreatureDb = require("../../db/Creatures.json");
 // const Input_Text = document.getElementById("input-text");
 
 var GS_EndGame = {};
@@ -22,38 +23,36 @@ module.exports = GS_EndGame;
 function endGameReport() {
   
       //Check for dragons slain
-      if (Player.creaturesSlain.byType.dragon.totalSlain !== 0) {
-        if (Player.creaturesSlain.byType.dragon.totalSlain === 1) {
+      if (Player.creaturesSlain.byType.dragon !== 0) {
+        if (Player.creaturesSlain.byType.dragon === 1) {
           Output.addElement({
             "entity": "",
             "content": "You slayed a dragon."
           });
-        } else if (Player.creaturesSlain.byType.dragon.totalSlain < 5) {
+        } else if (Player.creaturesSlain.byType.dragon < 5) {
           Output.addElement({
             "entity": "",
-            "content": "You are a mighty warrior, you slayed " + Player.creaturesSlain.byType.dragon.totalSlain + " dragons!"
+            "content": "You are a mighty warrior, you slayed " + Player.creaturesSlain.byType.dragon + " dragons!"
           });
         } else { // dragonsSlain > 5
           Output.addElement({
             "entity": "",
-            "content": "Congratulations, you are a champion. You slayed " + Player.creaturesSlain.byType.dragon.totalSlain + " dragons!"
+            "content": "Congratulations, you are a champion. You slayed " + Player.creaturesSlain.byType.dragon + " dragons!"
           });
         }
       }
       // Check for other creatures slain
-      if (player.creaturesSlain.slainNonDragon) {
+      if (Player.creaturesSlain.slainNonDragon) {
         var creaturesSlainOutput = [];
-        for (let i = 0; i < player.creaturesSlain.byType.length; i++) {
-          creaturesSlainOutput += " " + player.creaturesSlain.byType[i].totalSlain + " ";
-          if (player.creaturesSlain.byType[i].totalSlain === 1) {
-            creaturesSlainOutput += Object.keys(player.creaturesSlain.byType[i]);
-          } else {
-            creaturesSlainOutput += player.creaturesSlain.byType[i].namePlural;
+        for (let key in Player.creaturesSlain.byType) {
+          if (Player.creaturesSlain.byType[key]) {
+            creaturesSlainOutput.push(Player.creaturesSlain.byType[key] + " " + 
+              (Player.creaturesSlain.byType[key] === 1 ? CreatureDb[key].name : CreatureDb[key].namePlural));
           }
         }
         Output.addElement({
           "entity": "",
-          "content": "You slayed" + creaturesSlainOutput + " and earned " + player.inventory.gold + " gold."
+          "content": "You slayed " + creaturesSlainOutput.join(", ") + " and earned " + Player.inventory.gold + " gold."
         });
       } else {
         Output.addElement({

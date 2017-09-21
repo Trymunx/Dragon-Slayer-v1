@@ -56,7 +56,7 @@ GS_Fight.runState = function (GameStateManager) {
                 Input_Text.removeEventListener("keydown", fightCommands);
               } else {
                 creatureAttack(Creature);
-                if (Player.currentHP <= 0) {
+                if (Player.attributes.currentHP <= 0) {
                   GameStateManager.emit("slain", {
                       player: Player
                   });
@@ -233,7 +233,7 @@ function creatureHPReport (creature) {
     });
     if (creature !== "dragon") { Player.creaturesSlain.slainNonDragon = true; }
     Player.creaturesSlain.total++;
-    Player.creaturesSlain.byType[creature.name].totalSlain++;
+    Player.creaturesSlain.byType[creature.key]++;
     creatureDrop(creature);
   }
 }
