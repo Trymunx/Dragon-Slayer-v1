@@ -1,6 +1,8 @@
 const getPlayerPosition = require("./PlayerPosition.js");
 const Output = require("../Output.js");
 
+var sideLength = Math.sqrt(map.length);
+
 function look(map) {
   var playerPos = getPlayerPosition(map);
 
@@ -24,6 +26,20 @@ function look(map) {
     });
     // console.log("You look around but see nothing but trees.");
   }
+
+  
+  // Check for creatures to the North, South, East and West
+
+  if (playerPos % sideLength === 0) { // Player is at left hand side of map
+    // Don't look West
+  } else if ((playerPos + 1) % sideLength === 0) { // Player is at RHS of map
+    // Don't look East
+  } else if (playerPos - sideLength < 0) { // Player is at top of map
+    // Don't look North
+  } else if (playerPos + sideLength > map.length) { // Player is at bottom of map
+    // Don't look South
+  }
+
 }
 
 module.exports = look;
