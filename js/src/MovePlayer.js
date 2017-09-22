@@ -100,7 +100,11 @@ function movePlayer(map, compassPoint) {
 
   DrawMap(map);
   if (map[playerPos].creature) {
-    Look(map);
+    Output.addElement({
+      "entity": "",
+      "content": "There is a " + map[playerPos].creature.name + " here."
+    });
+    
   }
 }
 
