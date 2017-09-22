@@ -3,29 +3,11 @@ const DrawMap = require("./DrawMap.js");
 const Look = require("./Look.js");
 const Output = require("../Output.js");
 
-function movePlayer(map, direction) {
+function movePlayer(map, compassPoint) {
   var sideLength = Math.sqrt(map.length);
 
   var playerPos = getPlayerPosition(map);
   var oldPlayerPos = playerPos;
-  var compassPoint;
-
-  switch (direction) {
-    case "up":
-      compassPoint = "north";
-      break;
-    case "down":
-      compassPoint = "south";
-      break;
-    case "right":
-      compassPoint = "east";
-      break;
-    case "left":
-      compassPoint = "west";
-      break;
-    default:
-      compassPoint = direction;
-  }
 
   switch(compassPoint) {
     case "north":
