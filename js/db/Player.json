@@ -18,8 +18,8 @@
     "head": "None",
     "torso": "Tunic",
     "legs": "Trousers",
-    "rightHand": "None",
-    "leftHand": "None",
+    "rightHand": "Rusty dagger",
+    "leftHand": "Battered old shield",
     "gloves": "None",
     "boots": "Old shoes"
   },
