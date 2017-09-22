@@ -117,7 +117,9 @@ function movePlayer(map, direction) {
   map[playerPos].playerIsHere = true;
 
   DrawMap(map);
-  Look(map);
+  if (map[playerPos].creature) {
+    Look(map);
+  }
 }
 
 module.exports = movePlayer;
