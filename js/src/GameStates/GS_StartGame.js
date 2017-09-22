@@ -30,15 +30,21 @@ GS_StartGame.runState = function (GameStateManager) {
         Player = NewPlayer(name)
         Output.addElement({
           "entity": "Welcome,",
-          "content": name
+          "content": name + "."
         });
       } else {
         Player = NewPlayer();
         Output.addElement({
           "entity": "Welcome,",
-          "content": Player.name
+          "content": Player.name + "."
         });
       }
+
+      Output.addElement({
+        "entity": "",
+        "content": "To move, enter compass directions or use the arrow keys. Enter [ ATTACK ] to fight a creature, [ LOOK ] to see what's around you and [ NEW MAP ] to spawn in a new map."
+      });
+      
 
       Input_Text.value = "";
 

@@ -69,7 +69,6 @@ function getInputAndParse (e) {
 GS_Main.runState = function () {
 
 
-
   // Initialise above function
   Input_Text.addEventListener("keydown", getInputAndParse);
   
@@ -228,6 +227,27 @@ function commandParse(input, index) {
     case "RESTART":
       Input_Text.removeEventListener("keydown", getInputAndParse);
       GameStateManager.emit("start");
+      break;
+    case "?":
+      Output.addElement({
+        "entity": "Help:",
+        "content": "To move, enter compass directions or use the arrow keys. Enter [ ATTACK ] to fight a creature, [ LOOK ] to see what's around you and [ NEW MAP ] to spawn in a new map."
+      });
+      break;
+    case "HELP":
+      commandParse(["?"], 0);
+      break;
+    case "NEW":
+      if (input[1] === "MAP") {
+        GameStateManager.emit("playerCreated", {
+          player: Player
+        });
+      } else {
+        Output.addElement({
+          "entity": "Error:",
+          "content": "I don't know what a new " + input[1].toLowerCase() + " is!"
+        });
+      }
       break;
     default:
       Output.addElement({
