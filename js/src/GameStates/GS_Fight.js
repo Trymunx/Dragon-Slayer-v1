@@ -80,7 +80,7 @@ GS_Fight.runState = function (GameStateManager) {
             // Is the creature still alive?
             if (Creature.attributes.currentHP > 0) {
               creatureAttack(Creature);
-              if (Player.currentHP <= 0) {
+              if (Player.attributes.currentHP <= 0) {
                 GameStateManager.emit("slain", {
                     player: Player
                 });
@@ -101,7 +101,7 @@ GS_Fight.runState = function (GameStateManager) {
             drinkPotion();
             if (Creature.attributes.currentHP > 0) {
               creatureAttack(Creature);
-              if (Player.currentHP <= 0) {
+              if (Player.attributes.currentHP <= 0) {
                 GameStateManager.emit("slain", {
                     player: Player
                 });
@@ -122,7 +122,7 @@ GS_Fight.runState = function (GameStateManager) {
             drinkPotion();
             if (Creature.attributes.currentHP > 0) {
               creatureAttack(Creature);
-              if (Player.currentHP <= 0) {
+              if (Player.attributes.currentHP <= 0) {
                 GameStateManager.emit("slain", {
                     player: Player
                 });
@@ -143,7 +143,7 @@ GS_Fight.runState = function (GameStateManager) {
             heal();
             if (Creature.attributes.currentHP > 0) {
               creatureAttack(Creature);
-              if (Player.currentHP <= 0) {
+              if (Player.attributes.currentHP <= 0) {
                 GameStateManager.emit("slain", {
                     player: Player
                 });
