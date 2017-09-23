@@ -6,10 +6,10 @@ function look(map) {
 
   var sideLength = Math.sqrt(map.length);
   
-  var north = playerPos - sideLength;
-  var south = playerPos + sideLength;
-  var east  = playerPos + 1;
-  var west  = playerPos - 1;
+  var north = { "position":(playerPos - sideLength), "name":"North" };
+  var south = { "position":(playerPos + sideLength), "name":"South" };
+  var east  = { "position":(playerPos + 1), "name":"East" };
+  var west  = { "position":(playerPos - 1), "name":"West" };
   
   if (map[playerPos].creature) {
     Output.addElement({
@@ -28,35 +28,35 @@ function look(map) {
   
   if (playerPos % sideLength === 0) { // Player is at left hand side of map
     // Don't look West
-    lookNorth();
-    lookSouth();
-    lookEast();
+    lookAdjacent(north);
+    lookAdjacent(south);
+    lookAdjacent(east);
   } else if ((playerPos + 1) % sideLength === 0) { // Player is at RHS of map
     // Don't look East
-    lookNorth();
-    lookSouth();
-    lookWest();
+    lookAdjacent(north);
+    lookAdjacent(south);
+    lookAdjacent(west);
   } else if (playerPos - sideLength < 0) { // Player is at top of map
     // Don't look North
-    lookSouth();
-    lookEast();
-    lookWest();
+    lookAdjacent(south);
+    lookAdjacent(east);
+    lookAdjacent(west);
   } else if (playerPos + sideLength > map.length) { // Player is at bottom of map
     // Don't look South
-    lookNorth();
-    lookEast();
-    lookWest();
+    lookAdjacent(north);
+    lookAdjacent(east);
+    lookAdjacent(west);
   } else { // Player is not at an edge
-    lookNorth();
-    lookSouth();
-    lookEast();
-    lookWest();
+    lookAdjacent(north);
+    lookAdjacent(south);
+    lookAdjacent(east);
+    lookAdjacent(west);
   }
 
   if (surroundingCreatures.length > 0) {
     Output.addElement({
       "entity": "",
-      "content": "You can see a " + surroundingCreatures.join(", a ") + "."
+      "content": "You can see a " + joinSurroundingCreatures(surroundingCreatures) + "."
     });
   } else {
     Output.addElement({
@@ -65,27 +65,25 @@ function look(map) {
     });
   }
 
-  function lookNorth() {
-    if (map[north].creature) {
-      surroundingCreatures.push(map[north].creature.name + " to the North");
-    }
-  }
-  function lookSouth() {
-    if (map[south].creature) {
-      surroundingCreatures.push(map[south].creature.name + " to the South");
-    }
-  }
-  function lookEast() {
-    if (map[east].creature) {
-      surroundingCreatures.push(map[east].creature.name + " to the East");
-    }
-  }
-  function lookWest() {
-    if (map[west].creature) {
-      surroundingCreatures.push(map[west].creature.name + " to the West");
+  function lookAdjacent(direction) {
+    if (map[direction.position].creature) {
+      surroundingCreatures.push(map[direction.position].creature.name + " to the " + direction.name);
     }
   }
 
 }
 
 module.exports = look;
+
+function joinSurroundingCreatures(surroundingCreatures) {
+  var lookOutput;
+  if (surroundingCreatures.length > 1) {
+    var lastCreature = surroundingCreatures.pop();
+    
+    lookOutput = surroundingCreatures.join(", a ");
+    lookOutput += " and a " + lastCreature;
+  } else {
+    lookOutput = surroundingCreatures;
+  }
+  return lookOutput;
+}
