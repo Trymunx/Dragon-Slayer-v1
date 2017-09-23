@@ -122,7 +122,7 @@ body {
   color: var(--text);
   font-size: 0.95em;
   font-family: "SourceCode Pro", monospace;
-  caret-color: transparent;
+  caret-color: var(--text-blur);
 }
 
 #map {
