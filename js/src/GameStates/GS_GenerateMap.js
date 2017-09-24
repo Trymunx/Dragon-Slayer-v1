@@ -1,4 +1,3 @@
-const EventEmitter = require('events').EventEmitter;
 const genMap = require("../GenerateMap.js");
 const drawMap = require("../DrawMap.js");
 const RNG = require("../utils/RNG.js");
