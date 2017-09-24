@@ -9,11 +9,35 @@ const DisplayInventory = require("../DisplayInventory.js");
 const RNG = require("../utils/RNG.js");
 // const Parse = require("../Parse.js");
 
-
 var GS_Main = {};
 var Player;
 var CurrentMap;
 var GameStateManager;
+
+var commands = [
+  "ATTACK",
+  "FIGHT",
+  "MOVE",
+  "WALK",
+  "GO",
+  "NORTH",
+  "SOUTH",
+  "EAST",
+  "WEST",
+  "LOOK",
+  "NEW MAP",
+  "REST",
+  "POTION",
+  "DRINK POTION"
+];
+
+var directions = [
+  "AROUND",
+  "NORTH",
+  "SOUTH",
+  "EAST",
+  "WEST"
+]
 
 GS_Main.setPlayer = function (player) {
     Player = player;
@@ -50,6 +74,8 @@ function getInputAndParse (e) {
     }
 
     Input_Text.value = "";
+    // tabCompletion.enteredText = "";
+    // tabCompletion.currentIndex = 0;
 
   } else if (e.keyCode === 37) { // Left arrow key
     e.preventDefault();
@@ -63,6 +89,24 @@ function getInputAndParse (e) {
   } else if (e.keyCode === 40) { // Down arrow key
     e.preventDefault();
     commandParse(["SOUTH"], 0);
+  // } else if (e.keyCode === 9) {
+  //   let text = Input_Text.value;
+  //   if (text === "") {
+  //     validCompletions = commands.slice();
+  //   } else {
+  //     if (validCompletions.length === 0) {
+  //       var command = text.toUpperCase().split("");
+  //       var validCompletions = [];
+  //       for (let option in commands) {
+  //         if (option.startsWith(text)) {
+  //           validCompletions.push(option);
+  //         }
+  //       }
+  //       Input_Text.value = validCompletions[]
+  //     } else {
+  //       validCompletions.shift();
+  //     }
+  //   }
   }
 }
 
@@ -177,7 +221,18 @@ function commandParse(input, index) {
       }
       break;
     case "LOOK":
-      Look(CurrentMap);
+      if (directions.includes(input[1])) {
+        Look(CurrentMap, input[1]);
+        DrawMap(CurrentMap);
+      } else if (input[1] === "AT") {
+        commandParse(["LOOK", input[2]], 0);
+      } else {
+        Output.addElement({
+          "entity": "",
+          "content": "Look at what? Try a direction, or \"LOOK AROUND\" for the surroundings."
+        });
+        
+      }
       break;
     case "POTION":
       drinkPotion();
@@ -197,8 +252,8 @@ function commandParse(input, index) {
         });
       }
       break;
-    case "HEAL":
-      heal();
+    case "REST":
+      rest();
       break;
     case "RESTART":
       Input_Text.removeEventListener("keydown", getInputAndParse);
@@ -256,7 +311,7 @@ function drinkPotion() {
   }
 }
 
-function heal() {
+function rest() {
   if (Player.attributes.currentHP >= Player.attributes.totalHP) { // Don't heal at full HP
     Output.addElement({
       "entity": "",
@@ -280,3 +335,30 @@ function heal() {
     DisplayInventory(Player);
   }
 }
+
+
+/*
+  text = text.toUpperCase();
+
+  matchedCommands = [];
+
+  for (let command of commands) {
+    let possible = true;
+
+    let i = 0;
+    while (i < command.length && i < text.length) {
+      if (text.charAt(i) === command.charAt(i)) {
+        i++;
+      } else {
+        possible = false;
+        break;
+      }
+    }
+    
+    if (possible) {
+      matchedCommands.push(command);
+    }
+  }
+
+  return matchedCommands;
+*/
