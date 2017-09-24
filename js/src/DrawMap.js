@@ -29,7 +29,7 @@ function drawMap (map) {
 
   // Second and third lines are always blank
   drawnMap[1] = blankLine;
-  drawnMap[2] = blankLine
+  drawnMap[2] = blankLine;
 
   // Bottom border is always underscores padded with pipes
   var bottomBorder = "{";
