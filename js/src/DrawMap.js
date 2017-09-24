@@ -49,12 +49,6 @@ function drawMap (map) {
   }
   for (var i = 0; i < sideLength; i++) {
     for (let j = (i * sideLength); j < ((i + 1) * sideLength); j++) {
-      // // First check for bridgeUpper
-      // if (map[j+sideLength].terrain === "bridgeUpper") {
-      //
-      // } else if (map[j+sideLength].terrain === "bridgeLower") { // Then check for bridgeLower
-      //
-      // }
       if (map[j].terrain === "river") {
         if ((j + sideLength) < map.length) {
           if (map[(j+sideLength - 1)].terrain === "river") {
@@ -107,34 +101,3 @@ function drawMap (map) {
 }
 
 module.exports = drawMap;
-
-
-
-//
-// if (j % sideLength === 0) {
-//   if (map[j].terrain === "river") {
-//     if ((j + sideLength) < map.length) {
-//       if (map[(j+sideLength - 1)].terrain === "river") {
-//         mapContent[i] = "/ /";
-//       } else if (map[(j+sideLength)].terrain === "river") {
-//         mapContent[i] = "| |";
-//       } else {
-//         mapContent[i] = "\\ \\";
-//       }
-//     } else {
-//       if (map[(j-sideLength - 1)].terrain === "river") {
-//         mapContent[i] = "/ /";
-//       } else if (map[(j-sideLength)].terrain === "river") {
-//         mapContent[i] = "| |";
-//       } else {
-//         mapContent[i] = "\\ \\";
-//       }
-//     }
-//   } else if (map[j].playerIsHere) {
-//     mapContent[i] = " * ";
-//   } else if (map[j].creature !== null) {
-//     mapContent[i] = " " + map[j].creature.attributes.healthBar + " ";
-//   } else {
-//     mapContent[i] = " · ";
-//   }
-// } else {
