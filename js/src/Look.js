@@ -28,29 +28,18 @@ function look(map) {
   
   if (playerPos % sideLength === 0) { // Player is at left hand side of map
     // Don't look West
-    lookAdjacent(north);
-    lookAdjacent(south);
-    lookAdjacent(east);
+    lookAdjacent(north, south, east);
   } else if ((playerPos + 1) % sideLength === 0) { // Player is at RHS of map
     // Don't look East
-    lookAdjacent(north);
-    lookAdjacent(south);
-    lookAdjacent(west);
+    lookAdjacent(north, south, west);
   } else if (playerPos - sideLength < 0) { // Player is at top of map
     // Don't look North
-    lookAdjacent(south);
-    lookAdjacent(east);
-    lookAdjacent(west);
+    lookAdjacent(south, east, west);
   } else if (playerPos + sideLength > map.length) { // Player is at bottom of map
     // Don't look South
-    lookAdjacent(north);
-    lookAdjacent(east);
-    lookAdjacent(west);
+    lookAdjacent(north, east, west);
   } else { // Player is not at an edge
-    lookAdjacent(north);
-    lookAdjacent(south);
-    lookAdjacent(east);
-    lookAdjacent(west);
+    lookAdjacent(north, south, east, west);
   }
 
   if (surroundingCreatures.length > 0) {
@@ -65,9 +54,12 @@ function look(map) {
     });
   }
 
-  function lookAdjacent(direction) {
-    if (map[direction.position].creature) {
-      surroundingCreatures.push(map[direction.position].creature.name + " to the " + direction.name);
+  function lookAdjacent(...args) {
+    for (let direction of args) {
+      if (map[direction.position].creature) {
+        surroundingCreatures.push(map[direction.position].creature.name + " to the " + direction.name);
+      }
+      map[direction.position].playerHasSeen = true;
     }
   }
 
