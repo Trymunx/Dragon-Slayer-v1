@@ -82,26 +82,6 @@ module.exports = GS_Main;
 function commandParse(input, index) {
   switch (input[index]) {
     case "ATTACK":
-      if (CurrentMap[playerPos].creature) {
-        Input_Text.removeEventListener("keydown", getInputAndParse);
-        playerPos = PlayerPosition(CurrentMap);
-        Output.addElement({
-          "entity": "",
-          "content": "You are now fighting the " + CurrentMap[playerPos].creature.name + "."
-        });
-        GameStateManager.emit("fight", {
-          player: Player,
-          map: CurrentMap,
-          creature: CurrentMap[playerPos].creature
-        });
-
-      } else {
-        Output.addElement({
-          "entity": "Error:",
-          "content": "There's nothing here to attack!"
-        });
-      }
-      break;
     case "FIGHT":
       if (CurrentMap[playerPos].creature) {
         Input_Text.removeEventListener("keydown", getInputAndParse);
@@ -124,11 +104,7 @@ function commandParse(input, index) {
       }
       break;
     case "WALK":
-      commandParse(input, 1);
-      break;
     case "MOVE":
-      commandParse(input, 1);
-      break;
     case "GO":
       commandParse(input, 1);
       break;
@@ -229,13 +205,11 @@ function commandParse(input, index) {
       GameStateManager.emit("start");
       break;
     case "?":
+    case "HELP":
       Output.addElement({
         "entity": "Help:",
         "content": "To move, enter compass directions or use the arrow keys. Enter [ ATTACK ] to fight a creature, [ LOOK ] to see what's around you and [ NEW MAP ] to spawn in a new map."
       });
-      break;
-    case "HELP":
-      commandParse(["?"], 0);
       break;
     case "NEW":
       if (input[1] === "MAP") {
@@ -252,7 +226,7 @@ function commandParse(input, index) {
     default:
       Output.addElement({
         "entity": "Error:",
-        "content": "At this time, you can only enter [NORTH / SOUTH / EAST / WEST / ATTACK / LOOK / RESTART]."
+        "content": "Unknown command, type \"help\" or \"?\" for help."
       });
   }
 }
