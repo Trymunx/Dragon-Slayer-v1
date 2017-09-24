@@ -47,7 +47,7 @@ function genMap(sideLength) {
       "items": [],
       "structures": [],
       "terrain": [],
-      "playerHasVisited": false
+      "playerHasSeen": false
     };
   }
 
@@ -137,7 +137,7 @@ function genMap(sideLength) {
       randPos = Math.round(RNG(mapSize-1));
     } else {
       map[randPos].playerIsHere = true;
-      map[randPos].playerHasVisited = true;
+      map[randPos].playerHasSeen = true;
       playerPlaced = true;
     }
   }
