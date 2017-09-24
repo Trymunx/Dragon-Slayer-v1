@@ -56,7 +56,7 @@ function look(map) {
   if (surroundingCreatures.length > 0) {
     Output.addElement({
       "entity": "",
-      "content": "You can see a " + joinSurroundingCreatures(surroundingCreatures) + "."
+      "content": "You see a " + joinSurroundingCreatures(surroundingCreatures) + "."
     });
   } else {
     Output.addElement({
