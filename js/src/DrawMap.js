@@ -1,6 +1,3 @@
-"use strict"
-// const mapGen = require("./mapGen.js");
-
 // Creates an ASCII version of the map
 function drawMap (map) {
   // Work out side length
@@ -92,7 +89,6 @@ function drawMap (map) {
   }
   let mapOutput = "";
   for (let i in drawnMap) {
-    // console.log(drawnMap[i]);
     mapOutput += drawnMap[i] + "<br>";
   }
 
