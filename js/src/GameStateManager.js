@@ -1,6 +1,6 @@
 const StartGame = require("./GameStates/GS_StartGame.js");
 const GenerateMap = require("./GameStates/GS_GenerateMap.js");
-const Main = require("./GameStates/GS_Main.js");
+const Main = require("./GameStates/GS_OffPath.js");
 const Shop = require("./GameStates/GS_Shop.js");
 const Fight = require("./GameStates/GS_Fight.js");
 const EndGame = require("./GameStates/GS_EndGame.js");

@@ -9,7 +9,7 @@ const DisplayInventory = require("../DisplayInventory.js");
 const RNG = require("../utils/RNG.js");
 // const Parse = require("../Parse.js");
 
-var GS_Main = {};
+var GS_OffPath = {};
 var Player;
 var CurrentMap;
 var GameStateManager;
@@ -39,15 +39,15 @@ var directions = [
   "WEST"
 ]
 
-GS_Main.setPlayer = function (player) {
+GS_OffPath.setPlayer = function (player) {
     Player = player;
 }
 
-GS_Main.setMap = function (map) {
+GS_OffPath.setMap = function (map) {
     CurrentMap = map;
 }
 
-GS_Main.includeGSManager = function (gsManager) {
+GS_OffPath.includeGSManager = function (gsManager) {
   GameStateManager = gsManager;
 }
 
@@ -110,7 +110,7 @@ function getInputAndParse (e) {
   }
 }
 
-GS_Main.runState = function () {
+GS_OffPath.runState = function () {
 
 
   // Initialise above function
@@ -120,7 +120,7 @@ GS_Main.runState = function () {
 
 }
 
-module.exports = GS_Main;
+module.exports = GS_OffPath;
 
 
 function commandParse(input, index) {
