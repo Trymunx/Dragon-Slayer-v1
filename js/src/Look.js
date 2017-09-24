@@ -1,7 +1,7 @@
 const getPlayerPosition = require("./PlayerPosition.js");
 const Output = require("../Output.js");
 
-var surroundingCreatures = [];
+var surroundingsOutput = [];
 
 function look(map, atWhat) {
   var playerPos = getPlayerPosition(map);
@@ -63,15 +63,15 @@ function look(map, atWhat) {
 
 module.exports = look;
 
-function joinSurroundingCreatures(surroundingCreatures) {
+function joinSurroundingsOutput(surroundingsOutput) {
   var lookOutput;
-  if (surroundingCreatures.length > 1) {
-    var lastCreature = surroundingCreatures.pop();
+  if (surroundingsOutput.length > 1) {
+    var lastCreature = surroundingsOutput.pop();
     
-    lookOutput = surroundingCreatures.join(", a ");
+    lookOutput = surroundingsOutput.join(", a ");
     lookOutput += " and a " + lastCreature;
   } else {
-    lookOutput = surroundingCreatures;
+    lookOutput = surroundingsOutput;
   }
   return lookOutput;
 }
@@ -79,7 +79,11 @@ function joinSurroundingCreatures(surroundingCreatures) {
 function lookAdjacent(map, ...args) {
   for (let direction of args) {
     if (map[direction.position].creature) {
-      surroundingCreatures.push(map[direction.position].creature.name + " to the " + direction.name);
+      surroundingsOutput.push(map[direction.position].creature.name + " to the " + direction.name);
+    } else if (map[direction.position].terrain === "river" || map[direction.position].terrain === "bridgeUpper" || map[direction.position].terrain === "bridgeLower") {
+      surroundingsOutput.push("river to the " + direction.name);
+    } else if (map[direction.position].terrain === "bridge") {
+      surroundingsOutput.push("bridge to the " + direction.name);
     }
   }
   if (args.length > 1) {
@@ -90,12 +94,12 @@ function lookAdjacent(map, ...args) {
 }
 
 function lookOutput(where) {
-  if (surroundingCreatures.length > 0) {
+  if (surroundingsOutput.length > 0) {
     Output.addElement({
       "entity": "",
-      "content": "You see a " + joinSurroundingCreatures(surroundingCreatures) + "."
+      "content": "You see a " + joinSurroundingsOutput(surroundingsOutput) + "."
     });
-    surroundingCreatures = [];
+    surroundingsOutput = [];
   } else {
     Output.addElement({
       "entity": "",
