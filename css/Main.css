@@ -181,7 +181,7 @@ body {
 .wrapper {
   display: flex;
   display: grid;
-  grid-template-columns: 6fr auto;
+  grid-template-columns: 6fr 418px;
   grid-template-rows: auto 4fr 30px;
   grid-template-areas:
     "output map"
