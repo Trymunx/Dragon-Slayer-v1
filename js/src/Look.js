@@ -59,7 +59,6 @@ function look(map) {
       if (map[direction.position].creature) {
         surroundingCreatures.push(map[direction.position].creature.name + " to the " + direction.name);
       }
-      map[direction.position].playerHasSeen = true;
     }
   }
 
