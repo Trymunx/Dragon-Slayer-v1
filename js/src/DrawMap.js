@@ -46,34 +46,38 @@ function drawMap (map) {
   }
   for (var i = 0; i < sideLength; i++) {
     for (let j = (i * sideLength); j < ((i + 1) * sideLength); j++) {
-      if (map[j].terrain === "river") {
-        if ((j + sideLength) < map.length) {
-          if (map[(j+sideLength - 1)].terrain === "river") {
-            mapContent[i] += "<span class='river'>/ /</span>";
-          } else if (map[(j+sideLength)].terrain === "river") {
-            mapContent[i] += "<span class='river'>| |</span>";
+      if (map[j].playerHasSeen) {
+        if (map[j].terrain === "river") {
+          if ((j + sideLength) < map.length) {
+            if (map[(j+sideLength - 1)].terrain === "river") {
+              mapContent[i] += "<span class='river'>/ /</span>";
+            } else if (map[(j+sideLength)].terrain === "river") {
+              mapContent[i] += "<span class='river'>| |</span>";
+            } else {
+              mapContent[i] += "<span class='river'>\\ \\</span>";
+            }
           } else {
-            mapContent[i] += "<span class='river'>\\ \\</span>";
+            if (map[(j-sideLength - 1)].terrain === "river") {
+              mapContent[i] += "<span class='river'>/ /</span>";
+            } else if (map[(j-sideLength)].terrain === "river") {
+              mapContent[i] += "<span class='river'>| |</span>";
+            } else {
+              mapContent[i] += "<span class='river'>\\ \\</span>";
+            }
           }
+        } else if (map[j].playerIsHere) {
+          mapContent[i] += "[*]";
+        } else if (map[j].creature !== null) {
+          mapContent[i] += " " + map[j].creature.attributes.healthBar + " ";
+        } else if (map[j].terrain === "bridge") {
+          mapContent[i] += "<span class='bridge'>III</span>";
+        } else if (map[j].terrain === "bridgeUpper" || map[j].terrain === "bridgeLower") {
+          mapContent[i] += "<span class='river'>| |</span>";
         } else {
-          if (map[(j-sideLength - 1)].terrain === "river") {
-            mapContent[i] += "<span class='river'>/ /</span>";
-          } else if (map[(j-sideLength)].terrain === "river") {
-            mapContent[i] += "<span class='river'>| |</span>";
-          } else {
-            mapContent[i] += "<span class='river'>\\ \\</span>";
-          }
+          mapContent[i] += "<span class='empty-tile'> ↟ </span>"; // If ↟ causes problems when displaying, use · instead
         }
-      } else if (map[j].playerIsHere) {
-        mapContent[i] += "[*]";
-      } else if (map[j].creature !== null) {
-        mapContent[i] += " " + map[j].creature.attributes.healthBar + " ";
-      } else if (map[j].terrain === "bridge") {
-        mapContent[i] += "<span class='bridge'>III</span>";
-      } else if (map[j].terrain === "bridgeUpper" || map[j].terrain === "bridgeLower") {
-        mapContent[i] += "<span class='river'>| |</span>";
       } else {
-        mapContent[i] += "<span class='empty-tile'> ↟ </span>"; // If ↟ causes problems when displaying, use · instead
+        mapContent[i] += "   ";
       }
     }
   }
