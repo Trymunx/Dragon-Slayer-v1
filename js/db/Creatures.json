@@ -428,7 +428,7 @@
         "chance": 0.06,
         "minDamage": 5,
         "maxDamage": 12,
-               "message": [
+               "messages": [
           "The thief draws his dagger and lunges, stabbing you for ",
           "The thief manages to get behind you and stabs you with his dagger. You lose "
         ]
