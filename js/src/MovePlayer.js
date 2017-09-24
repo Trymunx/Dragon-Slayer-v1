@@ -97,6 +97,7 @@ function movePlayer(map, compassPoint) {
   // Move player to the new position
   map[oldPlayerPos].playerIsHere = false;
   map[playerPos].playerIsHere = true;
+  map[playerPos].playerHasVisited = true;
 
   DrawMap(map);
   if (map[playerPos].creature) {
