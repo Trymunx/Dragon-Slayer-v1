@@ -206,7 +206,7 @@ module.exports = GS_Fight;
 
 function playerAttack(creature) {
   if (RNG() < Player.attributes.attackChance) {
-    let damage = Math.round(RNG(1, Player.attributes.maxDamage));
+    let damage = Math.round(RNG(1, (Player.attributes.strength * Player.attributes.level)));
     creature.attributes.currentHP -= damage;
     Output.addElement({
       "entity": "",
@@ -237,6 +237,7 @@ function creatureHPReport (creature) {
     Player.creaturesSlain.total++;
     Player.creaturesSlain.byType[creature.key]++;
     creatureDrop(creature);
+    playerExperienceGain(creature);
   }
 }
 
@@ -452,4 +453,16 @@ function drinkPotion() {
     } 
   }
   playerHPReport(Player);
+}
+
+function playerExperienceGain(creature) {
+  Player.attributes.experience += Math.round(creature.attributes.totalHP * 0.15)
+  while (Player.attributes.experience >= (100 * Player.attributes.level)) {
+    Player.attributes.experience -= (Player.attributes.level * 100)
+    Player.attributes.level++;
+    Output.addElement({
+      "entity": "",
+      "content": "Congratulations!\nYou are now level " + Player.attributes.level + "."
+    });
+  }
 }
