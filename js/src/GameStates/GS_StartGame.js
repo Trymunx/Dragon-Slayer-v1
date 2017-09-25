@@ -42,7 +42,7 @@ GS_StartGame.runState = function (GameStateManager) {
 
       Output.addElement({
         "entity": "",
-        "content": "To move, enter compass directions or use the arrow keys. Enter [ ATTACK ] to fight a creature, [ LOOK ] to see what's around you and [ NEW MAP ] to spawn in a new map."
+        "content": "To move, enter compass directions or use the arrow keys. Enter [ ATTACK ] to fight a creature and [ LOOK AROUND ] to see what's around you."
       });
       
 
