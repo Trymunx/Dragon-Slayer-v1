@@ -1,3 +1,4 @@
+const Splash = require("./splash/Splash.json");
 // Creates an ASCII version of the map
 function drawMap (map) {
   // Work out side length
@@ -44,7 +45,7 @@ function drawMap (map) {
   for (let i = 0; i < sideLength; i++) {
     mapContent[i] = "";
   }
-  for (var i = 0; i < sideLength; i++) {
+  for (let i = 0; i < sideLength; i++) {
     for (let j = (i * sideLength); j < ((i + 1) * sideLength); j++) {
       if (map[j].playerHasSeen) {
         if (map[j].terrain === "river") {
@@ -98,6 +99,7 @@ function drawMap (map) {
 
 
   document.getElementById("map").innerHTML = mapOutput;
+  // document.getElementById("map").innerHTML = Splash["PathMap"];
 }
 
 module.exports = drawMap;
