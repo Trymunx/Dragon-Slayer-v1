@@ -7,7 +7,7 @@ const Input_Text = document.getElementById("input-text");
 
 var GS_StartGame = {};
 var Player;
-var Trymunx = Splash["Trymunx"];
+var Trymunx = Splash["TrymunxLarge"];
 
 
 GS_StartGame.runState = function (GameStateManager) {
