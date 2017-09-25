@@ -158,7 +158,7 @@ function revealSurroundings (playerPos, sideLength, map) {
     if (playerPos - sideLength < 0) { // Player is at top of map
       // Don't look North or West
       revealAdjacent(map, south, east);
-    } else if (playerPos + sideLength > map.length) { // Player is at bottom of map
+    } else if (playerPos + sideLength >= map.length) { // Player is at bottom of map
       // Don't look South or West
       revealAdjacent(map, north, east);
     }  else {
@@ -169,7 +169,7 @@ function revealSurroundings (playerPos, sideLength, map) {
     if (playerPos - sideLength < 0) { // Player is at top of map
       // Don't look North or East
       revealAdjacent(map, south, west);
-    } else if (playerPos + sideLength > map.length) { // Player is at bottom of map
+    } else if (playerPos + sideLength >= map.length) { // Player is at bottom of map
       // Don't look South or East
       revealAdjacent(map, north, west);
     }  else {
@@ -179,7 +179,7 @@ function revealSurroundings (playerPos, sideLength, map) {
   } else if (playerPos - sideLength < 0) { // Player is at top of map
     // Don't look North
     revealAdjacent(map, south, east, west);
-  } else if (playerPos + sideLength > map.length) { // Player is at bottom of map
+  } else if (playerPos + sideLength >= map.length) { // Player is at bottom of map
     // Don't look South
     revealAdjacent(map, north, east, west);
   } else { // Player is not at an edge

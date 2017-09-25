@@ -30,7 +30,7 @@ function movePlayer(map, compassPoint) {
       }
       break;
     case "south":
-      if (playerPos + sideLength > map.length) {
+      if (playerPos + sideLength >= map.length) {
         Output.addElement({
           "entity": "",
           "content": "You can't move any further South!"
@@ -92,7 +92,7 @@ function movePlayer(map, compassPoint) {
         "content": "Direction not found. Please enter North, South, East or West."
       });
       break;
-    }
+  }
 
   // Move player to the new position
   map[oldPlayerPos].playerIsHere = false;
@@ -108,8 +108,8 @@ function movePlayer(map, compassPoint) {
     if (playerPos - sideLength < 0) { // Player is at top of map
       // Don't look North or West
       revealAdjacent(map, south, east);
-    } else if (playerPos + sideLength > map.length) { // Player is at bottom of map
-      // Don't look South or West
+    } else if (playerPos + sideLength >= map.length) { // Player is at bottom of map
+      // Don't look South or West   
       revealAdjacent(map, north, east);
     }  else {
       // Don't look West
@@ -119,7 +119,7 @@ function movePlayer(map, compassPoint) {
     if (playerPos - sideLength < 0) { // Player is at top of map
       // Don't look North or East
       revealAdjacent(map, south, west);
-    } else if (playerPos + sideLength > map.length) { // Player is at bottom of map
+    } else if (playerPos + sideLength >= map.length) { // Player is at bottom of map
       // Don't look South or East
       revealAdjacent(map, north, west);
     }  else {
@@ -129,7 +129,7 @@ function movePlayer(map, compassPoint) {
   } else if (playerPos - sideLength < 0) { // Player is at top of map
     // Don't look North
     revealAdjacent(map, south, east, west);
-  } else if (playerPos + sideLength > map.length) { // Player is at bottom of map
+  } else if (playerPos + sideLength >= map.length) { // Player is at bottom of map
     // Don't look South
     revealAdjacent(map, north, east, west);
   } else { // Player is not at an edge
