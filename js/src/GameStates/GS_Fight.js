@@ -140,12 +140,35 @@ GS_Fight.runState = function (GameStateManager) {
             }
             break;
           case "RUN":
-            if (Creature.attributes.aggressive) {
+            if (Creature.attributes.aggressive && (2 * RNG(Creature.attributes.currentHP)) > RNG(Creature.attributes.totalHP)) {
               Output.addElement({
                 "entity": "",
                 "content": "The " + Creature.name + " stops you from running away!"
               });
+              if (Creature.attributes.currentHP > 0) {
+                creatureAttack(Creature);
+                if (Player.attributes.currentHP <= 0) {
+                  GameStateManager.emit("slain", {
+                      player: Player
+                  });
+  
+                  Input_Text.removeEventListener("keydown", fightCommands);
+                }
+              } else {
+                CurrentMap[playerPos].creature = null;
+                GameStateManager.emit("win", {
+                  player: Player,
+                  map: CurrentMap
+                });
+  
+                Input_Text.removeEventListener("keydown", fightCommands);
+              }
             } else {
+              Output.addElement({
+                "entity": "",
+                "content": "You manage to get away!"
+              });
+              
               // Stop creatures from regaining full HP after you run away
               CurrentMap[playerPos].creature.attributes.currentHP = Creature.attributes.currentHP;
               GameStateManager.emit("run", {
