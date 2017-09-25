@@ -139,27 +139,6 @@ GS_Fight.runState = function (GameStateManager) {
               Input_Text.removeEventListener("keydown", fightCommands);
             }
             break;
-          case "HEAL":
-            heal();
-            if (Creature.attributes.currentHP > 0) {
-              creatureAttack(Creature);
-              if (Player.attributes.currentHP <= 0) {
-                GameStateManager.emit("slain", {
-                    player: Player
-                });
-
-                Input_Text.removeEventListener("keydown", fightCommands);
-              }
-            } else {
-              CurrentMap[playerPos].creature = null;
-              GameStateManager.emit("win", {
-                player: Player,
-                map: CurrentMap
-              });
-
-              Input_Text.removeEventListener("keydown", fightCommands);
-            }
-            break;
           case "RUN":
             if (Creature.attributes.aggressive) {
               Output.addElement({
@@ -180,7 +159,7 @@ GS_Fight.runState = function (GameStateManager) {
           default:
             Output.addElement({
               "entity": "Error:",
-              "content": "At this time, you can only enter [ATTACK / DRINK POTION / HEAL / RUN]."
+              "content": "At this time, you can only enter [ATTACK / DRINK POTION / RUN]."
             });
             break;
         }
@@ -277,6 +256,20 @@ function creatureDrop(creature) {
       "content": "The " + creature.name + " drops " + goldDrop + " gold and " + potionDrop + (potionDrop === 1 ? " potion." : " potions.")
     });
   }
+  // Drop items on ground
+  // if (creature.drops.equipment.length > 0) {
+  //   drops.push({
+  //     "item": creature.drops.equipment[RNG(creature.drops.equipment.length - 1)],
+  //     "quantity": 1
+  //   });
+  // }
+  // for (let item of creature.drops.items) {
+  //   drops.push({
+  //     "item": item,
+  //     "quantity": 1
+  //   });
+  // }
+
   DisplayInventory(Player);
 }
 
@@ -436,31 +429,4 @@ function drinkPotion() {
     } 
   }
   playerHPReport(Player);
-}
-
-function heal() {
-  if (Player.attributes.currentHP >= Player.attributes.totalHP) { // Don't heal at full HP
-    Output.addElement({
-      "entity": "",
-      "content": "You already have full health!"
-    });
-  } else if (Player.attributes.currentHP >= Player.attributes.totalHP - 8) { // Heal up to full HP but not over it (with limit of 8HP)
-    let healing = Math.round(RNG(1, (100 - Player.attributes.currentHP)));
-    Player.attributes.currentHP += healing;
-    Output.addElement({
-      "entity": "",
-      "content": "You tend to your wounds as best you can, healing " + healing + "HP."
-    });
-    DisplayInventory(Player);
-    playerHPReport(Player);
-  } else { // Heal up to 8HP
-    let healing = Math.round(RNG(1, 8));
-    Player.attributes.currentHP += healing;
-    Output.addElement({
-      "entity": "",
-      "content": "You tend to your wounds as best you can, healing " + healing + "HP."
-    });
-    DisplayInventory(Player);
-    playerHPReport(Player);
-  }
 }
