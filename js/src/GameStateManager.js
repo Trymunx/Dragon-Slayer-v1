@@ -21,7 +21,27 @@ function initEventHandlers () {
 
   GameStateManager.on("playerCreated", function (data) {
     GenerateMap.setPlayer(data.player);
-    GenerateMap.runState(GameStateManager);
+    GenerateMap.runState(GameStateManager, "none");
+  });
+
+  GameStateManager.on("atNorthEdge", function (data) {
+    GenerateMap.setPlayer(data.player);
+    GenerateMap.runState(GameStateManager, "south");
+  });
+
+  GameStateManager.on("atSouthEdge", function (data) {
+    GenerateMap.setPlayer(data.player);
+    GenerateMap.runState(GameStateManager, "north");
+  });
+
+  GameStateManager.on("atEastEdge", function (data) {
+    GenerateMap.setPlayer(data.player);
+    GenerateMap.runState(GameStateManager, "west");
+  });
+
+  GameStateManager.on("atWestEdge", function (data) {
+    GenerateMap.setPlayer(data.player);
+    GenerateMap.runState(GameStateManager, "east");
   });
 
   GameStateManager.on("generated", function (data) {

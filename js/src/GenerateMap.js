@@ -36,7 +36,7 @@ function spawnCreature() {
   return creatureSpawned;
 }
 
-function genMap(sideLength) {
+function genMap(sideLength, edge) {
   var mapSize = sideLength * sideLength;
   var map = [];
 
@@ -129,16 +129,40 @@ function genMap(sideLength) {
     }
   }
 
-  // Place player on an empty tile
-  var randPos = Math.round(RNG(mapSize-1));
+  function randomPosition(edge) {
+    let position;
+    switch (edge) {
+      case "none":
+        position = Math.round(RNG(mapSize-1));
+        break;
+      case "north":
+        position = Math.round(RNG(sideLength-1));
+        break;
+      case "south":
+        position = (mapSize - 1) - Math.round(RNG(sideLength-1));
+        break;
+      case "east":
+        position = (Math.round(RNG(sideLength))*sideLength)-1;
+        break;
+      case "west":
+        position = Math.round(RNG(sideLength-1))*sideLength;
+        break;
+    }
+  
+    return position;
+  }
+
+  // Place player on an empty tile based off edge argument
+  var playerPos = randomPosition(edge);  
   var playerPlaced = false;
   while (!playerPlaced) {
-    if (map[randPos].creature !== null || map[randPos].terrain.length !== 0) {
-      randPos = Math.round(RNG(mapSize-1));
+    if (map[playerPos].terrain.length !== 0) {
+      playerPos = randomPosition(edge);
     } else {
-      map[randPos].playerIsHere = true;
-      map[randPos].playerHasSeen = true;
-      revealSurroundings(randPos, sideLength, map);
+      map[playerPos].creature = null;
+      map[playerPos].playerIsHere = true;
+      map[playerPos].playerHasSeen = true;
+      revealSurroundings(playerPos, sideLength, map);
       playerPlaced = true;
     }
   }
@@ -192,3 +216,4 @@ function revealAdjacent(map, ...args) {
     map[direction.position].playerHasSeen = true;
   }
 }
+

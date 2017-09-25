@@ -11,6 +11,7 @@ const RNG = require("../utils/RNG.js");
 var GS_OffPath = {};
 var Player;
 var CurrentMap;
+var sideLength;
 var GameStateManager;
 
 var commands = [
@@ -44,6 +45,7 @@ GS_OffPath.setPlayer = function (player) {
 
 GS_OffPath.setMap = function (map) {
     CurrentMap = map;
+    sideLength = Math.sqrt(map.length);
 }
 
 GS_OffPath.includeGSManager = function (gsManager) {
@@ -152,71 +154,120 @@ function commandParse(input, index) {
       commandParse(input, 1);
       break;
     case "NORTH":
-      MovePlayer(CurrentMap, "north");
+      // Player position before move: check if at North edge
       playerPos = PlayerPosition(CurrentMap);
-      if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
-        // Aggressive creatures attack on sight
-        Input_Text.removeEventListener("keydown", getInputAndParse);
+      if (playerPos - sideLength < 0) {
         Output.addElement({
           "entity": "",
-          "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
+          "content": "Walking North, you think you see the edge of the trees but emerge instead in more dense forest."
         });
-        GameStateManager.emit("fight", {
-          player: Player,
-          map: CurrentMap,
-          creature: CurrentMap[playerPos].creature
+        GameStateManager.emit("atNorthEdge", {
+          player: Player
         });
+      } else {
+        MovePlayer(CurrentMap, "north");
+        // Update player position to new place
+        playerPos = PlayerPosition(CurrentMap);
+        if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
+          // Aggressive creatures attack on sight
+          Input_Text.removeEventListener("keydown", getInputAndParse);
+          Output.addElement({
+            "entity": "",
+            "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
+          });
+          GameStateManager.emit("fight", {
+            player: Player,
+            map: CurrentMap,
+            creature: CurrentMap[playerPos].creature
+          });
+        }
       }
       break;
     case "SOUTH":
-      MovePlayer(CurrentMap, "south");
+      //Player position before move: check if at South edge
       playerPos = PlayerPosition(CurrentMap);
-      if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
-        // Aggressive creatures attack on sight
-        Input_Text.removeEventListener("keydown", getInputAndParse);
+      if (playerPos + sideLength >= CurrentMap.length) {
         Output.addElement({
           "entity": "",
-          "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
+          "content": "Walking South, you think you see the edge of the trees but emerge instead in more dense forest."
         });
-        GameStateManager.emit("fight", {
-          player: Player,
-          map: CurrentMap,
-          creature: CurrentMap[playerPos].creature
+        GameStateManager.emit("atSouthEdge", {
+          player: Player
         });
+      } else {
+        MovePlayer(CurrentMap, "south");
+        playerPos = PlayerPosition(CurrentMap);
+        if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
+          // Aggressive creatures attack on sight
+          Input_Text.removeEventListener("keydown", getInputAndParse);
+          Output.addElement({
+            "entity": "",
+            "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
+          });
+          GameStateManager.emit("fight", {
+            player: Player,
+            map: CurrentMap,
+            creature: CurrentMap[playerPos].creature
+          });
+        }
       }
       break;
     case "EAST":
-      MovePlayer(CurrentMap, "east");
+      //Player position before move: check if at East edge
       playerPos = PlayerPosition(CurrentMap);
-      if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
-        // Aggressive creatures attack on sight
-        Input_Text.removeEventListener("keydown", getInputAndParse);
+      if ((playerPos + 1) % sideLength === 0) {
         Output.addElement({
           "entity": "",
-          "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
+          "content": "Walking East, you think you see the edge of the trees but emerge instead in more dense forest."
         });
-        GameStateManager.emit("fight", {
-          player: Player,
-          map: CurrentMap,
-          creature: CurrentMap[playerPos].creature
+        GameStateManager.emit("atEastEdge", {
+          player: Player
         });
+      } else {
+        MovePlayer(CurrentMap, "east");
+        playerPos = PlayerPosition(CurrentMap);
+        if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
+          // Aggressive creatures attack on sight
+          Input_Text.removeEventListener("keydown", getInputAndParse);
+          Output.addElement({
+            "entity": "",
+            "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
+          });
+          GameStateManager.emit("fight", {
+            player: Player,
+            map: CurrentMap,
+            creature: CurrentMap[playerPos].creature
+          });
+        }
       }
       break;
     case "WEST":
-      MovePlayer(CurrentMap, "west");
+      //Player position before move: check if at West edge
       playerPos = PlayerPosition(CurrentMap);
-      if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
-        // Aggressive creatures attack on sight
-        Input_Text.removeEventListener("keydown", getInputAndParse);
+      if (playerPos % sideLength === 0) {
         Output.addElement({
           "entity": "",
-          "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
+          "content": "Walking West, you think you see the edge of the trees but emerge instead in more dense forest."
         });
-        GameStateManager.emit("fight", {
-          player: Player,
-          map: CurrentMap,
-          creature: CurrentMap[playerPos].creature
+        GameStateManager.emit("atWestEdge", {
+          player: Player
         });
+      } else {
+        MovePlayer(CurrentMap, "west");
+        playerPos = PlayerPosition(CurrentMap);
+        if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
+          // Aggressive creatures attack on sight
+          Input_Text.removeEventListener("keydown", getInputAndParse);
+          Output.addElement({
+            "entity": "",
+            "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
+          });
+          GameStateManager.emit("fight", {
+            player: Player,
+            map: CurrentMap,
+            creature: CurrentMap[playerPos].creature
+          });
+        }
       }
       break;
     case "LOOK":
@@ -265,18 +316,18 @@ function commandParse(input, index) {
         "content": "To move, enter compass directions or use the arrow keys. Enter [ ATTACK ] to fight a creature, [ LOOK ] to see what's around you and [ NEW MAP ] to spawn in a new map."
       });
       break;
-    case "NEW":
-      if (input[1] === "MAP") {
-        GameStateManager.emit("playerCreated", {
-          player: Player
-        });
-      } else {
-        Output.addElement({
-          "entity": "Error:",
-          "content": "I don't know what a new " + input[1].toLowerCase() + " is!"
-        });
-      }
-      break;
+    // case "NEW":
+    //   if (input[1] === "MAP") {
+    //     GameStateManager.emit("playerCreated", {
+    //       player: Player
+    //     });
+    //   } else {
+    //     Output.addElement({
+    //       "entity": "Error:",
+    //       "content": "I don't know what a new " + input[1].toLowerCase() + " is!"
+    //     });
+    //   }
+    //   break;
     default:
       Output.addElement({
         "entity": "Error:",

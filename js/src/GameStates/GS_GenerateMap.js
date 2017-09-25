@@ -9,9 +9,9 @@ GS_GenerateMap.setPlayer = function (player) {
     Player = player;
 }
 
-GS_GenerateMap.runState = function (GameStateManager) {
+GS_GenerateMap.runState = function (GameStateManager, edge) {
     // var CurrentMap = genMap(Math.round(RNG(8, 20)));
-    var CurrentMap = genMap(12)
+    var CurrentMap = genMap(12, edge)
     drawMap(CurrentMap);
 
     GameStateManager.emit("generated", {
