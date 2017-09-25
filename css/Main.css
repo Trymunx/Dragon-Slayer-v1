@@ -135,7 +135,7 @@ body {
   font-family: "SourceCode Pro", monospace;
   font-size: 0.9em;
   white-space: pre-wrap;
-  align-content: center;
+  text-align: center;
   min-width: 70px;
   max-height: 75vh;
   overflow-y: auto;
@@ -181,7 +181,7 @@ body {
 .wrapper {
   display: flex;
   display: grid;
-  grid-template-columns: 6fr 418px;
+  grid-template-columns: 6fr 425px;
   grid-template-rows: auto 4fr 30px;
   grid-template-areas:
     "output map"
