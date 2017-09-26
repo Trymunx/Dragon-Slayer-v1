@@ -12,6 +12,7 @@ var CurrentMap;
 
 GS_Fight.setPlayer = function (player) {
   Player = player;
+  Player.hasRested = false;
 }
 
 GS_Fight.setCreature = function (creature) {

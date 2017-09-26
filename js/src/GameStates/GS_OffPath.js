@@ -303,7 +303,14 @@ function commandParse(input, index) {
       }
       break;
     case "REST":
-      rest();
+      if (Player.hasRested) {
+        Output.addElement({
+          "entity": "",
+          "content": "You already feel well rested, resting more will not help you."
+        });
+      } else {
+        rest();
+      }
       break;
     case "RESTART":
       Input_Text.removeEventListener("keydown", getInputAndParse);
@@ -372,7 +379,7 @@ function rest() {
     Player.attributes.currentHP += healing;
     Output.addElement({
       "entity": "",
-      "content": "You tend to your wounds as best you can, healing " + healing + "HP."
+      "content": "You sit and rest for a while, regaining " + healing + "HP."
     });
     DisplayInventory(Player);
   } else { // Heal up to 8HP
@@ -380,10 +387,11 @@ function rest() {
     Player.attributes.currentHP += healing;
     Output.addElement({
       "entity": "",
-      "content": "You tend to your wounds as best you can, healing " + healing + "HP."
+      "content": "You sit and rest for a while, regaining " + healing + "HP."
     });
     DisplayInventory(Player);
   }
+  Player.hasRested = true;
 }
 
 
