@@ -10,6 +10,14 @@ var Player;
 var Creature;
 var CurrentMap;
 
+var commands = [
+  "attack",
+  "hit",
+  "potion",
+  "drink potion",
+  "run"
+];
+
 GS_Fight.setPlayer = function (player) {
   Player = player;
   Player.hasRested = false;
@@ -40,65 +48,78 @@ GS_Fight.runState = function (GameStateManager) {
           "content": text
         });
         // Parse and process command
-        var command = text.toUpperCase().split(" ");
+        var command = text.toLowerCase().split(" ");
         switch (command[0]) {
-          case "ATTACK":
-            // Is the creature alive?
-            if (Creature.attributes.currentHP > 0) {
-              playerAttack(Creature);
-              // Is the creature still alive after player's attack?
-              if (Creature.attributes.currentHP <= 0) {
+          case "attack":
+          case "hit":
+            /* if (command.length > 2 && command[1] === "the" && command[2] !== Creature.name) {
+              Output.addElement({
+                "entity": "",
+                "content": "Attack the what? I don't know what the " + command.slice(2).join(" ") + " is."
+              });
+            } else  */if (command.length > 2 && command.slice(1).join(" ") !== Creature.name) {
+              Output.addElement({
+                "entity": "",
+                "content": "There isn't a " + command.slice(1).join(" ") + " to attack!"
+              });
+            } else {
+              // Is the creature alive?
+              if (Creature.attributes.currentHP > 0) {
+                playerAttack(Creature);
+                // Is the creature still alive after player's attack?
+                if (Creature.attributes.currentHP <= 0) {
+                  CurrentMap[playerPos].creature = null;
+                  GameStateManager.emit("win", {
+                    player: Player,
+                    map: CurrentMap
+                  });
+    
+                  Input_Text.removeEventListener("keydown", fightCommands);
+                } else {
+                  creatureAttack(Creature);
+                  if (Player.attributes.currentHP <= 0) {
+                    GameStateManager.emit("slain", {
+                        player: Player
+                    });
+    
+                    Input_Text.removeEventListener("keydown", fightCommands);
+                  }
+                }
+              } else {
+                Output.addElement({
+                  "entity": "Error:",
+                  "content": "It's already dead. Attacking it won't help."
+                });
                 CurrentMap[playerPos].creature = null;
                 GameStateManager.emit("win", {
                   player: Player,
                   map: CurrentMap
                 });
-  
+
                 Input_Text.removeEventListener("keydown", fightCommands);
-              } else {
+              }/* 
+              // Is the creature still alive?
+              if (Creature.attributes.currentHP > 0) {
                 creatureAttack(Creature);
                 if (Player.attributes.currentHP <= 0) {
                   GameStateManager.emit("slain", {
                       player: Player
                   });
-  
+
                   Input_Text.removeEventListener("keydown", fightCommands);
                 }
-              }
-            } else {
-              Output.addElement({
-                "entity": "Error:",
-                "content": "It's already dead. Attacking it won't help."
-              });
-              CurrentMap[playerPos].creature = null;
-              GameStateManager.emit("win", {
-                player: Player,
-                map: CurrentMap
-              });
-
-              Input_Text.removeEventListener("keydown", fightCommands);
-            }/* 
-            // Is the creature still alive?
-            if (Creature.attributes.currentHP > 0) {
-              creatureAttack(Creature);
-              if (Player.attributes.currentHP <= 0) {
-                GameStateManager.emit("slain", {
-                    player: Player
+              } else {
+                CurrentMap[playerPos].creature = null;
+                GameStateManager.emit("win", {
+                  player: Player,
+                  map: CurrentMap
                 });
 
                 Input_Text.removeEventListener("keydown", fightCommands);
-              }
-            } else {
-              CurrentMap[playerPos].creature = null;
-              GameStateManager.emit("win", {
-                player: Player,
-                map: CurrentMap
-              });
-
-              Input_Text.removeEventListener("keydown", fightCommands);
-            } */
+              } */
+            }
             break;
-          case "DRINK":
+          case "drink":
             drinkPotion();
             if (Creature.attributes.currentHP > 0) {
               creatureAttack(Creature);
@@ -119,7 +140,7 @@ GS_Fight.runState = function (GameStateManager) {
               Input_Text.removeEventListener("keydown", fightCommands);
             }
             break;
-          case "POTION":
+          case "potion":
             drinkPotion();
             if (Creature.attributes.currentHP > 0) {
               creatureAttack(Creature);
@@ -140,7 +161,7 @@ GS_Fight.runState = function (GameStateManager) {
               Input_Text.removeEventListener("keydown", fightCommands);
             }
             break;
-          case "RUN":
+          case "run":
             if (Creature.attributes.aggressive && (2 * RNG(Creature.attributes.currentHP)) > RNG(Creature.attributes.totalHP)) {
               Output.addElement({
                 "entity": "",
@@ -183,14 +204,19 @@ GS_Fight.runState = function (GameStateManager) {
           default:
             Output.addElement({
               "entity": "Error:",
-              "content": "At this time, you can only enter [ATTACK / DRINK POTION / RUN]."
+              "content": "At this time, you can only enter [attack / drink potion / run]."
             });
             break;
         }
       }
 
       Input_Text.value = "";
+
+    } else if (e.keyCode === 9) {
+      let text = Input_Text.value;
+      Input_Text.value = tabComplete(text);
     }
+
   }
 
   // Output.addElement({
@@ -473,4 +499,30 @@ function playerExperienceGain(creature) {
     });
   }
   DisplayInventory(Player);
+}
+
+function tabComplete(text) {
+  text = text.toLowerCase();
+
+  matchedCommands = [];
+
+  for (let command of commands) {
+    let possible = true;
+
+    let i = 0;
+    while (i < command.length && i < text.length) {
+      if (text.charAt(i) === command.charAt(i)) {
+        i++;
+      } else {
+        possible = false;
+        break;
+      }
+    }
+    
+    if (possible) {
+      matchedCommands.push(command);
+    }
+  }
+
+  return matchedCommands;
 }

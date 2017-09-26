@@ -15,28 +15,27 @@ var sideLength;
 var GameStateManager;
 
 var commands = [
-  "ATTACK",
-  "FIGHT",
-  "MOVE",
-  "WALK",
-  "GO",
-  "NORTH",
-  "SOUTH",
-  "EAST",
-  "WEST",
-  "LOOK",
-  "NEW MAP",
-  "REST",
-  "POTION",
-  "DRINK POTION"
+  "attack",
+  "fight",
+  "move",
+  "walk",
+  "go",
+  "north",
+  "south",
+  "east",
+  "west",
+  "look",
+  "rest",
+  "potion",
+  "drink potion"
 ];
 
 var directions = [
-  "AROUND",
-  "NORTH",
-  "SOUTH",
-  "EAST",
-  "WEST"
+  "around",
+  "north",
+  "south",
+  "east",
+  "west"
 ]
 
 GS_OffPath.setPlayer = function (player) {
@@ -68,7 +67,7 @@ function getInputAndParse (e) {
       // Parse(text, Player, CurrentMap);
 
       playerPos = PlayerPosition(CurrentMap);
-      var command = text.toUpperCase().split(" ");
+      var command = text.toLowerCase().split(" ");
 
       commandParse(command, 0)
       // Input_Text.removeEventListener("keydown", getInputAndParse);
@@ -80,16 +79,16 @@ function getInputAndParse (e) {
 
   } else if (e.keyCode === 37) { // Left arrow key
     e.preventDefault();
-    commandParse(["WEST"], 0);
+    commandParse(["west"], 0);
   } else if (e.keyCode === 38) { // Up arrow key
     e.preventDefault();
-    commandParse(["NORTH"], 0);
+    commandParse(["north"], 0);
   } else if (e.keyCode === 39) { // Right arrow key
     e.preventDefault();
-    commandParse(["EAST"], 0);
+    commandParse(["east"], 0);
   } else if (e.keyCode === 40) { // Down arrow key
     e.preventDefault();
-    commandParse(["SOUTH"], 0);
+    commandParse(["south"], 0);
   } else if (e.keyCode === 9) {
     let text = Input_Text.value;
     Input_Text.value = tabComplete(text);
@@ -101,7 +100,7 @@ function getInputAndParse (e) {
   //     validCompletions = commands.slice();
   //   } else {
   //     if (validCompletions.length === 0) {
-  //       var command = text.toUpperCase().split("");
+  //       var command = text.toLowerCase().split("");
   //       var validCompletions = [];
   //       for (let option in commands) {
   //         if (option.startsWith(text)) {
@@ -131,8 +130,8 @@ module.exports = GS_OffPath;
 
 function commandParse(input, index) {
   switch (input[index]) {
-    case "ATTACK":
-    case "FIGHT":
+    case "attack":
+    case "fight":
       if (CurrentMap[playerPos].creature) {
         Input_Text.removeEventListener("keydown", getInputAndParse);
         playerPos = PlayerPosition(CurrentMap);
@@ -153,12 +152,19 @@ function commandParse(input, index) {
         });
       }
       break;
-    case "WALK":
-    case "MOVE":
-    case "GO":
-      commandParse(input, 1);
+    case "walk":
+    case "move":
+    case "go":
+      if (directions.includes(input[1])) {
+        commandParse(input, 1);
+      } else {
+        Output.addElement({
+          "entity": "",
+          "content": input[0] + " where?"
+        });
+      }
       break;
-    case "NORTH":
+    case "north":
       // Player position before move: check if at North edge
       playerPos = PlayerPosition(CurrentMap);
       if (playerPos - sideLength < 0) {
@@ -188,7 +194,7 @@ function commandParse(input, index) {
         }
       }
       break;
-    case "SOUTH":
+    case "south":
       //Player position before move: check if at South edge
       playerPos = PlayerPosition(CurrentMap);
       if (playerPos + sideLength >= CurrentMap.length) {
@@ -217,7 +223,7 @@ function commandParse(input, index) {
         }
       }
       break;
-    case "EAST":
+    case "east":
       //Player position before move: check if at East edge
       playerPos = PlayerPosition(CurrentMap);
       if ((playerPos + 1) % sideLength === 0) {
@@ -246,7 +252,7 @@ function commandParse(input, index) {
         }
       }
       break;
-    case "WEST":
+    case "west":
       //Player position before move: check if at West edge
       playerPos = PlayerPosition(CurrentMap);
       if (playerPos % sideLength === 0) {
@@ -275,25 +281,25 @@ function commandParse(input, index) {
         }
       }
       break;
-    case "LOOK":
+    case "look":
       if (directions.includes(input[1])) {
         Look(CurrentMap, input[1]);
         DrawMap(CurrentMap);
-      } else if (input[1] === "AT") {
-        commandParse(["LOOK", input[2]], 0);
+      } else if (input[1] === "at") {
+        commandParse(["look", input[2]], 0);
       } else {
         Output.addElement({
           "entity": "",
-          "content": "Look at what? Try a direction, or \"LOOK AROUND\" for the surroundings."
+          "content": "Look at what? Try a direction, or \"look around\" for the surroundings."
         });
         
       }
       break;
-    case "POTION":
+    case "potion":
       drinkPotion();
       break;
-    case "DRINK":
-      if (input[1] === "POTION") {
+    case "drink":
+      if (input[1] === "potion") {
         drinkPotion();
       } else if (input.length > 1) {
         Output.addElement({
@@ -307,7 +313,7 @@ function commandParse(input, index) {
         });
       }
       break;
-    case "REST":
+    case "rest":
       if (Player.hasRested) {
         Output.addElement({
           "entity": "",
@@ -317,15 +323,15 @@ function commandParse(input, index) {
         rest();
       }
       break;
-    case "RESTART":
+    case "restart":
       Input_Text.removeEventListener("keydown", getInputAndParse);
       GameStateManager.emit("start");
       break;
     case "?":
-    case "HELP":
+    case "help":
       Output.addElement({
         "entity": "Help:",
-        "content": "To move, enter compass directions or use the arrow keys. Enter [ ATTACK ] to fight a creature, [ LOOK ] to see what's around you and [ NEW MAP ] to spawn in a new map."
+        "content": "To move, enter compass directions or use the arrow keys. Enter [ attack ] to fight a creature, [ look ] to see what's around you and [ NEW MAP ] to spawn in a new map."
       });
       break;
     // case "NEW":
@@ -401,7 +407,7 @@ function rest() {
 
 
 function tabComplete(text) {
-  text = text.toUpperCase();
+  text = text.toLowerCase();
 
   matchedCommands = [];
 
