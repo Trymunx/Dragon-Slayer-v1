@@ -27,10 +27,10 @@ class Creature {
     this.messages = creatureJson.messages; //And again
   }
   get name() {
-    return CreatureDb[name].name;
+    return CreatureDb[this.key].name;
   }
   get namePlural() {
-    return CreatureDb[name].namePlural;
+    return CreatureDb[this.key].namePlural;
   }
 }
 
