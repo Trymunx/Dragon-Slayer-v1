@@ -205,8 +205,9 @@ GS_Fight.runState = function (GameStateManager) {
 module.exports = GS_Fight;
 
 function playerAttack(creature) {
-  if (RNG() < Player.attributes.attackChance) {
-    let damage = Math.round(RNG(1, (Player.attributes.strength * Player.attributes.level)));
+  // Player attack chance is based on level: (x + 2) / (x + 5) (Gives result from x=1, chance=0.5 to x->inf, chance->1), for chance=0.95, x=55
+  if (RNG() < ((Player.attributes.level + 2) / (Player.attributes.level + 5))) {
+    let damage = Math.round(RNG(1, ((Player.attributes.strength / 1.5) * Player.attributes.level)));
     creature.attributes.currentHP -= damage;
     Output.addElement({
       "entity": "",
@@ -401,8 +402,11 @@ function playerHPReport(player) {
 }
 
 function playerHPBar(player) {
-  let barLength = Math.round(0.6 * player.attributes.currentHP);
-  let emptyLength = 60 - barLength;
+  // let totalBarLength = Math.round(0.6 * player.attributes.totalHP);
+  let totalBarLength = Math.round(Math.sqrt(player.attributes.totalHP) * 4);
+  let hitpointsPercent = Math.round((player.attributes.currentHP / player.attributes.totalHP) * 100);
+  let barLength = Math.round((totalBarLength / 100) * hitpointsPercent);
+  let emptyLength = totalBarLength - barLength;
   let bar = "";
   for (let i = 0; i < barLength; i++) {
     bar += "|"
@@ -411,20 +415,20 @@ function playerHPBar(player) {
     bar += " "
   }
   // Change colour based on HP percentage
-    if (player.attributes.currentHP / player.attributes.totalHP > 0.25) {
+    if (hitpointsPercent > 25) {
     Output.addElement({
       "entity": "",
-      "content": "[<span class='hp-bar-player'>" + bar + "</span>] (" + player.attributes.currentHP + "%)"
+      "content": "[<span class='hp-bar-player'>" + bar + "</span>] (" + hitpointsPercent + "%)"
     });
-  } else if (player.attributes.currentHP / player.attributes.totalHP > 0.1) {
+  } else if (hitpointsPercent > 10) {
     Output.addElement({
       "entity": "",
-      "content": "[<span class='hp-bar-warning'>" + bar + "</span>] (" + player.attributes.currentHP + "%)"
+      "content": "[<span class='hp-bar-warning'>" + bar + "</span>] (" + hitpointsPercent + "%)"
     });
   } else {
     Output.addElement({
       "entity": "",
-      "content": "[<span class='hp-bar-foe'>" + bar + "</span>] (" + player.attributes.currentHP + "%)"
+      "content": "[<span class='hp-bar-foe'>" + bar + "</span>] (" + hitpointsPercent + "%)"
     });
   }
 }
@@ -456,13 +460,16 @@ function drinkPotion() {
 }
 
 function playerExperienceGain(creature) {
-  Player.attributes.experience += Math.round(creature.attributes.totalHP * 0.15)
+  Player.attributes.experience += Math.round(creature.attributes.totalHP * 0.5)
   while (Player.attributes.experience >= (100 * Player.attributes.level)) {
     Player.attributes.experience -= (Player.attributes.level * 100)
     Player.attributes.level++;
+    Player.attributes.totalHP += Math.round(Player.attributes.level * 1.5);
+    Player.attributes.currentHP += Math.round(Player.attributes.level * 1.5);
     Output.addElement({
       "entity": "",
       "content": "Congratulations!\nYou are now level " + Player.attributes.level + "."
     });
   }
+  DisplayInventory(Player);
 }

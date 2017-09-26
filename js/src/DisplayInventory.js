@@ -27,6 +27,8 @@ function DisplayInventory (player) {
     inventoryString += inventory[i];
   }
 
+  var levelDisplay = "Level: " + player.attributes.level;
+
   var HPDisplay;
   if (player.attributes.currentHP / player.attributes.totalHP > 0.25) {
     HPDisplay = "HP: <span class='hp-bar-player'>" + player.attributes.currentHP + "</span> / <span class='hp-bar-player'>" + player.attributes.totalHP + "</span>";    
@@ -37,7 +39,7 @@ function DisplayInventory (player) {
   } else {
     HPDisplay = "HP: <span class='hp-bar-foe'>" + 0 + "</span> / <span class='hp-bar-player'>" + player.attributes.totalHP + "</span>";
   }
-  var PanelContent = HPDisplay + "\n" + inventoryString;
+  var PanelContent = HPDisplay + "\n\n" + levelDisplay + "\n\n" + inventoryString;
   document.getElementById("inventory").innerHTML = PanelContent;
 }
 
