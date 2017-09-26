@@ -181,17 +181,7 @@ function commandParse(input, index) {
         // Update player position to new place
         playerPos = PlayerPosition(CurrentMap);
         if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
-          // Aggressive creatures attack on sight
-          Input_Text.removeEventListener("keydown", getInputAndParse);
-          Output.addElement({
-            "entity": "",
-            "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
-          });
-          GameStateManager.emit("fight", {
-            player: Player,
-            map: CurrentMap,
-            creature: CurrentMap[playerPos].creature
-          });
+          enterAttackState(playerPos);
         }
       }
       break;
@@ -210,17 +200,7 @@ function commandParse(input, index) {
         MovePlayer(CurrentMap, "south");
         playerPos = PlayerPosition(CurrentMap);
         if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
-          // Aggressive creatures attack on sight
-          Input_Text.removeEventListener("keydown", getInputAndParse);
-          Output.addElement({
-            "entity": "",
-            "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
-          });
-          GameStateManager.emit("fight", {
-            player: Player,
-            map: CurrentMap,
-            creature: CurrentMap[playerPos].creature
-          });
+          enterAttackState(playerPos);
         }
       }
       break;
@@ -239,17 +219,7 @@ function commandParse(input, index) {
         MovePlayer(CurrentMap, "east");
         playerPos = PlayerPosition(CurrentMap);
         if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
-          // Aggressive creatures attack on sight
-          Input_Text.removeEventListener("keydown", getInputAndParse);
-          Output.addElement({
-            "entity": "",
-            "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
-          });
-          GameStateManager.emit("fight", {
-            player: Player,
-            map: CurrentMap,
-            creature: CurrentMap[playerPos].creature
-          });
+          enterAttackState(playerPos);
         }
       }
       break;
@@ -268,17 +238,7 @@ function commandParse(input, index) {
         MovePlayer(CurrentMap, "west");
         playerPos = PlayerPosition(CurrentMap);
         if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
-          // Aggressive creatures attack on sight
-          Input_Text.removeEventListener("keydown", getInputAndParse);
-          Output.addElement({
-            "entity": "",
-            "content": "The " + CurrentMap[playerPos].creature.name + " attacks you!"
-          });
-          GameStateManager.emit("fight", {
-            player: Player,
-            map: CurrentMap,
-            creature: CurrentMap[playerPos].creature
-          });
+          enterAttackState(playerPos);
         }
       }
       break;
@@ -353,6 +313,21 @@ function commandParse(input, index) {
         "content": "Unknown command, type \"help\" or \"?\" for help."
       });
   }
+}
+
+function enterAttackState(playerPos) {
+  // Aggressive creatures attack on sight
+  Input_Text.removeEventListener("keydown", getInputAndParse);
+  let messagePicker = Math.round(RNG(CurrentMap[playerPos].creature.messages.onSpawn.length-1));
+  Output.addElement({
+    "entity": "",
+    "content": CurrentMap[playerPos].creature.messages.onSpawn[messagePicker]
+  });
+  GameStateManager.emit("fight", {
+    player: Player,
+    map: CurrentMap,
+    creature: CurrentMap[playerPos].creature
+  });
 }
 
 function drinkPotion() {

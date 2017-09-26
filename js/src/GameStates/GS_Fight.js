@@ -403,7 +403,7 @@ function creatureAttack(creature) {
     playerHPReport(Player);
   } else {
     damage = Math.round(RNG(attack.minDamage, attack.maxDamage));
-    let messagePicker = Math.round(RNG(attack.messages.length-1));
+    let messagePicker = (attack.messages.length > 1) ? Math.round(RNG(attack.messages.length-1)) : 0;
     Output.addElement({
       "entity": creature.name,
       "content": attack.messages[messagePicker] + damage + "HP."
