@@ -26,10 +26,10 @@ function look(map, atWhat) {
   }
 
   switch (atWhat) {
-    case "AROUND":
+    case "around":
       // Check for creatures to the North, South, East and West
             
-      if (playerPos % sideLength === 0) { // Player is at left hand side of map
+      if (playerPos % sideLength === 0) { // Player is at LHS of map
         // Don't look West
         lookAdjacent(map, north, south, east);
       } else if ((playerPos + 1) % sideLength === 0) { // Player is at RHS of map
@@ -45,17 +45,37 @@ function look(map, atWhat) {
         lookAdjacent(map, north, south, east, west);
       }
       break;
-    case "NORTH":
-      lookAdjacent(map, north);
+    case "north":
+      if (playerPos - sideLength < 0) { // Player is at top of map
+        // Just display empty tile message
+        lookOutput("north");
+      } else {
+        lookAdjacent(map, north);
+      }
       break;
-    case "SOUTH":
-      lookAdjacent(map, south);
+    case "south":
+      if (playerPos + sideLength > map.length) { // Player is at bottom of map
+        // Just display empty tile message
+        lookOutput("south");
+      } else {
+        lookAdjacent(map, south);
+      }
       break;
-    case "EAST":
-      lookAdjacent(map, east);
+    case "east":
+      if ((playerPos + 1) % sideLength === 0) { // Player is at RHS of map
+        // Just display empty tile message
+        lookOutput("east");
+      } else {
+        lookAdjacent(map, east);
+      }
       break;
-    case "WEST":
-      lookAdjacent(map, west);
+    case "west":
+      if (playerPos % sideLength === 0) { // Player is at LHS of map
+        // Just display empty tile message
+        lookOutput("west");
+      } else {
+        lookAdjacent(map, west);
+      }
       break;
   } 
 
