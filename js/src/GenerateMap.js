@@ -2,39 +2,6 @@
 const RNG = require("./utils/RNG.js");
 const NewCreature = require("./Creature.js");
 const CreatureDb = require("../db/Creatures.json");
-const creatures = Object.keys(CreatureDb);
-
-function spawnCreature() {
-  var creatureSpawned;
-
-  var spawnRoll = [];
-  // Rough random picker based on each creatures spawn chance
-  for (let i in creatures) {
-    // Multiplies their spawn chances by a random number
-    spawnRoll[i] = RNG(CreatureDb[creatures[i]].attributes.spawnChance);
-  }
-  // Add a final value for no creatures spawning
-  spawnRoll.push(RNG(3));
-
-  // creatureIndex is the position in the creatures array
-  var creatureIndex = 0;
-  // indexValue is the value of that position in the spawnRoll array
-  var indexValue = spawnRoll[creatureIndex];
-  for (let i = 0; i < spawnRoll.length; i++) {
-    if (spawnRoll[i] > indexValue) {
-      // If the value of the next spawnRoll index is greater, change the creatureIndex to that creature
-      creatureIndex = i;
-      indexValue = spawnRoll[i];
-    }
-  }
-  if (creatureIndex === creatures.length) {
-    creatureSpawned = "none";
-  } else {
-    creatureSpawned = creatures[creatureIndex];
-  }
-
-  return creatureSpawned;
-}
 
 function genMap(sideLength, edge) {
   var mapSize = sideLength * sideLength;
@@ -120,7 +87,7 @@ function genMap(sideLength, edge) {
       map[i].creature = null;
     } else {
       // Check to see if there is a creature on that tile, if not set to null
-      var spawnedCreature = spawnCreature();
+      var spawnedCreature = chooseCreature();
       if (spawnedCreature !== "none") {
         map[i].creature = NewCreature(spawnedCreature);
       } else {
@@ -217,3 +184,21 @@ function revealAdjacent(map, ...args) {
   }
 }
 
+function chooseCreature() {
+  var creatureSpawned;
+
+  var spawnRoll = {};
+  // Rough random picker based on each creatures spawn chance
+  for (let key in CreatureDb) {
+    spawnRoll[key] = RNG(CreatureDb[key].attributes.spawnChance)
+  }
+  // Add a final value for no creatures spawning
+  spawnRoll["none"] = RNG(3);
+  for (let key in spawnRoll) {
+    if (!creatureSpawned || spawnRoll[key] > spawnRoll[creatureSpawned]) {
+      creatureSpawned = key;
+    }
+  }
+  return creatureSpawned;
+
+}
