@@ -362,7 +362,7 @@ function rest() {
       "content": "You already have full health!"
     });
   } else if (Player.attributes.currentHP >= Player.attributes.totalHP - 8) { // Heal up to full HP but not over it (with limit of 8HP)
-    let healing = Math.round(RNG(1, (100 - Player.attributes.currentHP)));
+    let healing = Math.round(RNG(1, (Player.attributes.totalHP - Player.attributes.currentHP)));
     Player.attributes.currentHP += healing;
     Output.addElement({
       "entity": "",
