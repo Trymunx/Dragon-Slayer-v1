@@ -7,11 +7,11 @@ var mainWindow = null;
 app.on("ready", function () {
 
   mainWindow = new BrowserWindow({
-    width: 1200,
+    width: 1250,
     height: 800,
 
-    minWidth: 1000,
-    minHeight: 500,
+    minWidth: 1200,
+    minHeight: 640,
     acceptFirstMouse: true
   });
 
