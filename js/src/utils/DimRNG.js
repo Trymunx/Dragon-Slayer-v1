@@ -8,17 +8,18 @@ function factorial(num) {
     return rval;
 }
 
-function dimRNG(min, max, ...args) {
+function dimRNG(min, max, mean) {
   var result;
   // range is the same as n in the binomial function, as it is the max - min
   var range = max - min;
   // mean is found by np, or for our values (range * probability) + min value where p=0.25 for a positive skew
-  var mean;
-  if (!args[0]) {
+  if (mean === undefined) {
     mean = min + (range / 4);
   } else {
-    mean = args[0];
+    // Check mean is not out of range
+    mean = mean < min ? min : (mean > max ? max : mean);
   }
+
 
   // x is an array of integer values of x from the minimum value to the maximum value, inclusive
   var x = [];
