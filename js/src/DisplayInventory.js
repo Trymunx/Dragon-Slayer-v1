@@ -28,6 +28,19 @@ function DisplayInventory (player) {
   }
 
   var levelDisplay = "Level: " + player.attributes.level;
+  var totalExpBarLength = 30;
+  var expPercent = (player.attributes.experience/(100 * player.attributes.level));
+  let expBarLength = Math.round(expPercent * totalExpBarLength);
+  let emptyLength = totalExpBarLength - expBarLength;
+  var expBar = "["
+  for (let i = 0; i < expBarLength; i++) {
+    expBar += "=";
+  };
+  expBar += ">"
+  for (let i = 0; i < emptyLength; i++) {
+    expBar += " ";
+  }
+  expBar += "]";
 
   var HPDisplay;
   if (player.attributes.currentHP / player.attributes.totalHP > 0.25) {
@@ -39,7 +52,7 @@ function DisplayInventory (player) {
   } else {
     HPDisplay = "HP: <span class='hp-bar-foe'>" + 0 + "</span> / <span class='hp-bar-player'>" + player.attributes.totalHP + "</span>";
   }
-  var PanelContent = HPDisplay + "\n\n" + levelDisplay + "\n\n" + inventoryString;
+  var PanelContent = HPDisplay + "\n\n" + levelDisplay + "\t" + expBar + "\n\n" + inventoryString;
   document.getElementById("inventory").innerHTML = PanelContent;
 }
 
