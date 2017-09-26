@@ -559,7 +559,7 @@
       ],
       "onDeath": [
         "With an almighty clattering noise the skeleton collapses into a pile of bones.",
-        "The skeleton explodes in a shower of bone fragments from your final attack."
+        "Your attack causes the skeleton to explode in a shower of bone fragments."
       ]
     }
   },
