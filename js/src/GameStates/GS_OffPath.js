@@ -90,7 +90,12 @@ function getInputAndParse (e) {
   } else if (e.keyCode === 40) { // Down arrow key
     e.preventDefault();
     commandParse(["SOUTH"], 0);
-  // } else if (e.keyCode === 9) {
+  } else if (e.keyCode === 9) {
+    let text = Input_Text.value;
+    Input_Text.value = tabComplete(text);
+  
+
+    // } else if (e.keyCode === 9) {
   //   let text = Input_Text.value;
   //   if (text === "") {
   //     validCompletions = commands.slice();
@@ -395,7 +400,7 @@ function rest() {
 }
 
 
-/*
+function tabComplete(text) {
   text = text.toUpperCase();
 
   matchedCommands = [];
@@ -419,4 +424,4 @@ function rest() {
   }
 
   return matchedCommands;
-*/
+}
