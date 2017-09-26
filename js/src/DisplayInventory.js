@@ -28,8 +28,8 @@ function DisplayInventory (player) {
   }
 
   var levelDisplay = "Level: " + player.attributes.level;
-  var totalExpBarLength = 30;
-  var expPercent = (player.attributes.experience/(100 * player.attributes.level));
+  let totalExpBarLength = 30;
+  let expPercent = (player.attributes.experience/(100 * player.attributes.level));
   let expBarLength = Math.round(expPercent * totalExpBarLength);
   let emptyLength = totalExpBarLength - expBarLength;
   var expBar = "["
