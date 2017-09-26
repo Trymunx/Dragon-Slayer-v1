@@ -213,7 +213,7 @@
     "messages": {
       "onSpawn": [
         "It roars incoherently as you attack, beating its chest.",
-        "It roars and swings its arms clumsily in your direction as you approach"
+        "It roars and swings its arms clumsily in your direction as you approach."
       ],
       "onDeath": [
         "The troll bellows and keels over, dead.",
