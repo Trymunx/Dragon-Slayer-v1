@@ -135,9 +135,10 @@ function commandParse(input, index) {
       if (CurrentMap[playerPos].creature) {
         Input_Text.removeEventListener("keydown", getInputAndParse);
         playerPos = PlayerPosition(CurrentMap);
+        let messagePicker = Math.round(RNG(CurrentMap[playerPos].creature.messages.onSpawn.length-1));
         Output.addElement({
           "entity": "",
-          "content": "You are now fighting the " + CurrentMap[playerPos].creature.name + "."
+          "content": CurrentMap[playerPos].creature.messages.onSpawn[messagePicker]
         });
         GameStateManager.emit("fight", {
           player: Player,

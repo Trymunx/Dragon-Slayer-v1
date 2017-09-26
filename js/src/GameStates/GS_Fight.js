@@ -257,9 +257,10 @@ function creatureHPReport (creature) {
     });
     creatureHPBar(creature);
   } else {
+    let messagePicker = Math.round(RNG(creature.messages.onDeath.length-1));
     Output.addElement({
       "entity": "",
-      "content": "You have slain the " + creature.name + ". You have " + Player.attributes.currentHP + "HP remaining."
+      "content": creature.messages.onDeath[messagePicker] + "\nYou have " + Player.attributes.currentHP + "HP remaining."
     });
     if (creature !== "dragon") { Player.creaturesSlain.slainNonDragon = true; }
     Player.creaturesSlain.total++;
