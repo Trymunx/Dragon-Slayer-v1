@@ -488,8 +488,8 @@ function drinkPotion() {
 }
 
 function playerExperienceGain(creature) {
-  Player.attributes.experience += Math.round(creature.attributes.totalHP * 0.5)
-  while (Player.attributes.experience >= (100 * Player.attributes.level)) {
+  Player.attributes.experience += Math.round(creature.attributes.totalHP * 0.35)
+  while (Player.attributes.experience >= Math.round(50 * Math.pow(Player.attributes.level, 1.3))) {
     Player.attributes.experience -= (Player.attributes.level * 100)
     Player.attributes.level++;
     Player.attributes.totalHP += Math.round(Player.attributes.level * 1.5);
