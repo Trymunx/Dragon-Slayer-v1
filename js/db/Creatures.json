@@ -265,7 +265,7 @@
       },
       "potions": {
         "dropChance": 0.75,
-        "max": 6
+        "max": 5
       },
       "items": [],
       "equipment": [
@@ -348,7 +348,7 @@
       },
       "potions": {
         "dropChance": 0.55,
-        "max": 5
+        "max": 3
       },
       "items": [],
       "equipment": [
@@ -441,7 +441,7 @@
       },
       "potions": {
         "dropChance": 0.75,
-        "max": 5
+        "max": 3
       },
       "items": [],
       "equipment": [
@@ -524,7 +524,7 @@
       },
       "potions": {
         "dropChance": 0.65,
-        "max": 4
+        "max": 3
       },
       "items": [],
       "equipment": [
@@ -568,7 +568,7 @@
     "name": "ghost",
     "namePlural": "ghosts",
     "attributes": {
-      "maxTotalHP": 120,
+      "maxTotalHP": 320,
       "minTotalHP": 38,
       "healthBar": "~",
       "spawnChance": 0.65,
@@ -606,8 +606,8 @@
         "max": 88
       },
       "potions": {
-        "dropChance": 0.65,
-        "max": 4
+        "dropChance": 0.45,
+        "max": 3
       },
       "items": [
         "magical runestones"
@@ -668,8 +668,8 @@
         "max": 55
       },
       "potions": {
-        "dropChance": 0.3,
-        "max": 2
+        "dropChance": 0.2,
+        "max": 1
       },
       "items": [
         "rat tail",
@@ -731,8 +731,8 @@
         "max": 50
       },
       "potions": {
-        "dropChance": 0.3,
-        "max": 2
+        "dropChance": 0.2,
+        "max": 1
       },
       "items": [
         "spider silk",
@@ -794,8 +794,8 @@
         "max": 60
       },
       "potions": {
-        "dropChance": 0.45,
-        "max": 3
+        "dropChance": 0.35,
+        "max": 2
       },
       "items": [
         "wolf fur",
@@ -857,8 +857,8 @@
         "max": 60
       },
       "potions": {
-        "dropChance": 0.3,
-        "max": 2
+        "dropChance": 0.2,
+        "max": 1
       },
       "items": [
         "tusks",
@@ -921,8 +921,8 @@
         "max": 33
       },
       "potions": {
-        "dropChance": 0.35,
-        "max": 2
+        "dropChance": 0.15,
+        "max": 1
       },
       "items": [
         "venom"
@@ -1276,6 +1276,15 @@
         "maxDamage": 2,
                "messages": [
           "The rabbit scratches you for "
+        ]
+      },
+      {
+        "name": "KO",
+        "chance": 0.00001,
+        "minDamage": 150,
+        "maxDamage": 500,
+               "messages": [
+          "Uh oh! This might have been a were-rabbit... It just hit you for "
         ]
       }
     ],
