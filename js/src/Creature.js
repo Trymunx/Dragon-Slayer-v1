@@ -10,16 +10,17 @@ const CreatureDb = require("../db/Creatures.json");
   * Other than that you can use this identically to the old method.
   */
 class Creature {
-  constructor(creatureJson, key) {
+  constructor(creatureJson, key, playerLevel) {
     /* Are these all needed as part of this creature? */
     this.key = key;
+    this.level = Math.round(RNG(1, playerLevel * 1.5)); // Creature can be up to 1.5 times the player level
     // this.name = creatureJson["name"];
     // this.namePlural = creatureJson["namePlural"];
     var jsonAttributes = creatureJson.attributes; //Could use ["attributes"] or just directly access
     this.attributes = {};
     /* Does this need to be inside an attributes object? */
     // Set creature totalHP and currentHP equeal to a random value between min and max HP values.
-    this.attributes.totalHP = this.attributes.currentHP = Math.round(RNG(jsonAttributes.minTotalHP, jsonAttributes.maxTotalHP));
+    this.attributes.totalHP = this.attributes.currentHP = Math.round(RNG(jsonAttributes.minTotalHP, jsonAttributes.maxTotalHP) * (1 + ((this.level*this.level)/20)));
     this.attributes.aggressive = jsonAttributes.aggressive;
     this.attributes.healthBar = jsonAttributes.healthBar;
     this.attacks = creatureJson.attacks; //Copy entire object, as this is shared between all creatures (of this type)
@@ -34,8 +35,8 @@ class Creature {
   }
 }
 
-function newCreature (name) {
-  return new Creature(CreatureDb[name], name);
+function newCreature (name, playerLevel) {
+  return new Creature(CreatureDb[name], name, playerLevel);
 }
 
 module.exports = newCreature;

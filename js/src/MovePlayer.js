@@ -83,14 +83,6 @@ function movePlayer(map, compassPoint) {
 
   revealSurroundings(playerPos, map);
 
-  DrawMap(map);
-  if (map[playerPos].creature) {
-    Output.addElement({
-      "entity": "",
-      "content": "There is a " + map[playerPos].creature.name + " here."
-    });
-    
-  }
 }
 
 module.exports = movePlayer;

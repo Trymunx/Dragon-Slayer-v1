@@ -357,7 +357,7 @@ function creatureHPBar(creature) {
   });
 }
 
-function getCreatureAttack(creature) {
+function pickCreatureAttack(creature) {
   let attackRoll = [];
   // Rough random picker based on creatures attack chances
   for (let i = 0; i < creature.attacks.length; i++) {
@@ -379,7 +379,7 @@ function getCreatureAttack(creature) {
 }
 
 function creatureAttack(creature) {
-  let attack = getCreatureAttack(creature);
+  let attack = pickCreatureAttack(creature);
   let damage;
   if (attack.name === "miss") {
     damage = 0;
@@ -402,7 +402,7 @@ function creatureAttack(creature) {
     }
     playerHPReport(Player);
   } else {
-    damage = Math.round(RNG(attack.minDamage, attack.maxDamage));
+    damage = Math.round(RNG(attack.minDamage, attack.maxDamage) * creature.level / 1.5);
     let messagePicker = (attack.messages.length > 1) ? Math.round(RNG(attack.messages.length-1)) : 0;
     Output.addElement({
       "entity": creature.name,

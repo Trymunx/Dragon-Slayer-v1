@@ -4,7 +4,7 @@ const newCreature = require("./Creature.js");
 const CreatureDb = require("../db/Creatures.json");
 const revealSurroundings = require("./RevealSurroundings.js");
 
-function genMap(sideLength, edge) {
+function genMap(sideLength, edge, player) {
   var mapSize = sideLength * sideLength;
   var map = [];
 
@@ -90,7 +90,7 @@ function genMap(sideLength, edge) {
       // Check to see if there is a creature on that tile, if not set to null
       var spawnedCreature = chooseCreature();
       if (spawnedCreature !== "none") {
-        map[i].creature = newCreature(spawnedCreature);
+        map[i].creature = newCreature(spawnedCreature, player.attributes.level);
       } else {
         map[i].creature = null;
       }

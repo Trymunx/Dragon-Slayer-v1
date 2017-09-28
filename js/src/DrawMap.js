@@ -1,6 +1,8 @@
 const Splash = require("./splash/Splash.json");
 // Creates an ASCII version of the map
-function drawMap (map) {
+function drawMap (map, player) {
+  var playerPos;
+
   // Work out side length
   var sideLength = Math.sqrt(map.length);
 
@@ -68,6 +70,7 @@ function drawMap (map) {
           }
         } else if (map[j].playerIsHere) {
           mapContent[i] += "[*]";
+          playerPos = j;
         } else if (map[j].creature !== null) {
           mapContent[i] += " " + map[j].creature.attributes.healthBar + " ";
         } else if (map[j].terrain === "bridge") {
@@ -97,8 +100,10 @@ function drawMap (map) {
     mapOutput += drawnMap[i] + "<br>";
   }
 
+  var creatureLevels = "Creature levels here: 1 - " + Math.round(player.attributes.level * 1.5);
+  var onThisTile = (map[playerPos].creature ? "Level " + map[playerPos].creature.level + " " + map[playerPos].creature.name : "Nothing");
 
-  document.getElementById("map").innerHTML = mapOutput;
+  document.getElementById("map").innerHTML = "\n" + creatureLevels + "\n" + mapOutput + "\n\n" + onThisTile;
   // document.getElementById("map").innerHTML = Splash["PathMap"];
 }
 

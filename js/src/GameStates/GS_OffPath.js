@@ -117,7 +117,7 @@ function getInputAndParse (e) {
 
 GS_OffPath.runState = function () {
 
-
+  DrawMap(CurrentMap, Player);
   // Initialise above function
   Input_Text.addEventListener("keydown", getInputAndParse);
   
@@ -180,6 +180,14 @@ function commandParse(input, index) {
         MovePlayer(CurrentMap, "north");
         // Update player position to new place
         playerPos = PlayerPosition(CurrentMap);
+        DrawMap(CurrentMap, Player);
+        if (CurrentMap[playerPos].creature) {
+          Output.addElement({
+            "entity": "",
+            "content": "There is a " + CurrentMap[playerPos].creature.name + " here."
+          });
+          
+        }
         if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
           enterAttackState(playerPos);
         }
@@ -198,7 +206,16 @@ function commandParse(input, index) {
         });
       } else {
         MovePlayer(CurrentMap, "south");
+        // Update player position to new place
         playerPos = PlayerPosition(CurrentMap);
+        DrawMap(CurrentMap, Player);
+        if (CurrentMap[playerPos].creature) {
+          Output.addElement({
+            "entity": "",
+            "content": "There is a " + CurrentMap[playerPos].creature.name + " here."
+          });
+          
+        }
         if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
           enterAttackState(playerPos);
         }
@@ -217,7 +234,16 @@ function commandParse(input, index) {
         });
       } else {
         MovePlayer(CurrentMap, "east");
+        // Update player position to new place
         playerPos = PlayerPosition(CurrentMap);
+        DrawMap(CurrentMap, Player);
+        if (CurrentMap[playerPos].creature) {
+          Output.addElement({
+            "entity": "",
+            "content": "There is a " + CurrentMap[playerPos].creature.name + " here."
+          });
+          
+        }
         if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
           enterAttackState(playerPos);
         }
@@ -236,7 +262,16 @@ function commandParse(input, index) {
         });
       } else {
         MovePlayer(CurrentMap, "west");
+        // Update player position to new place
         playerPos = PlayerPosition(CurrentMap);
+        DrawMap(CurrentMap, Player);
+        if (CurrentMap[playerPos].creature) {
+          Output.addElement({
+            "entity": "",
+            "content": "There is a " + CurrentMap[playerPos].creature.name + " here."
+          });
+          
+        }
         if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
           enterAttackState(playerPos);
         }
@@ -245,7 +280,7 @@ function commandParse(input, index) {
     case "look":
       if (directions.includes(input[1])) {
         Look(CurrentMap, input[1]);
-        DrawMap(CurrentMap);
+        DrawMap(CurrentMap, Player);
       } else if (input[1] === "at") {
         commandParse(["look", input[2]], 0);
       } else {

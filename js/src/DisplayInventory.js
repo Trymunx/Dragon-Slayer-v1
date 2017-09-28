@@ -52,6 +52,7 @@ function DisplayInventory (player) {
   } else {
     HPDisplay = "HP: <span class='hp-bar-foe'>" + 0 + "</span> / <span class='hp-bar-player'>" + player.attributes.totalHP + "</span>";
   }
+  
   var PanelContent = HPDisplay + "\n\n" + levelDisplay + "\t" + expBar + "\n\n" + inventoryString;
   document.getElementById("inventory").innerHTML = PanelContent;
 }
