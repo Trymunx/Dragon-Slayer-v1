@@ -69,16 +69,16 @@ function drawMap (map, player) {
             }
           }
         } else if (map[j].playerIsHere) {
-          mapContent[i] += "[*]";
+          mapContent[i] += (map[j].items.length === 0) ? "«※»" : "(※)";
           playerPos = j;
         } else if (map[j].creature !== null) {
-          mapContent[i] += " " + map[j].creature.attributes.healthBar + " ";
+          mapContent[i] += (map[j].items.length === 0) ? " " + map[j].creature.attributes.healthBar + " " : "(" + map[j].creature.attributes.healthBar + ")";
         } else if (map[j].terrain === "bridge") {
           mapContent[i] += "<span class='bridge'>III</span>";
         } else if (map[j].terrain === "bridgeUpper" || map[j].terrain === "bridgeLower") {
           mapContent[i] += "<span class='river'>| |</span>";
         } else {
-          mapContent[i] += "<span class='empty-tile'> ↟ </span>"; // If ↟ causes problems when displaying, use · instead
+          mapContent[i] += (map[j].items.length === 0) ? "<span class='empty-tile'> ↟ </span>" : "(<span class='empty-tile'>↟</span>)"; // If ↟ causes problems when displaying, use · instead
         }
       } else {
         mapContent[i] += "   ";
@@ -100,10 +100,16 @@ function drawMap (map, player) {
     mapOutput += drawnMap[i] + "<br>";
   }
 
+  // Display item array with indentation
+  var itemList = [];
+  for (let i of map[playerPos].items) {
+    itemList.push("(      " + i.number + " " + (i.number === 1 ? i.name : i.namePlural) + "      )");
+  }
+  
   var creatureLevels = "Creature levels here: 1 - " + Math.round(player.attributes.level * 1.5);
-  var onThisTile = (map[playerPos].creature ? "Level " + map[playerPos].creature.level + " " + map[playerPos].creature.name : "Nothing");
+  var onThisTile = (map[playerPos].creature ? "\n[      Level " + map[playerPos].creature.level + " " + map[playerPos].creature.name + "      ]" : ((itemList.length !== 0) ? "\n" + itemList.join("\n") : "\nNothing"));
 
-  document.getElementById("map").innerHTML = "\n" + creatureLevels + "\n" + mapOutput + "\n\n" + onThisTile;
+  document.getElementById("map").innerHTML = "\n" + creatureLevels + "\n" + mapOutput + "\n" + onThisTile;
   // document.getElementById("map").innerHTML = Splash["PathMap"];
 }
 
