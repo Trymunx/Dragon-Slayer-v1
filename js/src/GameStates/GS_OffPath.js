@@ -396,7 +396,7 @@ function rest() {
       "entity": "",
       "content": "You already have full health!"
     });
-  } else if (Player.attributes.currentHP >= Player.attributes.totalHP - 8) { // Heal up to full HP but not over it (with limit of 8HP)
+  } else if (Player.attributes.currentHP >= Player.attributes.totalHP - (0.08 * Player.attributes.totalHP)) { // Heal up to full HP but not over it (with limit of 8HP)
     let healing = Math.round(RNG(1, (Player.attributes.totalHP - Player.attributes.currentHP)));
     Player.attributes.currentHP += healing;
     Output.addElement({
@@ -405,7 +405,7 @@ function rest() {
     });
     DisplayInventory(Player);
   } else { // Heal up to 8HP
-    let healing = Math.round(RNG(1, 8));
+    let healing = Math.round(RNG(1, (0.08 * Player.attributes.totalHP)));
     Player.attributes.currentHP += healing;
     Output.addElement({
       "entity": "",
