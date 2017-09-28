@@ -277,14 +277,16 @@ function creatureDrop(creature) {
   let goldDropUpperBound;
   if (RNG() <= creature.drops.gold.dropChance) {
     goldDrop = dimRNG(1, creature.drops.gold.max);
-    Player.inventory.gold += goldDrop;
+    // Player.inventory.gold += goldDrop;
+    CurrentMap[playerPos].items.push({"name": "gold", "namePlural": "gold", "number": goldDrop});
   } else {
     goldDrop = false;
   }
   let potionDrop;
   if (RNG() <= creature.drops.potions.dropChance) {
     potionDrop = dimRNG(1, creature.drops.potions.max);
-    Player.inventory.potions += potionDrop;
+    CurrentMap[playerPos].items.push({"name": "potion", "namePlural": "potions", "number": potionDrop});
+    // Player.inventory.potions += potionDrop;
   } else {
     potionDrop = false;
   }
@@ -333,15 +335,15 @@ function creatureHPBar(creature) {
   let emptyLength;
   let bar = "";
 
-  if (creature.attributes.totalHP <= 1000) { // Weaker creatures need HP bars that aren't 0 length
+  /* if (creature.attributes.totalHP <= 1000) { // Weaker creatures need HP bars that aren't 0 length
     totalBarLength = Math.round(Math.sqrt(creature.attributes.totalHP) * 3.5);
     barLength = Math.round((totalBarLength / 100) * hitpointsPercent);
     emptyLength = totalBarLength - barLength;
-  } else { // Is a dragon or a troll so use cube root instead of square root
-    totalBarLength = Math.round(Math.cbrt(creature.attributes.totalHP) * 3.25);
+  } else {  */// Is a dragon or a troll so use cube root instead of square root
+    totalBarLength = Math.round(Math.pow(creature.attributes.totalHP, 1/4) * 8);
     barLength = Math.round((totalBarLength / 100) * hitpointsPercent);
     emptyLength = totalBarLength - barLength;
-  }
+  /* } */
 
   for (let i = 0; i < barLength; i++) {
     bar += creature.attributes.healthBar;
@@ -431,7 +433,7 @@ function playerHPReport(player) {
 
 function playerHPBar(player) {
   // let totalBarLength = Math.round(0.6 * player.attributes.totalHP);
-  let totalBarLength = Math.round(Math.sqrt(player.attributes.totalHP) * 4);
+  let totalBarLength = Math.round(Math.pow(player.attributes.totalHP, 1/4) * 8);
   let hitpointsPercent = Math.round((player.attributes.currentHP / player.attributes.totalHP) * 100);
   let barLength = Math.round((totalBarLength / 100) * hitpointsPercent);
   let emptyLength = totalBarLength - barLength;
@@ -469,7 +471,7 @@ function drinkPotion() {
     });
   } else {
     if (Player.inventory.potions > 0) {
-      let healing = (Math.min(50, Player.attributes.totalHP - Player.attributes.currentHP));
+      let healing = (Math.min(Math.round(50 + Player.attributes.level * Player.attributes.level), Player.attributes.totalHP - Player.attributes.currentHP));
       Player.attributes.currentHP += healing;
       Player.inventory.potions--;
       Output.addElement({
@@ -490,10 +492,11 @@ function drinkPotion() {
 function playerExperienceGain(creature) {
   Player.attributes.experience += Math.round(creature.attributes.totalHP * 0.35)
   while (Player.attributes.experience >= Math.round(50 * Math.pow(Player.attributes.level, 1.3))) {
-    Player.attributes.experience -= Math.round(50 * Math.pow(Player.attributes.level, 1.3))
+    Player.attributes.experience -= Math.round(50 * Math.pow(Player.attributes.level, 1.3));
+    let prevHP = Player.attributes.totalHP;
+    Player.attributes.totalHP = 5 * (Player.attributes.level * Player.attributes.level) + 95;
+    Player.attributes.currentHP += Player.attributes.totalHP - prevHP;
     Player.attributes.level++;
-    Player.attributes.totalHP += Math.round(Player.attributes.level * 1.5);
-    Player.attributes.currentHP += Math.round(Player.attributes.level * 1.5);
     Output.addElement({
       "entity": "",
       "content": "Congratulations!\nYou are now level " + Player.attributes.level + "."

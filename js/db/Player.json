@@ -1,16 +1,13 @@
 {
   "name": "",
   "attributes": {
-    "totalHP": 100,
-    "currentHP": 100,
     "experience": 0,
     "level": 1,
-    "attackChance": 0.6,
     "strength": 10,
     "armour": 0
   },
   "inventory": {
-    "potions": 3,
+    "potions": 100,
     "gold": 0,
     "items": []
   },

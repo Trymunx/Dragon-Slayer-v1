@@ -373,7 +373,7 @@ function drinkPotion() {
     });
   } else {
     if (Player.inventory.potions > 0) {
-      let healing = (Math.min(50, Player.attributes.totalHP - Player.attributes.currentHP));
+      let healing = (Math.min(Math.round(50 + Player.attributes.level * Player.attributes.level), Player.attributes.totalHP - Player.attributes.currentHP));
       Player.attributes.currentHP += healing;
       Player.inventory.potions--;
       Output.addElement({
@@ -405,7 +405,7 @@ function rest() {
     });
     DisplayInventory(Player);
   } else { // Heal up to 8HP
-    let healing = Math.round(RNG(1, (0.08 * Player.attributes.totalHP)));
+    let healing = Math.round(RNG((0.01 * Player.attributes.totalHP), (0.08 * Player.attributes.totalHP)));
     Player.attributes.currentHP += healing;
     Output.addElement({
       "entity": "",
