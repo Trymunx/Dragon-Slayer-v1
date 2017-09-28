@@ -99,7 +99,7 @@ function joinSurroundingsOutput(surroundingsOutput) {
 function lookAdjacent(map, ...args) {
   for (let direction of args) {
     if (map[direction.position].creature) {
-      surroundingsOutput.push(map[direction.position].creature.name + " to the " + direction.name);
+      surroundingsOutput.push("level " + map[direction.position].creature.level + " " + map[direction.position].creature.name + " to the " + direction.name);
     } else if (map[direction.position].terrain === "river" || map[direction.position].terrain === "bridgeUpper" || map[direction.position].terrain === "bridgeLower") {
       surroundingsOutput.push("river to the " + direction.name);
     } else if (map[direction.position].terrain === "bridge") {
