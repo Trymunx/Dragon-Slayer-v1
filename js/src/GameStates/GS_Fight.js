@@ -234,13 +234,29 @@ module.exports = GS_Fight;
 function playerAttack(creature) {
   // Player attack chance is based on level: (x + 2) / (x + 5) (Gives result from x=1, chance=0.5 to x->inf, chance->1), for chance=0.95, x=55
   if (RNG() < ((Player.attributes.level + 2) / (Player.attributes.level + 5))) {
-    let damage = Math.round(RNG(1, ((Player.attributes.strength / 1.5) * Player.attributes.level)));
+    let levelDiff = Player.attributes.level - creature.level;
+    let calcDmgVal = RNG(1, ((Player.attributes.strength / 1.5) * Player.attributes.level));
+    let damage;
+    if (levelDiff > 0) {// Player is above creature level: levelDiff is positive
+      damage = Math.round(calcDmgVal * (1.25 + Math.log2(levelDiff) / 4));
+    } else if (levelDiff < 0) {
+      damage = Math.round(calcDmgVal * Math.pow((0.95 / -levelDiff), 0.125));
+    } else {
+      damage = Math.round(calcDmgVal);
+    }
     creature.attributes.currentHP -= damage;
     Output.addElement({
       "entity": "",
       "content": "You attack the " + creature.name + " for " + damage + "HP."
     });
-    Player.attributes.strength += 0.005 // Gain a small amount of strength every hit
+    Player.attributes.strength += 0.005; // Gain a small amount of strength every hit
+    console.log(Player.attributes.strength);
+    if ((Math.round(Player.attributes.strength*1000)/1000) % 1 === 0) {
+      Output.addElement({
+        "entity": "",
+        "content": "<span class='potions'>Congratulations!\nYour strength is now level " + Math.round(Player.attributes.strength) + ".</span>"
+      });
+    }
   } else {
     Output.addElement({
       "entity": "",
@@ -405,7 +421,15 @@ function creatureAttack(creature) {
     }
     playerHPReport(Player);
   } else {
-    damage = Math.round(RNG(attack.minDamage, attack.maxDamage) * creature.level / 1.5);
+    let levelDiff = creature.level - Player.attributes.level;
+    let calcDmgVal = RNG(attack.minDamage, attack.maxDamage) * creature.level / 1.5;
+    if (levelDiff > 0) {// Creature is above player level: levelDiff is positive
+      damage = Math.round(calcDmgVal * (1.25 + Math.log2(levelDiff) / 4));
+    } else if (levelDiff < 0) {// Creature is below player level: levelDiff is negative
+      damage = Math.round(calcDmgVal * Math.pow((0.95 / -levelDiff), 0.125));
+    } else {
+      damage = Math.round(calcDmgVal);
+    }
     let messagePicker = (attack.messages.length > 1) ? Math.round(RNG(attack.messages.length-1)) : 0;
     Output.addElement({
       "entity": creature.name,
@@ -471,13 +495,13 @@ function drinkPotion() {
       "content": "You already have full health!"
     });
   } else {
-    if (Player.inventory.potions > 0) {
+    if (Player.inventory.getItem("potions").quantity > 0) {
       let healing = (Math.min(Math.round(50 + Player.attributes.level * Player.attributes.level), Player.attributes.totalHP - Player.attributes.currentHP));
       Player.attributes.currentHP += healing;
-      Player.inventory.potions--;
+      Player.inventory.getItem("potions").quantity--;
       Output.addElement({
         "entity": "",
-        "content": "You drink a potion, restoring " + healing + "HP. You have " + Player.inventory.potions + " potions remaining."
+        "content": "You drink a potion, restoring " + healing + "HP. You have " + Player.inventory.getItem("potions").quantity + " potions remaining."
       });
       DisplayInventory(Player);
     } else {
