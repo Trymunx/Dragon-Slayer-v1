@@ -1,31 +1,30 @@
 function DisplayInventory (player) {
 
-  // Display item array with indentation
-  var itemList = [""];
-  for (let i in player.inventory.items) {
-    itemList[i] = "\n    " + player.inventory.items[i];
-  }
+  // // Display item array with indentation
+  // var itemList = [""];
+  // for (let i in player.inventory.items) {
+  //   itemList[i] = "\n    " + player.inventory.items[i];
+  // }
 
   // Display inventory with indentation
-  var inventory = [
-    "Equipped items:\n",
-    "  Head: " + player.equipped.head + "\n",
-    "  Torso: " + player.equipped.torso + "\n",
-    "  Legs: " + player.equipped.legs + "\n",
-    "  Right hand: " + player.equipped.rightHand + "\n",
-    "  Left hand: " + player.equipped.leftHand + "\n",
-    "  Gloves: " + player.equipped.gloves + "\n",
-    "  Boots: " + player.equipped.boots + "\n",
-    "\n",
-    "Inventory:\n",
-    "  Gold: <span class='gold'>" + player.inventory.gold + "</span>\n",
-    "  Potions: <span class='potions'>" + player.inventory.potions + "</span>\n",
-    "  Items: " + itemList
-  ];
-  var inventoryString = "";
-  for (let i in inventory) {
-    inventoryString += inventory[i];
-  }
+  var inventoryString = 
+    "Equipped items:\n" +
+    "  Head: " + player.equipped.head + "\n" +
+    "  Torso: " + player.equipped.torso + "\n" +
+    "  Legs: " + player.equipped.legs + "\n" +
+    "  Right hand: " + player.equipped.rightHand + "\n" +
+    "  Left hand: " + player.equipped.leftHand + "\n" +
+    "  Gloves: " + player.equipped.gloves + "\n" +
+    "  Boots: " + player.equipped.boots + "\n" +
+    "\n" +
+    "Inventory:\n";
+    // "  Gold: <span class='gold'>" + player.inventory.gold + "</span>\n",
+    // "  Potions: <span class='potions'>" + player.inventory.potions + "</span>\n",
+    // "  Items: " + itemList
+
+    for (let item of player.inventory) {
+      inventoryString += item.key + ": " + item.quantity; // TODO: Fix using key as name
+    }
 
   var levelDisplay = "Level: " + player.attributes.level;
   let totalExpBarLength = 30;

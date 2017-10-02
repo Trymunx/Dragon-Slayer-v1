@@ -372,13 +372,13 @@ function drinkPotion() {
       "content": "You already have full health!"
     });
   } else {
-    if (Player.inventory.potions > 0) {
+    if (Player.inventory.getItem("potions").quantity > 0) {
       let healing = (Math.min(Math.round(50 + Player.attributes.level * Player.attributes.level), Player.attributes.totalHP - Player.attributes.currentHP));
       Player.attributes.currentHP += healing;
-      Player.inventory.potions--;
+      Player.inventory.getItem("potions").quantity--;
       Output.addElement({
         "entity": "",
-        "content": "You drink a potion, restoring " + healing + "HP. You have " + Player.inventory.potions + " potions remaining."
+        "content": "You drink a potion, restoring " + healing + "HP. You have " + Player.inventory.getItem("potions").quantity + " potions remaining."
       });
       DisplayInventory(Player);
     } else {

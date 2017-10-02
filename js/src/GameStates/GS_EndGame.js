@@ -52,7 +52,7 @@ function endGameReport() {
         }
         Output.addElement({
           "entity": "",
-          "content": "You slayed " + creaturesSlainOutput.join(", ") + " and earned " + Player.inventory.gold + " gold."
+          "content": "You slayed " + creaturesSlainOutput.join(", ") + " and earned " + Player.inventory.getItem("gold").quantity + " gold."
         });
       } else {
         Output.addElement({

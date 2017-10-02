@@ -1,25 +1,50 @@
 const PlayerTemplate = require("../db/Player.json");
-const getName = require("../src/utils/NameGenerator.js");
+const genName = require("../src/utils/NameGenerator.js");
 const CreatureDb = require("../db/Creatures.json");
 
+class Inventory {
+  constructor() {
+    this.items = {};
+    for (let item of PlayerTemplate.inventory) {
+      this.items[item.key] = Object.assign({}, item);
+    }
+  }
+  getItem(key) {
+    return this.items[key];
+  }
+  * [Symbol.iterator]() {
+    for (let item of Object.values(this.items)) {
+      yield item;
+    }
+  }
+}
+
+class Player{
+  constructor(name) {
+    if (!name) {
+    name = genName();
+    }
+    this.name = name;
+    this.attributes = Object.assign({}, PlayerTemplate.attributes);
+    this.attributes.currentHP = this.attributes.totalHP = (5 * this.attributes.level * this.attributes.level + 95);
+    
+    this.creaturesSlain = {};
+    this.creaturesSlain.total = 0;
+    this.creaturesSlain.byType = {};
+    for (let key in CreatureDb) {
+      this.creaturesSlain.byType[key] = 0;
+    }
+    
+    this.inventory = new Inventory();
+    
+    // TODO: Fix equipment list
+    this.equipped = Object.assign({}, PlayerTemplate.equipped);
+  }
+
+}
 
 function newPlayer(name) {
-  if (!name) {
-    name = getName();
-  }
-
-  let player = PlayerTemplate;
-  player.name = name;
-  player.attributes.level = 1;
-  player.attributes.experience = 0;
-  player.attributes.currentHP = player.attributes.totalHP = (5 * player.attributes.level * player.attributes.level + 95);
-  player.creaturesSlain.total = 0;
-  player.creaturesSlain.byType = {};
-  for (let key in CreatureDb) {
-    player.creaturesSlain.byType[key] = 0;
-  }
-
-  return player;
+  return new Player(name);
 }
 
 module.exports = newPlayer;
