@@ -240,6 +240,7 @@ function playerAttack(creature) {
       "entity": "",
       "content": "You attack the " + creature.name + " for " + damage + "HP."
     });
+    Player.attributes.strength += 0.005 // Gain a small amount of strength every hit
   } else {
     Output.addElement({
       "entity": "",
