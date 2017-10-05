@@ -12,31 +12,31 @@ class Inventory {
   getItem(key) {
     return this.items[key];
   }
-  * [Symbol.iterator]() {
+  *[Symbol.iterator]() {
     for (let item of Object.values(this.items)) {
       yield item;
     }
   }
 }
 
-class Player{
+class Player {
   constructor(name) {
     if (!name) {
-    name = genName();
+      name = genName();
     }
     this.name = name;
     this.attributes = Object.assign({}, PlayerTemplate.attributes);
     this.attributes.currentHP = this.attributes.totalHP = (5 * this.attributes.level * this.attributes.level + 95);
-    
+
     this.creaturesSlain = {};
     this.creaturesSlain.total = 0;
     this.creaturesSlain.byType = {};
     for (let key in CreatureDb) {
       this.creaturesSlain.byType[key] = 0;
     }
-    
+
     this.inventory = new Inventory();
-    
+
     // TODO: Fix equipment list
     this.equipped = Object.assign({}, PlayerTemplate.equipped);
   }

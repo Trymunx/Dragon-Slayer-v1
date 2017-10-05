@@ -39,12 +39,12 @@ var directions = [
 ]
 
 GS_OffPath.setPlayer = function (player) {
-    Player = player;
+  Player = player;
 }
 
 GS_OffPath.setMap = function (map) {
-    CurrentMap = map;
-    sideLength = Math.sqrt(map.length);
+  CurrentMap = map;
+  sideLength = Math.sqrt(map.length);
 }
 
 GS_OffPath.includeGSManager = function (gsManager) {
@@ -52,7 +52,7 @@ GS_OffPath.includeGSManager = function (gsManager) {
 }
 
 // Receive command
-function getInputAndParse (e) {
+function getInputAndParse(e) {
   if (e.keyCode === 13) {
     e.preventDefault();
 
@@ -92,26 +92,26 @@ function getInputAndParse (e) {
   } else if (e.keyCode === 9) {
     let text = Input_Text.value;
     Input_Text.value = tabComplete(text);
-  
+
 
     // } else if (e.keyCode === 9) {
-  //   let text = Input_Text.value;
-  //   if (text === "") {
-  //     validCompletions = commands.slice();
-  //   } else {
-  //     if (validCompletions.length === 0) {
-  //       var command = text.toLowerCase().split("");
-  //       var validCompletions = [];
-  //       for (let option in commands) {
-  //         if (option.startsWith(text)) {
-  //           validCompletions.push(option);
-  //         }
-  //       }
-  //       Input_Text.value = validCompletions[]
-  //     } else {
-  //       validCompletions.shift();
-  //     }
-  //   }
+    //   let text = Input_Text.value;
+    //   if (text === "") {
+    //     validCompletions = commands.slice();
+    //   } else {
+    //     if (validCompletions.length === 0) {
+    //       var command = text.toLowerCase().split("");
+    //       var validCompletions = [];
+    //       for (let option in commands) {
+    //         if (option.startsWith(text)) {
+    //           validCompletions.push(option);
+    //         }
+    //       }
+    //       Input_Text.value = validCompletions[]
+    //     } else {
+    //       validCompletions.shift();
+    //     }
+    //   }
   }
 }
 
@@ -120,7 +120,7 @@ GS_OffPath.runState = function () {
   DrawMap(CurrentMap, Player);
   // Initialise above function
   Input_Text.addEventListener("keydown", getInputAndParse);
-  
+
 
 
 }
@@ -135,7 +135,7 @@ function commandParse(input, index) {
       if (CurrentMap[playerPos].creature) {
         Input_Text.removeEventListener("keydown", getInputAndParse);
         playerPos = PlayerPosition(CurrentMap);
-        let messagePicker = Math.round(RNG(CurrentMap[playerPos].creature.messages.onSpawn.length-1));
+        let messagePicker = Math.round(RNG(CurrentMap[playerPos].creature.messages.onSpawn.length - 1));
         Output.addElement({
           "entity": "",
           "content": CurrentMap[playerPos].creature.messages.onSpawn[messagePicker]
@@ -186,7 +186,7 @@ function commandParse(input, index) {
             "entity": "",
             "content": "There is a " + CurrentMap[playerPos].creature.name + " here."
           });
-          
+
         }
         if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
           enterAttackState(playerPos);
@@ -214,7 +214,7 @@ function commandParse(input, index) {
             "entity": "",
             "content": "There is a " + CurrentMap[playerPos].creature.name + " here."
           });
-          
+
         }
         if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
           enterAttackState(playerPos);
@@ -242,7 +242,7 @@ function commandParse(input, index) {
             "entity": "",
             "content": "There is a " + CurrentMap[playerPos].creature.name + " here."
           });
-          
+
         }
         if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
           enterAttackState(playerPos);
@@ -270,7 +270,7 @@ function commandParse(input, index) {
             "entity": "",
             "content": "There is a " + CurrentMap[playerPos].creature.name + " here."
           });
-          
+
         }
         if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
           enterAttackState(playerPos);
@@ -288,7 +288,7 @@ function commandParse(input, index) {
           "entity": "",
           "content": "Look at what? Try a direction, or \"look around\" for the surroundings."
         });
-        
+
       }
       break;
     case "potion":
@@ -353,7 +353,7 @@ function commandParse(input, index) {
 function enterAttackState(playerPos) {
   // Aggressive creatures attack on sight
   Input_Text.removeEventListener("keydown", getInputAndParse);
-  let messagePicker = Math.round(RNG(CurrentMap[playerPos].creature.messages.onSpawn.length-1));
+  let messagePicker = Math.round(RNG(CurrentMap[playerPos].creature.messages.onSpawn.length - 1));
   Output.addElement({
     "entity": "",
     "content": CurrentMap[playerPos].creature.messages.onSpawn[messagePicker]
@@ -386,7 +386,7 @@ function drinkPotion() {
         "entity": "",
         "content": "You have no potions left to drink!"
       });
-    } 
+    }
   }
 }
 
@@ -434,7 +434,7 @@ function tabComplete(text) {
         break;
       }
     }
-    
+
     if (possible) {
       matchedCommands.push(command);
     }

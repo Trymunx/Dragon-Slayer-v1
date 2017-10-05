@@ -25,11 +25,11 @@ function genMap(sideLength, edge, player) {
   if (RNG() < 0.6) {
 
     // Bridge appears first
-    var bridgeMain = Math.round(RNG(mapSize-1));
+    var bridgeMain = Math.round(RNG(mapSize - 1));
     var bridgePlaced = false;
     while (!bridgePlaced) {
       if (bridgeMain % sideLength === 0 || (bridgeMain + 1) % sideLength === 0) {
-        bridgeMain = Math.round(RNG(mapSize-1));
+        bridgeMain = Math.round(RNG(mapSize - 1));
       } else {
         map[bridgeMain].terrain = "bridge";
         bridgePlaced = true;
@@ -82,7 +82,7 @@ function genMap(sideLength, edge, player) {
   }
 
   // Generate up to one creature per empty tile
-  for (let i=0; i < mapSize; i++) {
+  for (let i = 0; i < mapSize; i++) {
     // Check to see if the tile has a river
     if (map[i].terrain.length !== 0) {
       map[i].creature = null;
@@ -101,27 +101,27 @@ function genMap(sideLength, edge, player) {
     let position;
     switch (edge) {
       case "none":
-        position = Math.round(RNG(mapSize-1));
+        position = Math.round(RNG(mapSize - 1));
         break;
       case "north":
-        position = Math.round(RNG(sideLength-1));
+        position = Math.round(RNG(sideLength - 1));
         break;
       case "south":
-        position = (mapSize - 1) - Math.round(RNG(sideLength-1));
+        position = (mapSize - 1) - Math.round(RNG(sideLength - 1));
         break;
       case "east":
-        position = (Math.round(RNG(sideLength))*sideLength)-1;
+        position = (Math.round(RNG(sideLength)) * sideLength) - 1;
         break;
       case "west":
-        position = Math.round(RNG(sideLength-1))*sideLength;
+        position = Math.round(RNG(sideLength - 1)) * sideLength;
         break;
     }
-  
+
     return position;
   }
 
   // Place player on an empty tile based off edge argument
-  var playerPos = randomPosition(edge);  
+  var playerPos = randomPosition(edge);
   var playerPlaced = false;
   while (!playerPlaced) {
     if (map[playerPos].terrain.length !== 0) {
