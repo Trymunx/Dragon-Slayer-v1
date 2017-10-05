@@ -252,7 +252,7 @@ function playerAttack(creature) {
       Player.attributes.strength++;
       Output.addElement({
         "entity": "",
-        "content": "<span class='potions'>Congratulations!\nYour strength is now level " + Player.attributes.strength + ".</span>"
+        "content": "<span class='level-strength'>Congratulations!\nYour strength is now level " + Player.attributes.strength + ".</span>"
       });
     }
   } else {
@@ -522,7 +522,7 @@ function playerExperienceGain(creature) {
     Player.attributes.level++;
     Output.addElement({
       "entity": "",
-      "content": "Congratulations!\nYou are now level " + Player.attributes.level + "."
+      "content": "<span class='level-up'>Congratulations!\nYou are now level " + Player.attributes.level + ".</span>"
     });
   }
   DisplayInventory(Player);
