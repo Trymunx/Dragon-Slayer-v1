@@ -6,6 +6,8 @@ const DrawMap = require("../DrawMap.js");
 const Look = require("../Look.js");
 const DisplayInventory = require("../DisplayInventory.js");
 const RNG = require("../utils/RNG.js");
+const ItemDb = require("../../db/Items.json");
+
 
 var GS_OffPath = {};
 var Player;
@@ -304,6 +306,19 @@ function commandParse(input, index) {
         rest();
       }
       break;
+    // case "take":
+    //   if (CurrentMap[Player.position].items) {
+    //     let itemNames;
+    //     for (let item in CurrentMap[Player.position].items) {
+    //       itemNames.push(ItemDb[CurrentMap[Player.position].items[item].key].name);
+    //       itemNames.push(ItemDb[CurrentMap[Player.position].items[item].key].namePlural);
+    //     }
+    //     if (itemNames.includes(input[1])) {
+    //       let index = Math.floor(itemNames.indexOf(input[1]));
+    //       CurrentMap[Player.position].items.splice(index, 1);
+    //       if (Player.inventory.)
+    //     }
+    //   }
     case "restart":
       Input_Text.removeEventListener("keydown", getInputAndParse);
       GameStateManager.emit("start");

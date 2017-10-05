@@ -293,14 +293,14 @@ function creatureDrop(creature) {
   if (RNG() <= creature.drops.gold.dropChance) {
     goldDrop = dimRNG(1, creature.drops.gold.max);
     // Player.inventory.gold += goldDrop;
-    CurrentMap[Player.position].items.push({"name": "gold", "namePlural": "gold", "number": goldDrop});
+    CurrentMap[Player.position].items.push({"key": "gold", "quantity": goldDrop});
   } else {
     goldDrop = false;
   }
   let potionDrop;
   if (RNG() <= creature.drops.potions.dropChance) {
     potionDrop = dimRNG(1, creature.drops.potions.max);
-    CurrentMap[Player.position].items.push({"name": "potion", "namePlural": "potions", "number": potionDrop});
+    CurrentMap[Player.position].items.push({"key": "potion", "quantity": potionDrop});
     // Player.inventory.potions += potionDrop;
   } else {
     potionDrop = false;

@@ -1,4 +1,6 @@
 const Splash = require("./splash/Splash.json");
+const ItemsDb = require("../db/Items.json");
+
 // Creates an ASCII version of the map
 function drawMap (map, player) {
   var playerPos;
@@ -103,7 +105,7 @@ function drawMap (map, player) {
   // Display item array with indentation
   var itemList = [];
   for (let i of map[playerPos].items) {
-    itemList.push("(      " + i.number + " " + (i.number === 1 ? i.name : i.namePlural) + "      )");
+    itemList.push("(      " + i.quantity + " " + (i.quantity === 1 ? ItemsDb[i.key].name : ItemsDb[i.key].namePlural) + "      )");
   }
   
   var creatureLevels = "Creature levels here: 1 - " + Math.round(player.attributes.level * 1.5);
