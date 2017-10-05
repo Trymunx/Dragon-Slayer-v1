@@ -246,12 +246,13 @@ function playerAttack(creature) {
       "entity": "",
       "content": "You attack the " + creature.name + " for " + damage + "HP."
     });
-    Player.attributes.strength += 0.005; // Gain a small amount of strength every hit
-    console.log(Player.attributes.strength);
-    if ((Math.round(Player.attributes.strength*1000)/1000) % 1 === 0) {
+    Player.attributes.strEXP++;
+    while (Player.attributes.strEXP > Math.round(2 * Math.pow(Player.attributes.strength, 1.8))) {
+      Player.attributes.strEXP -= Math.round(2 * Math.pow(Player.attributes.strength, 1.8));
+      Player.attributes.strength++;
       Output.addElement({
         "entity": "",
-        "content": "<span class='potions'>Congratulations!\nYour strength is now level " + Math.round(Player.attributes.strength) + ".</span>"
+        "content": "<span class='potions'>Congratulations!\nYour strength is now level " + Player.attributes.strength + ".</span>"
       });
     }
   } else {
