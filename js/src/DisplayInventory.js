@@ -1,3 +1,6 @@
+const ItemsDb = require("../db/Items.json");
+
+
 function DisplayInventory(player) {
 
   // // Display item array with indentation
@@ -23,7 +26,8 @@ function DisplayInventory(player) {
   // "  Items: " + itemList
 
   for (let item of player.inventory) {
-    inventoryString += item.key + ": " + item.quantity; // TODO: Fix using key as name
+    let name = item.quantity !== 1 ? ItemsDb[item.key].namePlural : ItemsDb[item.key].name;
+    inventoryString += "  " + item.quantity + " " + name + "\n";
   }
 
   var levelDisplay = "Level: " + player.attributes.level;

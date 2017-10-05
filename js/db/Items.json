@@ -1,0 +1,12 @@
+{
+  "potion": {
+    "name": "potion",
+    "namePlural": "potions",
+    "value": 35
+  },
+  "gold": {
+    "name": "gold",
+    "namePlural": "gold",
+    "value": 1
+  }
+}
