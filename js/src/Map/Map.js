@@ -37,6 +37,7 @@ class Map {
         // tile.playerHasSeen = true;
         // revealSurroundings(playerPos, map);
         playerPlaced = true;
+        player.position = playerPos;
       }
     }
   }

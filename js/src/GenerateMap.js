@@ -132,6 +132,7 @@ function genMap(sideLength, edge, player) {
       map[playerPos].playerHasSeen = true;
       revealSurroundings(playerPos, map);
       playerPlaced = true;
+      player.position = playerPos;
     }
   }
 

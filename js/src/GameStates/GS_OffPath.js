@@ -3,7 +3,6 @@ const EventEmitter = require("events").EventEmitter;
 const Input_Text = document.getElementById("input-text");
 const Output = require("../../Output.js");
 const DrawMap = require("../DrawMap.js");
-const PlayerPosition = require("../PlayerPosition.js");
 const Look = require("../Look.js");
 const DisplayInventory = require("../DisplayInventory.js");
 const RNG = require("../utils/RNG.js");
@@ -66,7 +65,6 @@ function getInputAndParse(e) {
       // Parse and process command
       // Parse(text, Player, CurrentMap);
 
-      playerPos = PlayerPosition(CurrentMap);
       var command = text.toLowerCase().split(" ");
 
       commandParse(command, 0)
@@ -132,18 +130,17 @@ function commandParse(input, index) {
   switch (input[index]) {
     case "attack":
     case "fight":
-      if (CurrentMap[playerPos].creature) {
+      if (CurrentMap[Player.position].creature) {
         Input_Text.removeEventListener("keydown", getInputAndParse);
-        playerPos = PlayerPosition(CurrentMap);
-        let messagePicker = Math.round(RNG(CurrentMap[playerPos].creature.messages.onSpawn.length - 1));
+        let messagePicker = Math.round(RNG(CurrentMap[Player.position].creature.messages.onSpawn.length - 1));
         Output.addElement({
           "entity": "",
-          "content": CurrentMap[playerPos].creature.messages.onSpawn[messagePicker]
+          "content": CurrentMap[Player.position].creature.messages.onSpawn[messagePicker]
         });
         GameStateManager.emit("fight", {
           player: Player,
           map: CurrentMap,
-          creature: CurrentMap[playerPos].creature
+          creature: CurrentMap[Player.position].creature
         });
 
       } else {
@@ -167,8 +164,7 @@ function commandParse(input, index) {
       break;
     case "north":
       // Player position before move: check if at North edge
-      playerPos = PlayerPosition(CurrentMap);
-      if (playerPos - sideLength < 0) {
+      if (Player.position - sideLength < 0) {
         Output.addElement({
           "entity": "",
           "content": "Walking North, you think you see the edge of the trees but emerge instead in more dense forest."
@@ -177,26 +173,23 @@ function commandParse(input, index) {
           player: Player
         });
       } else {
-        MovePlayer(CurrentMap, "north");
-        // Update player position to new place
-        playerPos = PlayerPosition(CurrentMap);
+        MovePlayer(CurrentMap, "north", Player);
         DrawMap(CurrentMap, Player);
-        if (CurrentMap[playerPos].creature) {
+        if (CurrentMap[Player.position].creature) {
           Output.addElement({
             "entity": "",
-            "content": "There is a " + CurrentMap[playerPos].creature.name + " here."
+            "content": "There is a " + CurrentMap[Player.position].creature.name + " here."
           });
 
         }
-        if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
-          enterAttackState(playerPos);
+        if (CurrentMap[Player.position].creature && CurrentMap[Player.position].creature.attributes.aggressive) {
+          enterAttackState();
         }
       }
       break;
     case "south":
       //Player position before move: check if at South edge
-      playerPos = PlayerPosition(CurrentMap);
-      if (playerPos + sideLength >= CurrentMap.length) {
+      if (Player.position + sideLength >= CurrentMap.length) {
         Output.addElement({
           "entity": "",
           "content": "Walking South, you think you see the edge of the trees but emerge instead in more dense forest."
@@ -205,26 +198,23 @@ function commandParse(input, index) {
           player: Player
         });
       } else {
-        MovePlayer(CurrentMap, "south");
-        // Update player position to new place
-        playerPos = PlayerPosition(CurrentMap);
+        MovePlayer(CurrentMap, "south", Player);
         DrawMap(CurrentMap, Player);
-        if (CurrentMap[playerPos].creature) {
+        if (CurrentMap[Player.position].creature) {
           Output.addElement({
             "entity": "",
-            "content": "There is a " + CurrentMap[playerPos].creature.name + " here."
+            "content": "There is a " + CurrentMap[Player.position].creature.name + " here."
           });
 
         }
-        if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
-          enterAttackState(playerPos);
+        if (CurrentMap[Player.position].creature && CurrentMap[Player.position].creature.attributes.aggressive) {
+          enterAttackState();
         }
       }
       break;
     case "east":
       //Player position before move: check if at East edge
-      playerPos = PlayerPosition(CurrentMap);
-      if ((playerPos + 1) % sideLength === 0) {
+      if ((Player.position + 1) % sideLength === 0) {
         Output.addElement({
           "entity": "",
           "content": "Walking East, you think you see the edge of the trees but emerge instead in more dense forest."
@@ -233,26 +223,23 @@ function commandParse(input, index) {
           player: Player
         });
       } else {
-        MovePlayer(CurrentMap, "east");
-        // Update player position to new place
-        playerPos = PlayerPosition(CurrentMap);
+        MovePlayer(CurrentMap, "east", Player);
         DrawMap(CurrentMap, Player);
-        if (CurrentMap[playerPos].creature) {
+        if (CurrentMap[Player.position].creature) {
           Output.addElement({
             "entity": "",
-            "content": "There is a " + CurrentMap[playerPos].creature.name + " here."
+            "content": "There is a " + CurrentMap[Player.position].creature.name + " here."
           });
 
         }
-        if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
-          enterAttackState(playerPos);
+        if (CurrentMap[Player.position].creature && CurrentMap[Player.position].creature.attributes.aggressive) {
+          enterAttackState();
         }
       }
       break;
     case "west":
       //Player position before move: check if at West edge
-      playerPos = PlayerPosition(CurrentMap);
-      if (playerPos % sideLength === 0) {
+      if (Player.position % sideLength === 0) {
         Output.addElement({
           "entity": "",
           "content": "Walking West, you think you see the edge of the trees but emerge instead in more dense forest."
@@ -261,25 +248,23 @@ function commandParse(input, index) {
           player: Player
         });
       } else {
-        MovePlayer(CurrentMap, "west");
-        // Update player position to new place
-        playerPos = PlayerPosition(CurrentMap);
+        MovePlayer(CurrentMap, "west", Player);
         DrawMap(CurrentMap, Player);
-        if (CurrentMap[playerPos].creature) {
+        if (CurrentMap[Player.position].creature) {
           Output.addElement({
             "entity": "",
-            "content": "There is a " + CurrentMap[playerPos].creature.name + " here."
+            "content": "There is a " + CurrentMap[Player.position].creature.name + " here."
           });
 
         }
-        if (CurrentMap[playerPos].creature && CurrentMap[playerPos].creature.attributes.aggressive) {
-          enterAttackState(playerPos);
+        if (CurrentMap[Player.position].creature && CurrentMap[Player.position].creature.attributes.aggressive) {
+          enterAttackState();
         }
       }
       break;
     case "look":
       if (directions.includes(input[1])) {
-        Look(CurrentMap, input[1]);
+        Look(CurrentMap, input[1], Player);
         DrawMap(CurrentMap, Player);
       } else if (input[1] === "at") {
         commandParse(["look", input[2]], 0);
@@ -350,18 +335,18 @@ function commandParse(input, index) {
   }
 }
 
-function enterAttackState(playerPos) {
+function enterAttackState() {
   // Aggressive creatures attack on sight
   Input_Text.removeEventListener("keydown", getInputAndParse);
-  let messagePicker = Math.round(RNG(CurrentMap[playerPos].creature.messages.onSpawn.length - 1));
+  let messagePicker = Math.round(RNG(CurrentMap[Player.position].creature.messages.onSpawn.length - 1));
   Output.addElement({
     "entity": "",
-    "content": CurrentMap[playerPos].creature.messages.onSpawn[messagePicker]
+    "content": CurrentMap[Player.position].creature.messages.onSpawn[messagePicker]
   });
   GameStateManager.emit("fight", {
     player: Player,
     map: CurrentMap,
-    creature: CurrentMap[playerPos].creature
+    creature: CurrentMap[Player.position].creature
   });
 }
 

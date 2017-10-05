@@ -2,7 +2,6 @@ const Output = require("../../Output.js");
 const Input_Text = document.getElementById("input-text");
 const RNG = require("../utils/RNG");
 const dimRNG = require("../utils/DimRNG.js");
-const PlayerPosition = require("../PlayerPosition.js");
 const DisplayInventory = require("../DisplayInventory.js");
 
 var GS_Fight = {};
@@ -32,8 +31,6 @@ GS_Fight.setMap = function (map) {
 }
 
 GS_Fight.runState = function (GameStateManager) {
-  
-  var playerPos = PlayerPosition(CurrentMap);
 
   // Receive command
   function fightCommands (e) {
@@ -68,7 +65,7 @@ GS_Fight.runState = function (GameStateManager) {
                 playerAttack(Creature);
                 // Is the creature still alive after player's attack?
                 if (Creature.attributes.currentHP <= 0) {
-                  CurrentMap[playerPos].creature = null;
+                  CurrentMap[Player.position].creature = null;
                   GameStateManager.emit("win", {
                     player: Player,
                     map: CurrentMap
@@ -90,7 +87,7 @@ GS_Fight.runState = function (GameStateManager) {
                   "entity": "Error:",
                   "content": "It's already dead. Attacking it won't help."
                 });
-                CurrentMap[playerPos].creature = null;
+                CurrentMap[Player.position].creature = null;
                 GameStateManager.emit("win", {
                   player: Player,
                   map: CurrentMap
@@ -109,7 +106,7 @@ GS_Fight.runState = function (GameStateManager) {
                   Input_Text.removeEventListener("keydown", fightCommands);
                 }
               } else {
-                CurrentMap[playerPos].creature = null;
+                CurrentMap[Player.position].creature = null;
                 GameStateManager.emit("win", {
                   player: Player,
                   map: CurrentMap
@@ -131,7 +128,7 @@ GS_Fight.runState = function (GameStateManager) {
                 Input_Text.removeEventListener("keydown", fightCommands);
               }
             } else {
-              CurrentMap[playerPos].creature = null;
+              CurrentMap[Player.position].creature = null;
               GameStateManager.emit("win", {
                 player: Player,
                 map: CurrentMap
@@ -152,7 +149,7 @@ GS_Fight.runState = function (GameStateManager) {
                 Input_Text.removeEventListener("keydown", fightCommands);
               }
             } else {
-              CurrentMap[playerPos].creature = null;
+              CurrentMap[Player.position].creature = null;
               GameStateManager.emit("win", {
                 player: Player,
                 map: CurrentMap
@@ -177,7 +174,7 @@ GS_Fight.runState = function (GameStateManager) {
                   Input_Text.removeEventListener("keydown", fightCommands);
                 }
               } else {
-                CurrentMap[playerPos].creature = null;
+                CurrentMap[Player.position].creature = null;
                 GameStateManager.emit("win", {
                   player: Player,
                   map: CurrentMap
@@ -192,7 +189,7 @@ GS_Fight.runState = function (GameStateManager) {
               });
               
               // Stop creatures from regaining full HP after you run away
-              CurrentMap[playerPos].creature.attributes.currentHP = Creature.attributes.currentHP;
+              CurrentMap[Player.position].creature.attributes.currentHP = Creature.attributes.currentHP;
               GameStateManager.emit("run", {
                 player: Player,
                 map: CurrentMap
@@ -295,14 +292,14 @@ function creatureDrop(creature) {
   if (RNG() <= creature.drops.gold.dropChance) {
     goldDrop = dimRNG(1, creature.drops.gold.max);
     // Player.inventory.gold += goldDrop;
-    CurrentMap[playerPos].items.push({"name": "gold", "namePlural": "gold", "number": goldDrop});
+    CurrentMap[Player.position].items.push({"name": "gold", "namePlural": "gold", "number": goldDrop});
   } else {
     goldDrop = false;
   }
   let potionDrop;
   if (RNG() <= creature.drops.potions.dropChance) {
     potionDrop = dimRNG(1, creature.drops.potions.max);
-    CurrentMap[playerPos].items.push({"name": "potion", "namePlural": "potions", "number": potionDrop});
+    CurrentMap[Player.position].items.push({"name": "potion", "namePlural": "potions", "number": potionDrop});
     // Player.inventory.potions += potionDrop;
   } else {
     potionDrop = false;

@@ -1,19 +1,17 @@
-const getPlayerPosition = require("./PlayerPosition.js");
 const DrawMap = require("./DrawMap.js");
-const Look = require("./Look.js");
+// const Look = require("./Look.js");
 const Output = require("../Output.js");
 const revealSurroundings = require("./RevealSurroundings.js");
 
 
-function movePlayer(map, compassPoint) {
+function movePlayer(map, compassPoint, player) {
   var sideLength = Math.sqrt(map.length);
 
-  var playerPos = getPlayerPosition(map);
-  var oldPlayerPos = playerPos;
+  var oldPlayerPos = player.position;
 
   switch(compassPoint) {
     case "north":
-      if (map[(playerPos - sideLength)].terrain === "river" || map[(playerPos - sideLength)].terrain === "bridgeUpper" || map[(playerPos - sideLength)].terrain === "bridgeLower") {
+      if (map[(player.position - sideLength)].terrain === "river" || map[(player.position - sideLength)].terrain === "bridgeUpper" || map[(player.position - sideLength)].terrain === "bridgeLower") {
         Output.addElement({
           "entity": "",
           "content": "You can't cross the river. Try finding a bridge."
@@ -23,11 +21,11 @@ function movePlayer(map, compassPoint) {
           "entity": "",
           "content": "Moving North..."
         });
-        playerPos -= sideLength;
+        player.position -= sideLength;
       }
       break;
     case "south":
-      if (map[(playerPos + sideLength)].terrain === "river" || map[(playerPos + sideLength)].terrain === "bridgeUpper" || map[(playerPos + sideLength)].terrain === "bridgeLower") {
+      if (map[(player.position + sideLength)].terrain === "river" || map[(player.position + sideLength)].terrain === "bridgeUpper" || map[(player.position + sideLength)].terrain === "bridgeLower") {
         Output.addElement({
           "entity": "",
           "content": "You can't cross the river. Try finding a bridge."
@@ -37,11 +35,11 @@ function movePlayer(map, compassPoint) {
           "entity": "",
           "content": "Moving South..."
         });
-        playerPos += sideLength;
+        player.position += sideLength;
       }
       break;
     case "east":
-      if (map[(playerPos + 1)].terrain === "river" || map[(playerPos + 1)].terrain === "bridgeUpper" || map[(playerPos + 1)].terrain === "bridgeLower") {
+      if (map[(player.position + 1)].terrain === "river" || map[(player.position + 1)].terrain === "bridgeUpper" || map[(player.position + 1)].terrain === "bridgeLower") {
         Output.addElement({
           "entity": "",
           "content": "You can't cross the river."
@@ -51,11 +49,11 @@ function movePlayer(map, compassPoint) {
           "entity": "",
           "content": "Moving East..."
         });
-        playerPos++;
+        player.position++;
       }
       break;
     case "west":
-      if (map[(playerPos - 1)].terrain === "river" || map[(playerPos - 1)].terrain === "bridgeUpper" || map[(playerPos - 1)].terrain === "bridgeLower") {
+      if (map[(player.position - 1)].terrain === "river" || map[(player.position - 1)].terrain === "bridgeUpper" || map[(player.position - 1)].terrain === "bridgeLower") {
         Output.addElement({
           "entity": "",
           "content": "You can't cross the river. Try finding a bridge."
@@ -65,7 +63,7 @@ function movePlayer(map, compassPoint) {
           "entity": "",
           "content": "Moving West..."
         });
-        playerPos--;
+        player.position--;
       }
       break;
     default:
@@ -78,10 +76,10 @@ function movePlayer(map, compassPoint) {
 
   // Move player to the new position
   map[oldPlayerPos].playerIsHere = false;
-  map[playerPos].playerIsHere = true;
-  map[playerPos].playerHasSeen = true;
+  map[player.position].playerIsHere = true;
+  map[player.position].playerHasSeen = true;
 
-  revealSurroundings(playerPos, map);
+  revealSurroundings(player.position, map);
 
 }
 
