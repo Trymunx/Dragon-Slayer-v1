@@ -1,0 +1,36 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Launch Program",
+        "program": "${workspaceRoot}/main.js"
+      },
+      {
+        "name": "Debug",
+        "type": "chrome",
+        "request": "launch",
+        "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
+        "runtimeArgs": [
+            "${workspaceRoot}",
+            "--enable-logging",
+            "--remote-debugging-port=9222"
+         ],
+         "sourceMaps": false
+      },
+      { 
+        "name": "Launch Electron",
+        "type": "node",
+        "request": "launch",
+        "program": "${workspaceRoot}/main.js",
+        "stopOnEntry": false,
+        "args": ["."],
+        "cwd": "${workspaceRoot}",
+        "runtimeExecutable": "electron",
+        "env": { }, 
+        "sourceMaps": false
+      } 
+    ]
+  }
+  
