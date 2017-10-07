@@ -26,8 +26,10 @@ function DisplayInventory(player) {
   // "  Items: " + itemList
 
   for (let item of player.inventory) {
-    let name = item.quantity !== 1 ? ItemsDb[item.key].namePlural : ItemsDb[item.key].name;
-    inventoryString += "  " + item.quantity + " " + name + "\n";
+    if (item.quantity >= 1) {
+      let name = item.quantity > 1 ? ItemsDb[item.key].namePlural : ItemsDb[item.key].name;
+      inventoryString += "  " + item.quantity + " " + name + "\n";
+    }
   }
 
   var levelDisplay = "Level: " + player.attributes.level;
