@@ -3,6 +3,7 @@ const Input_Text = document.getElementById("input-text");
 const RNG = require("../utils/RNG");
 const dimRNG = require("../utils/DimRNG.js");
 const DisplayInventory = require("../DisplayInventory.js");
+const ItemDb = require("../../db/Items.json");
 
 var GS_Fight = {};
 var Player;
@@ -293,14 +294,14 @@ function creatureDrop(creature) {
   if (RNG() <= creature.drops.gold.dropChance) {
     goldDrop = dimRNG(1, creature.drops.gold.max);
     // Player.inventory.gold += goldDrop;
-    CurrentMap[Player.position].items.push({"key": "gold", "quantity": goldDrop});
+    CurrentMap[Player.position].items.push({"key": "gold", "quantity": goldDrop, "stackValue": goldDrop * ItemDb["gold"].value});
   } else {
     goldDrop = false;
   }
   let potionDrop;
   if (RNG() <= creature.drops.potions.dropChance) {
     potionDrop = dimRNG(1, creature.drops.potions.max);
-    CurrentMap[Player.position].items.push({"key": "potion", "quantity": potionDrop});
+    CurrentMap[Player.position].items.push({"key": "potion", "quantity": potionDrop, "stackValue": potionDrop * ItemDb["potion"].value});
     // Player.inventory.potions += potionDrop;
   } else {
     potionDrop = false;
