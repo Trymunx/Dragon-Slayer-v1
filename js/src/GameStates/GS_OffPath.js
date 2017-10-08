@@ -306,19 +306,38 @@ function commandParse(input, index) {
         rest();
       }
       break;
-    // case "take":
-    //   if (CurrentMap[Player.position].items) {
-    //     let itemNames;
-    //     for (let item in CurrentMap[Player.position].items) {
-    //       itemNames.push(ItemDb[CurrentMap[Player.position].items[item].key].name);
-    //       itemNames.push(ItemDb[CurrentMap[Player.position].items[item].key].namePlural);
-    //     }
-    //     if (itemNames.includes(input[1])) {
-    //       let index = Math.floor(itemNames.indexOf(input[1]));
-    //       CurrentMap[Player.position].items.splice(index, 1);
-    //       if (Player.inventory.)
-    //     }
-    //   }
+    case "take":
+      if (CurrentMap[Player.position].items) {
+        var itemNames = [];
+        for (let item in CurrentMap[Player.position].items) {
+          itemNames.push(ItemDb[CurrentMap[Player.position].items[item].key].name);
+          itemNames.push(ItemDb[CurrentMap[Player.position].items[item].key].namePlural);
+        }
+        if (itemNames.includes(input[1])) {
+          let index = Math.floor(itemNames.indexOf(input[1]));
+          for (let item in Player.inventory) {
+            if (itemNames.includes(Player.inventory[item].name)) {
+              Player.inventory[item].quantity += CurrentMap[Player.position].items[index].quantity;
+            } else {
+              Player.inventory.push(CurrentMap[Player.position].items[index]);
+            }
+          }
+          CurrentMap[Player.position].items.splice(index, 1);
+        } else if (input[1] === "all" || input[1] === undefined) {
+          Player.inventory.push(CurrentMap[Player.position].items);
+        } else {
+          Output.addElement({
+            "entity": "",
+            "content": "There isn't a " + input[1] + " here to take."
+          });
+        }
+      } else {
+        Output.addElement({
+          "entity": "",
+          "content": "There isn't anything here to take."
+        });
+      }
+      break;
     case "restart":
       Input_Text.removeEventListener("keydown", getInputAndParse);
       GameStateManager.emit("start");
