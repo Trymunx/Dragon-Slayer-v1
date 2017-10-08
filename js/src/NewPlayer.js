@@ -12,6 +12,15 @@ class Inventory {
   getItem(key) {
     return this.items[key];
   }
+  addItem(item) {
+    let key = item.key;
+    let quantity = item.quantity;
+    if (this.items[item.key]) { //TODO: check if that's how you find whether an item key is already present
+      this.items[key].quantity += quantity;
+    } else {
+      this.items[key] = Object.assign({"key": key, "quantity": quantity});
+    }
+  }
   *[Symbol.iterator]() {
     for (let item of Object.values(this.items)) {
       yield item;

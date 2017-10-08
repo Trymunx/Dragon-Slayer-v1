@@ -27,6 +27,7 @@ var commands = [
   "west",
   "look",
   "rest",
+  "take",
   "potion",
   "drink potion"
 ];
@@ -307,6 +308,9 @@ function commandParse(input, index) {
       }
       break;
     case "take":
+    case "get":
+    case "pickup":
+    case "grab":
       if (CurrentMap[Player.position].items) {
         var itemNames = [];
         for (let item in CurrentMap[Player.position].items) {
@@ -314,17 +318,32 @@ function commandParse(input, index) {
           itemNames.push(ItemDb[CurrentMap[Player.position].items[item].key].namePlural);
         }
         if (itemNames.includes(input[1])) {
-          let index = Math.floor(itemNames.indexOf(input[1]));
-          for (let item in Player.inventory) {
-            if (itemNames.includes(Player.inventory[item].name)) {
-              Player.inventory[item].quantity += CurrentMap[Player.position].items[index].quantity;
-            } else {
-              Player.inventory.push(CurrentMap[Player.position].items[index]);
-            }
-          }
+          var index = itemNames.indexOf(input[1]) % 2 === 0 ? itemNames.indexOf(input[1]) : itemNames.indexOf(input[1]) - 1;
+          var key = CurrentMap[Player.position].items[index].key;
+          Player.inventory.addItem(CurrentMap[Player.position].items[index]);
+          Output.addElement({
+            "entity": "",
+            "content": "You pick up " + CurrentMap[Player.position].items[index].quantity + " " + (CurrentMap[Player.position].items[index].quantity > 1 ? ItemDb[CurrentMap[Player.position].items[index].key].namePlural : ItemDb[CurrentMap[Player.position].items[index].key].name) + "."
+          });
           CurrentMap[Player.position].items.splice(index, 1);
+          DrawMap(CurrentMap, Player);
         } else if (input[1] === "all" || input[1] === undefined) {
-          Player.inventory.push(CurrentMap[Player.position].items);
+          if (CurrentMap[Player.position].items) {
+            for (let i = CurrentMap[Player.position].items.length - 1; i >= 0; i--) {
+              Player.inventory.addItem(CurrentMap[Player.position].items[i]);
+              Output.addElement({
+                "entity": "",
+                "content": "You pick up " + CurrentMap[Player.position].items[i].quantity + " " + (CurrentMap[Player.position].items[i].quantity > 1 ? ItemDb[CurrentMap[Player.position].items[i].key].namePlural : ItemDb[CurrentMap[Player.position].items[i].key].name) + "."
+              });
+              CurrentMap[Player.position].items.splice(i, 1);
+              DrawMap(CurrentMap, Player);
+            }
+          } else {
+            Output.addElement({
+              "entity": "",
+              "content": "There isn't anything here to take."
+            });
+          }
         } else {
           Output.addElement({
             "entity": "",
@@ -337,6 +356,7 @@ function commandParse(input, index) {
           "content": "There isn't anything here to take."
         });
       }
+      DisplayInventory(Player);
       break;
     case "restart":
       Input_Text.removeEventListener("keydown", getInputAndParse);

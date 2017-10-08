@@ -11,6 +11,10 @@
     {
       "key": "potion",
       "quantity": 3
+    },
+    {
+      "key": "gold",
+      "quantity": 0
     }
   ],
   "equipped": {
