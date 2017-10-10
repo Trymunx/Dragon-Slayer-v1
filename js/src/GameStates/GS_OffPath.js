@@ -118,7 +118,7 @@ function getInputAndParse(e) {
 
 GS_OffPath.runState = function () {
 
-  DrawMap(CurrentMap, Player);
+  DrawMap(CurrentMap);
   // Initialise above function
   Input_Text.addEventListener("keydown", getInputAndParse);
 
@@ -177,7 +177,7 @@ function commandParse(input, index) {
         });
       } else {
         MovePlayer(CurrentMap, "north", Player);
-        DrawMap(CurrentMap, Player);
+        DrawMap(CurrentMap);
         if (CurrentMap[Player.position].creature) {
           Output.addElement({
             "entity": "",
@@ -202,7 +202,7 @@ function commandParse(input, index) {
         });
       } else {
         MovePlayer(CurrentMap, "south", Player);
-        DrawMap(CurrentMap, Player);
+        DrawMap(CurrentMap);
         if (CurrentMap[Player.position].creature) {
           Output.addElement({
             "entity": "",
@@ -227,7 +227,7 @@ function commandParse(input, index) {
         });
       } else {
         MovePlayer(CurrentMap, "east", Player);
-        DrawMap(CurrentMap, Player);
+        DrawMap(CurrentMap);
         if (CurrentMap[Player.position].creature) {
           Output.addElement({
             "entity": "",
@@ -252,7 +252,7 @@ function commandParse(input, index) {
         });
       } else {
         MovePlayer(CurrentMap, "west", Player);
-        DrawMap(CurrentMap, Player);
+        DrawMap(CurrentMap);
         if (CurrentMap[Player.position].creature) {
           Output.addElement({
             "entity": "",
@@ -268,7 +268,7 @@ function commandParse(input, index) {
     case "look":
       if (directions.includes(input[1])) {
         Look(CurrentMap, input[1], Player);
-        DrawMap(CurrentMap, Player);
+        DrawMap(CurrentMap);
       } else if (input[1] === "at") {
         commandParse(["look", input[2]], 0);
       } else {
@@ -326,7 +326,7 @@ function commandParse(input, index) {
             "content": "You pick up " + CurrentMap[Player.position].items[index].quantity + " " + (CurrentMap[Player.position].items[index].quantity > 1 ? ItemDb[CurrentMap[Player.position].items[index].key].namePlural : ItemDb[CurrentMap[Player.position].items[index].key].name) + "."
           });
           CurrentMap[Player.position].items.splice(index, 1);
-          DrawMap(CurrentMap, Player);
+          DrawMap(CurrentMap);
         } else if (input[1] === "all" || input[1] === undefined) {
           if (CurrentMap[Player.position].items) {
             for (let i = CurrentMap[Player.position].items.length - 1; i >= 0; i--) {
@@ -336,7 +336,7 @@ function commandParse(input, index) {
                 "content": "You pick up " + CurrentMap[Player.position].items[i].quantity + " " + (CurrentMap[Player.position].items[i].quantity > 1 ? ItemDb[CurrentMap[Player.position].items[i].key].namePlural : ItemDb[CurrentMap[Player.position].items[i].key].name) + "."
               });
               CurrentMap[Player.position].items.splice(i, 1);
-              DrawMap(CurrentMap, Player);
+              DrawMap(CurrentMap);
             }
           } else {
             Output.addElement({

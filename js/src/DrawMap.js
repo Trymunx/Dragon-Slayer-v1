@@ -2,8 +2,17 @@ const Splash = require("./splash/Splash.json");
 const ItemsDb = require("../db/Items.json");
 
 // Creates an ASCII version of the map
-function drawMap (map, player) {
+function drawMap(map) {
   var playerPos;
+  
+  var maxCreatureLevel = 1;
+  var minCreatureLevel = 1;
+  for (let i in map) {
+    if (map[i].creature) {
+      maxCreatureLevel = Math.max(maxCreatureLevel, map[i].creature.level)
+      minCreatureLevel = Math.min(minCreatureLevel, map[i].creature.level)
+    }
+  }
 
   // Work out side length
   var sideLength = Math.sqrt(map.length);
@@ -54,17 +63,17 @@ function drawMap (map, player) {
       if (map[j].playerHasSeen) {
         if (map[j].terrain === "river") {
           if ((j + sideLength) < map.length) {
-            if (map[(j+sideLength - 1)].terrain === "river") {
+            if (map[(j + sideLength - 1)].terrain === "river") {
               mapContent[i] += "<span class='river'>/ /</span>";
-            } else if (map[(j+sideLength)].terrain === "river") {
+            } else if (map[(j + sideLength)].terrain === "river") {
               mapContent[i] += "<span class='river'>| |</span>";
             } else {
               mapContent[i] += "<span class='river'>\\ \\</span>";
             }
           } else {
-            if (map[(j-sideLength - 1)].terrain === "river") {
+            if (map[(j - sideLength - 1)].terrain === "river") {
               mapContent[i] += "<span class='river'>/ /</span>";
-            } else if (map[(j-sideLength)].terrain === "river") {
+            } else if (map[(j - sideLength)].terrain === "river") {
               mapContent[i] += "<span class='river'>| |</span>";
             } else {
               mapContent[i] += "<span class='river'>\\ \\</span>";
@@ -91,10 +100,10 @@ function drawMap (map, player) {
   // Each line should print a pipe, then three spaces, then creatures on
   //  each grid space with two spaces inbetween, then three spaces and a final
   //  pipe (e.g. |    s  o  x    |)
-  for (let j = 3; j < vertLength - 1; j+=2) {
-    drawnMap[j] = "{    " + mapContent[(((j-1)/2)-1)] + "    }";
+  for (let j = 3; j < vertLength - 1; j += 2) {
+    drawnMap[j] = "{    " + mapContent[(((j - 1) / 2) - 1)] + "    }";
   }
-  for (let i = 4; i < vertLength; i+=2) {
+  for (let i = 4; i < vertLength; i += 2) {
     drawnMap[i] = blankLine;
   }
   let mapOutput = "";
@@ -107,11 +116,10 @@ function drawMap (map, player) {
   for (let i of map[playerPos].items) {
     itemList.push("(      " + i.quantity + " " + (i.quantity === 1 ? ItemsDb[i.key].name : ItemsDb[i.key].namePlural) + "      )");
   }
-  
-  var creatureLevels = "Creature levels here: 1 - " + Math.round(player.attributes.level * 1.5);
+
   var onThisTile = (map[playerPos].creature ? "\n[      Level " + map[playerPos].creature.level + " " + map[playerPos].creature.name + "      ]" : ((itemList.length !== 0) ? "\n" + itemList.join("\n") : "\nNothing"));
 
-  document.getElementById("map").innerHTML = "\n" + creatureLevels + "\n" + mapOutput + "\n" + onThisTile;
+  document.getElementById("map").innerHTML = "\nCreature levels here: " + minCreatureLevel + " - " + maxCreatureLevel + "\n" + mapOutput + "\n" + onThisTile;
   // document.getElementById("map").innerHTML = Splash["PathMap"];
 }
 

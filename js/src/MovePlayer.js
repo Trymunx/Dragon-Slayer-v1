@@ -1,5 +1,3 @@
-const DrawMap = require("./DrawMap.js");
-// const Look = require("./Look.js");
 const Output = require("../Output.js");
 const revealSurroundings = require("./RevealSurroundings.js");
 
