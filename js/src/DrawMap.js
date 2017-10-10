@@ -5,13 +5,21 @@ const ItemsDb = require("../db/Items.json");
 function drawMap(map) {
   var playerPos;
   
+  var creatureLevels = "";
+  var creaturesPresent = false;
   var maxCreatureLevel = 1;
-  var minCreatureLevel = 1;
+  var minCreatureLevel = 9999999; // Arbitrary large number for checking levels against
   for (let i in map) {
     if (map[i].creature) {
-      maxCreatureLevel = Math.max(maxCreatureLevel, map[i].creature.level)
-      minCreatureLevel = Math.min(minCreatureLevel, map[i].creature.level)
+      creaturesPresent = true;
+      maxCreatureLevel = Math.max(maxCreatureLevel, map[i].creature.level);
+      minCreatureLevel = Math.min(minCreatureLevel, map[i].creature.level);
     }
+  }
+  if (creaturesPresent) {
+    creatureLevels = minCreatureLevel + " - " + maxCreatureLevel;
+  } else {
+    creatureLevels = "None";
   }
 
   // Work out side length
@@ -119,7 +127,7 @@ function drawMap(map) {
 
   var onThisTile = (map[playerPos].creature ? "\n[      Level " + map[playerPos].creature.level + " " + map[playerPos].creature.name + "      ]" : ((itemList.length !== 0) ? "\n" + itemList.join("\n") : "\nNothing"));
 
-  document.getElementById("map").innerHTML = "\nCreature levels here: " + minCreatureLevel + " - " + maxCreatureLevel + "\n" + mapOutput + "\n" + onThisTile;
+  document.getElementById("map").innerHTML = "\nCreature levels here: " + creatureLevels + "\n" + mapOutput + "\n" + onThisTile;
   // document.getElementById("map").innerHTML = Splash["PathMap"];
 }
 
