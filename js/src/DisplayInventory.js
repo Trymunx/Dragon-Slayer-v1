@@ -37,15 +37,38 @@ function DisplayInventory(player) {
   let expPercent = (player.attributes.experience / Math.round(50 * Math.pow(player.attributes.level, 1.3)));
   let expBarLength = Math.round(expPercent * totalExpBarLength);
   let emptyLength = totalExpBarLength - expBarLength;
-  var expBar = "["
+  var expBar = "[";
   for (let i = 0; i < expBarLength; i++) {
     expBar += "=";
   };
-  expBar += ">"
+  expBar += ">";
   for (let i = 0; i < emptyLength; i++) {
     expBar += " ";
   }
   expBar += "]";
+
+  var totalHPBarLength = 31;
+  var hpPercent = player.attributes.currentHP / player.attributes.totalHP;
+  var hpBarLength = Math.round(hpPercent * totalHPBarLength);
+  var emptyHPBarLength = totalHPBarLength - hpBarLength;
+  var hpBar = "[";
+  if (player.attributes.currentHP / player.attributes.totalHP > 0.25) {
+    for (let i = 0; i < hpBarLength; i++) {
+      hpBar += "<span class='hp-bar-player'>|</span>";
+    }
+  } else if (player.attributes.currentHP / player.attributes.totalHP > 0.1) {
+    for (let i = 0; i < hpBarLength; i++) {
+      hpBar += "<span class='hp-bar-warning'>|</span>";
+    }
+  } else {
+    for (let i = 0; i < hpBarLength; i++) {
+      hpBar += "<span class='hp-bar-foe'>|</span>";
+    }
+  }
+  for (let i = 0; i < emptyHPBarLength; i++) {
+    hpBar += " ";
+  }
+  hpBar += "]";
 
   var HPDisplay;
   if (player.attributes.currentHP / player.attributes.totalHP > 0.25) {
@@ -58,7 +81,7 @@ function DisplayInventory(player) {
     HPDisplay = "HP: <span class='hp-bar-foe'>" + 0 + "</span> / <span class='hp-bar-player'>" + player.attributes.totalHP + "</span>";
   }
 
-  var PanelContent = HPDisplay + "\n\n" + levelDisplay + "\t" + expBar + "\n\n" + inventoryString;
+  var PanelContent = HPDisplay + "\t" + hpBar + "\n\n" + levelDisplay + "\t" + expBar + "\n\n" + inventoryString;
   document.getElementById("inventory").innerHTML = PanelContent;
 }
 
