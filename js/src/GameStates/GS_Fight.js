@@ -48,7 +48,7 @@ GS_Fight.firstAttack = function (aggressor) {
     creatureAttack(Creature);
     if (Player.attributes.currentHP <= 0) {
       GameStateManager.emit("slain", {
-          player: Player
+        player: Player
       });
     }
   }
@@ -57,7 +57,7 @@ GS_Fight.firstAttack = function (aggressor) {
 GS_Fight.runState = function (GameStateManager) {
 
   // Receive command
-  function fightCommands (e) {
+  function fightCommands(e) {
     if (e.keyCode === 13) {
       e.preventDefault();
 
@@ -94,15 +94,15 @@ GS_Fight.runState = function (GameStateManager) {
                     player: Player,
                     map: CurrentMap
                   });
-    
+
                   Input_Text.removeEventListener("keydown", fightCommands);
                 } else {
                   creatureAttack(Creature);
                   if (Player.attributes.currentHP <= 0) {
                     GameStateManager.emit("slain", {
-                        player: Player
+                      player: Player
                     });
-    
+
                     Input_Text.removeEventListener("keydown", fightCommands);
                   }
                 }
@@ -146,7 +146,7 @@ GS_Fight.runState = function (GameStateManager) {
               creatureAttack(Creature);
               if (Player.attributes.currentHP <= 0) {
                 GameStateManager.emit("slain", {
-                    player: Player
+                  player: Player
                 });
 
                 Input_Text.removeEventListener("keydown", fightCommands);
@@ -167,7 +167,7 @@ GS_Fight.runState = function (GameStateManager) {
               creatureAttack(Creature);
               if (Player.attributes.currentHP <= 0) {
                 GameStateManager.emit("slain", {
-                    player: Player
+                  player: Player
                 });
 
                 Input_Text.removeEventListener("keydown", fightCommands);
@@ -192,9 +192,9 @@ GS_Fight.runState = function (GameStateManager) {
                 creatureAttack(Creature);
                 if (Player.attributes.currentHP <= 0) {
                   GameStateManager.emit("slain", {
-                      player: Player
+                    player: Player
                   });
-  
+
                   Input_Text.removeEventListener("keydown", fightCommands);
                 }
               } else {
@@ -203,7 +203,7 @@ GS_Fight.runState = function (GameStateManager) {
                   player: Player,
                   map: CurrentMap
                 });
-  
+
                 Input_Text.removeEventListener("keydown", fightCommands);
               }
             } else {
@@ -211,7 +211,7 @@ GS_Fight.runState = function (GameStateManager) {
                 "entity": "",
                 "content": "You manage to get away!"
               });
-              
+
               // Stop creatures from regaining full HP after you run away
               CurrentMap[Player.position].creature.attributes.currentHP = Creature.attributes.currentHP;
               GameStateManager.emit("run", {
@@ -244,10 +244,10 @@ GS_Fight.runState = function (GameStateManager) {
   //   "entity": "",
   //   "content": "You are now fighting the " + Creature.name + "."
   // });
-  
+
   // Initialise above function
   Input_Text.addEventListener("keydown", fightCommands);
-  
+
 }
 
 module.exports = GS_Fight;
@@ -288,7 +288,7 @@ function playerAttack(creature) {
   creatureHPReport(creature);
 }
 
-function creatureHPReport (creature) {
+function creatureHPReport(creature) {
   if (creature.attributes.currentHP > 0) {
     Output.addElement({
       "entity": "",
@@ -296,7 +296,7 @@ function creatureHPReport (creature) {
     });
     creatureHPBar(creature);
   } else {
-    let messagePicker = Math.round(RNG(creature.messages.onDeath.length-1));
+    let messagePicker = Math.round(RNG(creature.messages.onDeath.length - 1));
     Output.addElement({
       "entity": "",
       "content": creature.messages.onDeath[messagePicker] + "\nYou have " + Player.attributes.currentHP + "HP remaining."
@@ -317,14 +317,14 @@ function creatureDrop(creature) {
   if (RNG() <= creature.drops.gold.dropChance) {
     goldDrop = dimRNG(1, creature.drops.gold.max);
     // Player.inventory.gold += goldDrop;
-    CurrentMap[Player.position].items.push({"key": "gold", "quantity": goldDrop, "stackValue": goldDrop * ItemDb["gold"].value});
+    CurrentMap[Player.position].items.push({ "key": "gold", "quantity": goldDrop, "stackValue": goldDrop * ItemDb["gold"].value });
   } else {
     goldDrop = false;
   }
   let potionDrop;
   if (RNG() <= creature.drops.potions.dropChance) {
     potionDrop = dimRNG(1, creature.drops.potions.max);
-    CurrentMap[Player.position].items.push({"key": "potion", "quantity": potionDrop, "stackValue": potionDrop * ItemDb["potion"].value});
+    CurrentMap[Player.position].items.push({ "key": "potion", "quantity": potionDrop, "stackValue": potionDrop * ItemDb["potion"].value });
     // Player.inventory.potions += potionDrop;
   } else {
     potionDrop = false;
@@ -379,9 +379,9 @@ function creatureHPBar(creature) {
     barLength = Math.round((totalBarLength / 100) * hitpointsPercent);
     emptyLength = totalBarLength - barLength;
   } else {  */// Is a dragon or a troll so use cube root instead of square root
-    totalBarLength = Math.round(Math.pow(creature.attributes.totalHP, 1/4) * 8);
-    barLength = Math.round((totalBarLength / 100) * hitpointsPercent);
-    emptyLength = totalBarLength - barLength;
+  totalBarLength = Math.round(Math.pow(creature.attributes.totalHP, 1 / 4) * 8);
+  barLength = Math.round((totalBarLength / 100) * hitpointsPercent);
+  emptyLength = totalBarLength - barLength;
   /* } */
 
   for (let i = 0; i < barLength; i++) {
@@ -425,7 +425,7 @@ function creatureAttack(creature) {
   if (attack.name === "miss") {
     damage = 0;
     let messagePicker = RNG();
-    if(messagePicker < 0.35){
+    if (messagePicker < 0.35) {
       Output.addElement({
         "entity": creature.name,
         "content": "You raise your shield and block the " + creature.name + "'s attack."
@@ -452,7 +452,7 @@ function creatureAttack(creature) {
     } else {
       damage = Math.round(calcDmgVal);
     }
-    let messagePicker = (attack.messages.length > 1) ? Math.round(RNG(attack.messages.length-1)) : 0;
+    let messagePicker = (attack.messages.length > 1) ? Math.round(RNG(attack.messages.length - 1)) : 0;
     Output.addElement({
       "entity": creature.name,
       "content": attack.messages[messagePicker] + damage + "HP."
@@ -480,7 +480,7 @@ function playerHPReport(player) {
 
 function playerHPBar(player) {
   // let totalBarLength = Math.round(0.6 * player.attributes.totalHP);
-  let totalBarLength = Math.round(Math.pow(player.attributes.totalHP, 1/4) * 8);
+  let totalBarLength = Math.round(Math.pow(player.attributes.totalHP, 1 / 4) * 8);
   let hitpointsPercent = Math.round((player.attributes.currentHP / player.attributes.totalHP) * 100);
   let barLength = Math.round((totalBarLength / 100) * hitpointsPercent);
   let emptyLength = totalBarLength - barLength;
@@ -492,7 +492,7 @@ function playerHPBar(player) {
     bar += " "
   }
   // Change colour based on HP percentage
-    if (hitpointsPercent > 25) {
+  if (hitpointsPercent > 25) {
     Output.addElement({
       "entity": "",
       "content": "[<span class='hp-bar-player'>" + bar + "</span>] (" + hitpointsPercent + "%)"
@@ -531,7 +531,7 @@ function drinkPotion() {
         "entity": "",
         "content": "You have no potions left to drink!"
       });
-    } 
+    }
   }
   playerHPReport(Player);
 }
@@ -569,7 +569,7 @@ function tabComplete(text) {
         break;
       }
     }
-    
+
     if (possible) {
       matchedCommands.push(command);
     }
