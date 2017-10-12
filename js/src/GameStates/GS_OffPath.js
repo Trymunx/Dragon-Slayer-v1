@@ -143,7 +143,8 @@ function commandParse(input, index) {
         GameStateManager.emit("fight", {
           player: Player,
           map: CurrentMap,
-          creature: CurrentMap[Player.position].creature
+          creature: CurrentMap[Player.position].creature,
+          aggressor: "player"
         });
 
       } else {
@@ -400,7 +401,8 @@ function enterAttackState() {
   GameStateManager.emit("fight", {
     player: Player,
     map: CurrentMap,
-    creature: CurrentMap[Player.position].creature
+    creature: CurrentMap[Player.position].creature,
+    aggressor: "creature"
   });
 }
 

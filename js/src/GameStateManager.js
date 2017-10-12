@@ -55,6 +55,7 @@ function initEventHandlers () {
     Fight.setPlayer(data.player);
     Fight.setCreature(data.creature);
     Fight.setMap(data.map);
+    Fight.firstAttack(data.aggressor);
     Fight.runState(GameStateManager);
   });
 
