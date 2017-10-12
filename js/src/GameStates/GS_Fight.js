@@ -31,30 +31,7 @@ GS_Fight.setMap = function (map) {
   CurrentMap = map;
 }
 
-GS_Fight.firstAttack = function (aggressor) {
-  if (aggressor === "player") {
-    if (Creature.attributes.currentHP > 0) {
-      playerAttack(Creature);
-      // Is the creature still alive after player's attack?
-      if (Creature.attributes.currentHP <= 0) {
-        CurrentMap[Player.position].creature = null;
-        GameStateManager.emit("win", {
-          player: Player,
-          map: CurrentMap
-        });
-      }
-    }
-  } else { // Aggressor is creature
-    creatureAttack(Creature);
-    if (Player.attributes.currentHP <= 0) {
-      GameStateManager.emit("slain", {
-        player: Player
-      });
-    }
-  }
-}
-
-GS_Fight.runState = function (GameStateManager) {
+GS_Fight.runState = function (GameStateManager, aggressor) {
 
   // Receive command
   function fightCommands(e) {
@@ -240,13 +217,30 @@ GS_Fight.runState = function (GameStateManager) {
 
   }
 
-  // Output.addElement({
-  //   "entity": "",
-  //   "content": "You are now fighting the " + Creature.name + "."
-  // });
-
-  // Initialise above function
-  Input_Text.addEventListener("keydown", fightCommands);
+  if (aggressor === "player") {
+    if (Creature.attributes.currentHP > 0) {
+      playerAttack(Creature);
+      // Is the creature still alive after player's attack?
+      if (Creature.attributes.currentHP <= 0) {
+        CurrentMap[Player.position].creature = null;
+        GameStateManager.emit("win", {
+          player: Player,
+          map: CurrentMap
+        });
+      } else {
+        Input_Text.addEventListener("keydown", fightCommands);
+      }
+    }
+  } else { // Aggressor is creature
+    creatureAttack(Creature);
+    if (Player.attributes.currentHP <= 0) {
+      GameStateManager.emit("slain", {
+        player: Player
+      });
+    } else {
+      Input_Text.addEventListener("keydown", fightCommands);
+    }
+  }
 
 }
 
