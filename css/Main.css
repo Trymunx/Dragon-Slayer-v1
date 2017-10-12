@@ -1,8 +1,9 @@
 @import "./Colours.css";
+@import "./Fonts.css";
 
 body {
   color: var(--text);
-  font-family: "SourceCode Pro", monospace;
+  font-family: "Ubuntu Mono", monospace;
 }
 
 #output {
@@ -35,7 +36,7 @@ body {
 #output-table {
   padding-top: 10px;
   font-size: 0.95em;
-  font-family: "SourceCode Pro", monospace;
+  font-family: "Ubuntu Mono", monospace;
 }
 
 .hp-bar-foe {
@@ -115,7 +116,7 @@ body {
   padding: 4px 10px 4px 10px;
   color: var(--text);
   background-color: var(--ui-darker);
-  font-family: "SourceCode Pro", monospace;
+  font-family: "Ubuntu Mono", monospace;
 }
 
 #input-text {
@@ -129,7 +130,7 @@ body {
   /* Text */
   color: var(--text);
   font-size: 0.95em;
-  font-family: "SourceCode Pro", monospace;
+  font-family: "Ubuntu Mono", monospace;
   caret-color: var(--text-blur);
 }
 
@@ -140,7 +141,7 @@ body {
   color: var(--text-blur);
   background-color: var(--ui-darker);
   border-color: var(--ui-border);
-  font-family: "SourceCode Pro", monospace;
+  font-family: "Ubuntu Mono", monospace;
   font-size: 0.9em;
   white-space: pre-wrap;
   text-align: center;
@@ -168,7 +169,7 @@ body {
   color: var(--text-blur);
   background-color: var(--ui-darker);
   border-color: var(--ui-border);
-  font-family: "SourceCode Pro", monospace;
+  font-family: "Ubuntu Mono", monospace;
   font-size: 0.85em;
   white-space: pre-wrap;
   min-width: 70px;
