@@ -4,16 +4,16 @@ const ItemsDb = require("../db/Items.json");
 // Creates an ASCII version of the map
 function drawMap(map) {
   var playerPos;
-  
+
   var creatureLevels = "";
   var creaturesPresent = false;
   var maxCreatureLevel = 1;
-  var minCreatureLevel = 9999999; // Arbitrary large number for checking levels against
+  var minCreatureLevel;
   for (let i in map) {
     if (map[i].creature) {
       creaturesPresent = true;
       maxCreatureLevel = Math.max(maxCreatureLevel, map[i].creature.level);
-      minCreatureLevel = Math.min(minCreatureLevel, map[i].creature.level);
+      minCreatureLevel = (minCreatureLevel === undefined ? map[i].creature.level : Math.min(minCreatureLevel, map[i].creature.level));
     }
   }
   if (creaturesPresent) {
