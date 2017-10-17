@@ -4,6 +4,9 @@
 
 
 // Run Game immediately
-const begin = require("./js/src/GameStateManager.js");
+/*const begin = require("./js/src/GameStateManager.js");
 
-begin();
+begin();*/
+
+const GameStateManager = require("./js/src/GameStates/GameStateManager.js");
+new GameStateManager().begin();

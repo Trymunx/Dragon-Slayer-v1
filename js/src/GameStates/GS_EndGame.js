@@ -1,13 +1,11 @@
+const GameState = require("./GameState.js");
 const Output = require("../../Output.js");
 const CreatureDb = require("../../db/Creatures.json");
 // const Input_Text = document.getElementById("input-text");
 
-var GS_EndGame = {};
+var GS_EndGame = new GameState("slain");
 var Player;
 
-GS_EndGame.setPlayer = function (player) {
-  Player = player;
-}
 
 GS_EndGame.runState = function (GameStateManager) {
   Output.addElement({

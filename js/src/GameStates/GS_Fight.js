@@ -1,3 +1,4 @@
+const GameState = require("./GameState.js");
 const Output = require("../../Output.js");
 const Input_Text = document.getElementById("input-text");
 const RNG = require("../utils/RNG");
@@ -5,7 +6,7 @@ const dimRNG = require("../utils/DimRNG.js");
 const DisplayInventory = require("../DisplayInventory.js");
 const ItemDb = require("../../db/Items.json");
 
-var GS_Fight = {};
+var GS_Fight = new GameState("fight");
 var Player;
 var Creature;
 var CurrentMap;
@@ -17,11 +18,6 @@ var commands = [
   "drink potion",
   "run"
 ];
-
-GS_Fight.setPlayer = function (player) {
-  Player = player;
-  Player.hasRested = false;
-}
 
 GS_Fight.setCreature = function (creature) {
   Creature = creature;

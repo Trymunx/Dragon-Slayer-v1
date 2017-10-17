@@ -9,8 +9,8 @@ const EventEmitter = require("events");
 var GameStateManager = new EventEmitter();
 
 function begin () {
-  StartGame.runState(GameStateManager);
   initEventHandlers();
+  StartGame.runState(GameStateManager);
 }
 
 

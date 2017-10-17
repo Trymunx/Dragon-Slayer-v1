@@ -1,3 +1,4 @@
+const GameState = require("./GameState.js");
 const MovePlayer = require("../MovePlayer.js");
 const EventEmitter = require("events").EventEmitter;
 const Input_Text = document.getElementById("input-text");
@@ -9,7 +10,7 @@ const RNG = require("../utils/RNG.js");
 const ItemDb = require("../../db/Items.json");
 
 
-var GS_OffPath = {};
+var GS_OffPath = new GameState("generated", "exitShop", "run");
 var Player;
 var CurrentMap;
 var sideLength;
@@ -39,10 +40,6 @@ var directions = [
   "east",
   "west"
 ]
-
-GS_OffPath.setPlayer = function (player) {
-  Player = player;
-}
 
 GS_OffPath.setMap = function (map) {
   CurrentMap = map;
