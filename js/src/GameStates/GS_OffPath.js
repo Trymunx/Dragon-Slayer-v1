@@ -1,4 +1,5 @@
 const GameState = require("./GameState.js");
+const GameData = require("../GameData.js");
 const MovePlayer = require("../MovePlayer.js");
 const EventEmitter = require("events").EventEmitter;
 const Input_Text = document.getElementById("input-text");
@@ -10,10 +11,7 @@ const RNG = require("../utils/RNG.js");
 const ItemDb = require("../../db/Items.json");
 
 
-var GS_OffPath = new GameState("generated", "exitShop", "run");
-var Player;
-var CurrentMap;
-var sideLength;
+var GS_OffPath = new GameState("generated", "exitShop", "win", "run");
 var GameStateManager;
 
 var commands = [
@@ -39,16 +37,7 @@ var directions = [
   "south",
   "east",
   "west"
-]
-
-GS_OffPath.setMap = function (map) {
-  CurrentMap = map;
-  sideLength = Math.sqrt(map.length);
-}
-
-GS_OffPath.includeGSManager = function (gsManager) {
-  GameStateManager = gsManager;
-}
+];
 
 // Receive command
 function getInputAndParse(e) {
@@ -59,7 +48,7 @@ function getInputAndParse(e) {
 
     if (text) {
       Output.addElement({
-        "entity": Player.name,
+        "entity": GameData.player.name,
         "content": text
       });
       // Parse and process command
@@ -113,34 +102,30 @@ function getInputAndParse(e) {
   }
 }
 
-GS_OffPath.runState = function () {
-
-  DrawMap(CurrentMap);
+GS_OffPath.runState = function (manager) {
+  GameStateManager = manager;
+  DrawMap(GameData.currentMap);
   // Initialise above function
   Input_Text.addEventListener("keydown", getInputAndParse);
-
-
-
 }
 
 module.exports = GS_OffPath;
 
 
 function commandParse(input, index) {
+  let playerTile = GameData.getPlayerTile();
   switch (input[index]) {
     case "attack":
     case "fight":
-      if (CurrentMap[Player.position].creature) {
+      if (playerTile.creature) {
         Input_Text.removeEventListener("keydown", getInputAndParse);
-        let messagePicker = Math.round(RNG(CurrentMap[Player.position].creature.messages.onSpawn.length - 1));
+        let messagePicker = Math.round(RNG(playerTile.creature.messages.onSpawn.length - 1));
         Output.addElement({
           "entity": "",
-          "content": CurrentMap[Player.position].creature.messages.onSpawn[messagePicker]
+          "content": playerTile.creature.messages.onSpawn[messagePicker]
         });
         GameStateManager.emit("fight", {
-          player: Player,
-          map: CurrentMap,
-          creature: CurrentMap[Player.position].creature,
+          creature: playerTile.creature,
           aggressor: "player"
         });
 
@@ -165,108 +150,104 @@ function commandParse(input, index) {
       break;
     case "north":
       // Player position before move: check if at North edge
-      if (Player.position - sideLength < 0) {
+      if (GameData.player.position - GameData.currentMap.sideLength < 0) {
         Output.addElement({
           "entity": "",
           "content": "Walking North, you think you see the edge of the trees but emerge instead in more dense forest."
         });
-        GameStateManager.emit("atNorthEdge", {
-          player: Player
-        });
+        GameStateManager.emit("atNorthEdge");
       } else {
-        MovePlayer(CurrentMap, "north", Player);
-        DrawMap(CurrentMap);
-        if (CurrentMap[Player.position].creature) {
+        MovePlayer(GameData.currentMap, "north", GameData.player);
+        playerTile = GameData.getPlayerTile();//Update player tile
+        DrawMap(GameData.currentMap);
+        if (playerTile.creature) {
           Output.addElement({
             "entity": "",
-            "content": "There is a " + CurrentMap[Player.position].creature.name + " here."
+            "content": "There is a " + playerTile.creature.name + " here."
           });
 
         }
-        if (CurrentMap[Player.position].creature && CurrentMap[Player.position].creature.attributes.aggressive) {
+        if (playerTile.creature && playerTile.creature.attributes.aggressive) {
           enterAttackState();
         }
       }
       break;
     case "south":
       //Player position before move: check if at South edge
-      if (Player.position + sideLength >= CurrentMap.length) {
+      if (GameData.player.position + GameData.currentMap.sideLength >= GameData.currentMap.length) {
         Output.addElement({
           "entity": "",
           "content": "Walking South, you think you see the edge of the trees but emerge instead in more dense forest."
         });
-        GameStateManager.emit("atSouthEdge", {
-          player: Player
-        });
+        GameStateManager.emit("atSouthEdge");
       } else {
-        MovePlayer(CurrentMap, "south", Player);
-        DrawMap(CurrentMap);
-        if (CurrentMap[Player.position].creature) {
+        MovePlayer(GameData.currentMap, "south", GameData.player);
+        playerTile = GameData.getPlayerTile();//Update player tile
+        DrawMap(GameData.currentMap);
+        if (playerTile.creature) {
           Output.addElement({
             "entity": "",
-            "content": "There is a " + CurrentMap[Player.position].creature.name + " here."
+            "content": "There is a " + playerTile.creature.name + " here."
           });
 
         }
-        if (CurrentMap[Player.position].creature && CurrentMap[Player.position].creature.attributes.aggressive) {
+        if (playerTile.creature && playerTile.creature.attributes.aggressive) {
           enterAttackState();
         }
       }
       break;
     case "east":
       //Player position before move: check if at East edge
-      if ((Player.position + 1) % sideLength === 0) {
+      if ((GameData.player.position + 1) % GameData.currentMap.sideLength === 0) {
         Output.addElement({
           "entity": "",
           "content": "Walking East, you think you see the edge of the trees but emerge instead in more dense forest."
         });
-        GameStateManager.emit("atEastEdge", {
-          player: Player
-        });
+        GameStateManager.emit("atEastEdge");
       } else {
-        MovePlayer(CurrentMap, "east", Player);
-        DrawMap(CurrentMap);
-        if (CurrentMap[Player.position].creature) {
+        MovePlayer(GameData.currentMap, "east", GameData.player);
+        playerTile = GameData.getPlayerTile();//Update player tile
+        DrawMap(GameData.currentMap);
+        if (playerTile.creature) {
           Output.addElement({
             "entity": "",
-            "content": "There is a " + CurrentMap[Player.position].creature.name + " here."
+            "content": "There is a " + playerTile.creature.name + " here."
           });
 
         }
-        if (CurrentMap[Player.position].creature && CurrentMap[Player.position].creature.attributes.aggressive) {
+        if (playerTile.creature && playerTile.creature.attributes.aggressive) {
           enterAttackState();
         }
       }
       break;
     case "west":
       //Player position before move: check if at West edge
-      if (Player.position % sideLength === 0) {
+      if (GameData.player.position % GameData.currentMap.sideLength === 0) {
         Output.addElement({
           "entity": "",
           "content": "Walking West, you think you see the edge of the trees but emerge instead in more dense forest."
         });
-        GameStateManager.emit("atWestEdge", {
-          player: Player
-        });
+        GameStateManager.emit("atWestEdge");
       } else {
-        MovePlayer(CurrentMap, "west", Player);
-        DrawMap(CurrentMap);
-        if (CurrentMap[Player.position].creature) {
+        MovePlayer(GameData.currentMap, "west", GameData.player);
+        playerTile = GameData.getPlayerTile();//Update player tile
+        DrawMap(GameData.currentMap);
+        if (playerTile.creature) {
           Output.addElement({
             "entity": "",
-            "content": "There is a " + CurrentMap[Player.position].creature.name + " here."
+            "content": "There is a " + playerTile.creature.name + " here."
           });
 
         }
-        if (CurrentMap[Player.position].creature && CurrentMap[Player.position].creature.attributes.aggressive) {
+        if (playerTile.creature && playerTile.creature.attributes.aggressive) {
           enterAttackState();
         }
       }
       break;
     case "look":
       if (directions.includes(input[1])) {
-        Look(CurrentMap, input[1], Player);
-        DrawMap(CurrentMap);
+        Look(GameData.currentMap, input[1], GameData.player);
+        DrawMap(GameData.currentMap);
       } else if (input[1] === "at") {
         commandParse(["look", input[2]], 0);
       } else {
@@ -296,7 +277,7 @@ function commandParse(input, index) {
       }
       break;
     case "rest":
-      if (Player.hasRested) {
+      if (GameData.player.hasRested) {
         Output.addElement({
           "entity": "",
           "content": "You already feel well rested, resting more will not help you."
@@ -309,32 +290,32 @@ function commandParse(input, index) {
     case "get":
     case "pickup":
     case "grab":
-      if (CurrentMap[Player.position].items) {
+      if (playerTile.items) {
         var itemNames = [];
-        for (let item in CurrentMap[Player.position].items) {
-          itemNames.push(ItemDb[CurrentMap[Player.position].items[item].key].name);
-          itemNames.push(ItemDb[CurrentMap[Player.position].items[item].key].namePlural);
+        for (let item in playerTile.items) {
+          itemNames.push(ItemDb[playerTile.items[item].key].name);
+          itemNames.push(ItemDb[playerTile.items[item].key].namePlural);
         }
         if (itemNames.includes(input[1])) {
           var index = itemNames.indexOf(input[1]) % 2 === 0 ? itemNames.indexOf(input[1]) : itemNames.indexOf(input[1]) - 1;
-          var key = CurrentMap[Player.position].items[index].key;
-          Player.inventory.addItem(CurrentMap[Player.position].items[index]);
+          var key = playerTile.items[index].key;
+          GameData.player.inventory.addItem(playerTile.items[index]);
           Output.addElement({
             "entity": "",
-            "content": "You pick up " + CurrentMap[Player.position].items[index].quantity + " " + (CurrentMap[Player.position].items[index].quantity > 1 ? ItemDb[CurrentMap[Player.position].items[index].key].namePlural : ItemDb[CurrentMap[Player.position].items[index].key].name) + "."
+            "content": "You pick up " + playerTile.items[index].quantity + " " + (playerTile.items[index].quantity > 1 ? ItemDb[playerTile.items[index].key].namePlural : ItemDb[playerTile.items[index].key].name) + "."
           });
-          CurrentMap[Player.position].items.splice(index, 1);
-          DrawMap(CurrentMap);
+          playerTile.items.splice(index, 1);
+          DrawMap(GameData.currentMap);
         } else if (input[1] === "all" || input[1] === undefined) {
-          if (CurrentMap[Player.position].items) {
-            for (let i = CurrentMap[Player.position].items.length - 1; i >= 0; i--) {
-              Player.inventory.addItem(CurrentMap[Player.position].items[i]);
+          if (playerTile.items) {
+            for (let i = playerTile.items.length - 1; i >= 0; i--) {
+              GameData.player.inventory.addItem(playerTile.items[i]);
               Output.addElement({
                 "entity": "",
-                "content": "You pick up " + CurrentMap[Player.position].items[i].quantity + " " + (CurrentMap[Player.position].items[i].quantity > 1 ? ItemDb[CurrentMap[Player.position].items[i].key].namePlural : ItemDb[CurrentMap[Player.position].items[i].key].name) + "."
+                "content": "You pick up " + playerTile.items[i].quantity + " " + (playerTile.items[i].quantity > 1 ? ItemDb[playerTile.items[i].key].namePlural : ItemDb[playerTile.items[i].key].name) + "."
               });
-              CurrentMap[Player.position].items.splice(i, 1);
-              DrawMap(CurrentMap);
+              playerTile.items.splice(i, 1);
+              DrawMap(GameData.currentMap);
             }
           } else {
             Output.addElement({
@@ -354,7 +335,7 @@ function commandParse(input, index) {
           "content": "There isn't anything here to take."
         });
       }
-      DisplayInventory(Player);
+      DisplayInventory(GameData.player);
       break;
     case "restart":
       Input_Text.removeEventListener("keydown", getInputAndParse);
@@ -390,35 +371,34 @@ function commandParse(input, index) {
 function enterAttackState() {
   // Aggressive creatures attack on sight
   Input_Text.removeEventListener("keydown", getInputAndParse);
-  let messagePicker = Math.round(RNG(CurrentMap[Player.position].creature.messages.onSpawn.length - 1));
+  let playerTile = GameData.getPlayerTile();
+  let messagePicker = Math.round(RNG(playerTile.creature.messages.onSpawn.length - 1));
   Output.addElement({
     "entity": "",
-    "content": CurrentMap[Player.position].creature.messages.onSpawn[messagePicker]
+    "content": playerTile.creature.messages.onSpawn[messagePicker]
   });
   GameStateManager.emit("fight", {
-    player: Player,
-    map: CurrentMap,
-    creature: CurrentMap[Player.position].creature,
+    creature: playerTile.creature,
     aggressor: "creature"
   });
 }
 
 function drinkPotion() {
-  if (Player.attributes.currentHP >= Player.attributes.totalHP) {
+  if (GameData.player.isFullHealth) {
     Output.addElement({
       "entity": "",
       "content": "You already have full health!"
     });
   } else {
-    if (Player.inventory.getItem("potion").quantity > 0) {
-      let healing = (Math.min(Math.round(50 + Player.attributes.level * Player.attributes.level), Player.attributes.totalHP - Player.attributes.currentHP));
-      Player.attributes.currentHP += healing;
-      Player.inventory.getItem("potion").quantity--;
+    let potions = GameData.player.inventory.getItem("potion");
+    if (potions.quantity > 0) {
+      let amountHealed = GameData.player.heal(Math.round(50 + GameData.player.attributes.level * GameData.player.attributes.level));
+      potions.quantity--;
       Output.addElement({
         "entity": "",
-        "content": "You drink a potion, restoring " + healing + "HP. You have " + Player.inventory.getItem("potion").quantity + " potions remaining."
+        "content": "You drink a potion, restoring " + amountHealed + "HP. You have " + potions.quantity + " potions remaining."
       });
-      DisplayInventory(Player);
+      DisplayInventory(GameData.player);
     } else {
       Output.addElement({
         "entity": "",
@@ -429,12 +409,28 @@ function drinkPotion() {
 }
 
 function rest() {
-  if (Player.attributes.currentHP >= Player.attributes.totalHP) { // Don't heal at full HP
+  if(GameData.player.isFullHealth) {
     Output.addElement({
       "entity": "",
       "content": "You already have full health!"
     });
-  } else if (Player.attributes.currentHP >= Player.attributes.totalHP - (0.08 * Player.attributes.totalHP)) { // Heal up to full HP but not over it (with limit of 8HP)
+  } else {
+    let amount = Math.round(RNG((0.01 * GameData.player.attributes.totalHP), (0.08 * GameData.player.attributes.totalHP)));
+    let amountHealed = GameData.player.heal(amount);
+    Output.addElement({
+      "entity": "",
+      "content": "You sit and rest for a while, regaining " + amountHealed + "HP."
+    });
+    DisplayInventory(GameData.player);
+    GameData.player.hasRested = true;
+  }
+/*
+  if (GameDate.player.attributes.currentHP >= GameDate.player.attributes.totalHP) { // Don't heal at full HP
+    Output.addElement({
+      "entity": "",
+      "content": "You already have full health!"
+    });
+  } else if (GameDate.player.attributes.currentHP >= GameDate.player.attributes.totalHP - (0.08 * Player.attributes.totalHP)) { // Heal up to full HP but not over it (with limit of 8HP)
     let healing = Math.round(RNG(1, (Player.attributes.totalHP - Player.attributes.currentHP)));
     Player.attributes.currentHP += healing;
     Output.addElement({
@@ -450,8 +446,7 @@ function rest() {
       "content": "You sit and rest for a while, regaining " + healing + "HP."
     });
     DisplayInventory(Player);
-  }
-  Player.hasRested = true;
+  }*/
 }
 
 
