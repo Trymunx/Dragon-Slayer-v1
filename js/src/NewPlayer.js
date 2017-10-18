@@ -49,7 +49,27 @@ class Player {
     // TODO: Fix equipment list
     this.equipped = Object.assign({}, PlayerTemplate.equipped);
   }
-
+  get isFullHealth () {
+    return this.attributes.currentHP >= this.attributes.totalHP;
+  }
+  heal(amount, simulate) {
+    var amountHealed;
+    if (this.isFullHealth) {
+      amountHealed = 0; // Don't heal at full HP
+    }
+    let newHP = this.attributes.currentHP + amount;
+    if (newHP > this.attributes.totalHP) {
+      amountHealed = this.attributes.totalHP - this.attributes.currentHP;
+      newHP = this.attributes.totalHP;
+    } else {
+      amountHealed = amount;
+    }
+    if(!simulate)
+    {
+      this.attributes.currentHP = newHP;
+    }
+    return amountHealed;
+  }
 }
 
 function newPlayer(name) {
