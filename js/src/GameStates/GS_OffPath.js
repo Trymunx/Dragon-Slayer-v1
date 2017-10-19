@@ -155,7 +155,7 @@ function commandParse(input, index) {
           "entity": "",
           "content": "Walking North, you think you see the edge of the trees but emerge instead in more dense forest."
         });
-        GameStateManager.emit("atNorthEdge");
+        GameStateManager.emit("atMapEdge", {edge: "south"});
       } else {
         MovePlayer(GameData.currentMap, "north", GameData.player);
         playerTile = GameData.getPlayerTile();//Update player tile
@@ -179,7 +179,7 @@ function commandParse(input, index) {
           "entity": "",
           "content": "Walking South, you think you see the edge of the trees but emerge instead in more dense forest."
         });
-        GameStateManager.emit("atSouthEdge");
+        GameStateManager.emit("atMapEdge", {edge: "north"});
       } else {
         MovePlayer(GameData.currentMap, "south", GameData.player);
         playerTile = GameData.getPlayerTile();//Update player tile
@@ -203,7 +203,7 @@ function commandParse(input, index) {
           "entity": "",
           "content": "Walking East, you think you see the edge of the trees but emerge instead in more dense forest."
         });
-        GameStateManager.emit("atEastEdge");
+        GameStateManager.emit("atMapEdge", {edge: "west"});
       } else {
         MovePlayer(GameData.currentMap, "east", GameData.player);
         playerTile = GameData.getPlayerTile();//Update player tile
@@ -227,7 +227,7 @@ function commandParse(input, index) {
           "entity": "",
           "content": "Walking West, you think you see the edge of the trees but emerge instead in more dense forest."
         });
-        GameStateManager.emit("atWestEdge");
+        GameStateManager.emit("atMapEdge", {edge: "east"});
       } else {
         MovePlayer(GameData.currentMap, "west", GameData.player);
         playerTile = GameData.getPlayerTile();//Update player tile
