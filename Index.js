@@ -9,4 +9,6 @@
 begin();*/
 
 const GameStateManager = require("./js/src/GameStates/GameStateManager.js");
-new GameStateManager().begin();
+var gsm = new GameStateManager();
+gsm.loadGameStates();
+gsm.startGame();
