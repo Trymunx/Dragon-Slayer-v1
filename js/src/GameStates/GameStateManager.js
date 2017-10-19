@@ -16,16 +16,10 @@ class GameStateManager extends EventEmitter {
         console.debug("Loading GameStates from %s", walkDir);
         var p = new Promise(function (resolve, reject) {
             fs.readdir(walkDir, function (err, files) {
-                var numComplete = 0;
-                function completePromise () {
-                    if (++numComplete >= files.length) {
-                        resolve();
-                    }
-                }
-                files.forEach(function(file) {
+                Promise.all(files.map(function(file) {
                     // Make one pass and make the file complete
                     var filePath = path.join(walkDir, file);
-                    (new Promise(function (resolve) {
+                    return new Promise(function (resolve) {
                         fs.stat(filePath, function(error, stat) {
                             if (error) {
                                 console.error("Error stating file.", error);
@@ -43,8 +37,8 @@ class GameStateManager extends EventEmitter {
                                 resolve();
                             }
                         });
-                    })).then(completePromise);
-                });
+                    });
+                })).then(resolve);
             });
         });
         if (!this.loading) {
