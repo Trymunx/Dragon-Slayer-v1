@@ -3,6 +3,8 @@ const fs = require("fs");//For walking the GameStates dir
 const path = require("path");
 const GameState = require("./GameState.js");
 
+const ENABLE_LOAD_STATE_DEBUG = false;
+
 class GameStateManager extends EventEmitter {
     constructor() {
         super();
@@ -13,7 +15,7 @@ class GameStateManager extends EventEmitter {
             walkDir = path.relative(process.cwd(), __dirname);
         }
         var manager = this;
-        console.debug("Loading GameStates from %s", walkDir);
+        if(ENABLE_LOAD_STATE_DEBUG) console.debug("Loading GameStates from %s", walkDir);
         var p = new Promise(function (resolve, reject) {
             fs.readdir(walkDir, function (err, files) {
                 Promise.all(files.map((file) => loadFile(manager, walkDir, file, recurse))).then(resolve);
@@ -34,13 +36,13 @@ class GameStateManager extends EventEmitter {
             let runArgs = [this];
             if(typeof(handler) == "string")
             {
-                console.debug("Registering game state \"%s\" as a handler for \"%s\".", gamestate.name, handler);
+                if(ENABLE_LOAD_STATE_DEBUG) console.debug("Registering game state \"%s\" as a handler for \"%s\".", gamestate.name, handler);
                 this.on(handler, activateGameState);
             }
             else {
                 let key =  handler.event;
                 let val = handler.callback || handler.args;
-                console.debug("Registering game state \"%s\" as a handler for \"%s\" with arguments %O.", gamestate.name, key, val);
+                if(ENABLE_LOAD_STATE_DEBUG) console.debug("Registering game state \"%s\" as a handler for \"%s\" with arguments %O.", gamestate.name, key, val);
                 if (typeof(val) == "function")
                 {
                     this.on(key, val);
@@ -55,7 +57,7 @@ class GameStateManager extends EventEmitter {
     }
     startGame () {
         Promise.all(this.loading).then(() => {
-            console.debug("Starting game");
+            if(ENABLE_LOAD_STATE_DEBUG) console.debug("Starting game");
             this.emit("start");
         });
     }
@@ -82,7 +84,7 @@ function loadFile (manager, directory, name, recurse) {
                     {
                         gamestate.name = path.basename(filePath, ".js");//.replace(/^(?:.+\/)?GS_(.+)\.js$/, "$1");
                     }
-                    console.debug("Loading game state from file \"%s\" as \"%s\".", filePath, gamestate.name);
+                    if(ENABLE_LOAD_STATE_DEBUG) console.debug("Loading game state from file \"%s\" as \"%s\".", filePath, gamestate.name);
                     manager.register(gamestate);
                 }
             }
