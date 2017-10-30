@@ -8,7 +8,7 @@ const ENABLE_LOAD_STATE_DEBUG = false;
 class GameStateManager extends EventEmitter {
     constructor() {
         super();
-        this.loading = [];//null;
+        this.loading = [];
     }
     loadGameStates (walkDir, recurse) {
         if (!walkDir) {
@@ -21,7 +21,7 @@ class GameStateManager extends EventEmitter {
                 Promise.all(files.map((file) => loadFile(manager, walkDir, file, recurse))).then(resolve);
             });
         });
-        p.then(() => this.loading = null);
+        p.then(() => this.loading = this.loading.filter(e => e !== p));
         this.loading.push(p);
         return p;
     }
@@ -31,18 +31,19 @@ class GameStateManager extends EventEmitter {
             gamestate.runState(this, data);
         }.bind(this);
 
+        var gsName = gamestate.name || gamestate;
         for (let handler of gamestate.handledEvents)
         {
             let runArgs = [this];
             if(typeof(handler) == "string")
             {
-                if(ENABLE_LOAD_STATE_DEBUG) console.debug("Registering game state \"%s\" as a handler for \"%s\".", gamestate.name, handler);
+                if(ENABLE_LOAD_STATE_DEBUG) console.debug("Registering game state \"%s\" as a handler for \"%s\".", gsName, handler);
                 this.on(handler, activateGameState);
             }
             else {
                 let key =  handler.event;
                 let val = handler.callback || handler.args;
-                if(ENABLE_LOAD_STATE_DEBUG) console.debug("Registering game state \"%s\" as a handler for \"%s\" with arguments %O.", gamestate.name, key, val);
+                if(ENABLE_LOAD_STATE_DEBUG) console.debug("Registering game state \"%s\" as a handler for \"%s\" with arguments %O.", gsName, key, val);
                 if (typeof(val) == "function")
                 {
                     this.on(key, val);
@@ -71,7 +72,7 @@ function loadFile (manager, directory, name, recurse) {
                 console.error("Error stating file.", error);
                 resolve();
             } else if(recurse && stat.isDirectory()) {
-                manager.loadGameStates(filePath, recurse);//.then(resolve());
+                manager.loadGameStates(filePath, recurse);
             } else if (stat.isFile() && /^GS_.+\.js$/.test(name)) {
                 let reqPath = "./" + path.relative(__dirname,filePath);
                 let gamestate = require(path.join(process.cwd(), filePath));
