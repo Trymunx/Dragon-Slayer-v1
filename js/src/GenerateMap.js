@@ -135,7 +135,7 @@ function genMap(sideLength, edge, player) {
       player.position = playerPos;
     }
   }
-
+  map.sideLength = sideLength;
   return map;
 }
 

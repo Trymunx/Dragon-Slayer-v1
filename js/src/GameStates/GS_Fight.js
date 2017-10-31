@@ -1,3 +1,5 @@
+const GameState = require("./GameState.js");
+const GameData = require("../GameData.js");
 const Output = require("../../Output.js");
 const Input_Text = document.getElementById("input-text");
 const RNG = require("../utils/RNG");
@@ -5,10 +7,7 @@ const dimRNG = require("../utils/DimRNG.js");
 const DisplayInventory = require("../DisplayInventory.js");
 const ItemDb = require("../../db/Items.json");
 
-var GS_Fight = {};
-var Player;
-var Creature;
-var CurrentMap;
+var GS_Fight = new GameState("fight");
 
 var commands = [
   "attack",
@@ -18,21 +17,9 @@ var commands = [
   "run"
 ];
 
-GS_Fight.setPlayer = function (player) {
-  Player = player;
-  Player.hasRested = false;
-}
-
-GS_Fight.setCreature = function (creature) {
-  Creature = creature;
-}
-
-GS_Fight.setMap = function (map) {
-  CurrentMap = map;
-}
-
-GS_Fight.runState = function (GameStateManager, aggressor) {
-
+GS_Fight.runState = function (GameStateManager, data) {
+  var creature = data.creature;
+  var aggressor = data.aggressor;
   // Receive command
   function fightCommands(e) {
     if (e.keyCode === 13) {
@@ -42,7 +29,7 @@ GS_Fight.runState = function (GameStateManager, aggressor) {
 
       if (text) {
         Output.addElement({
-          "entity": Player.name,
+          "entity": GameData.player.name,
           "content": text
         });
         // Parse and process command
@@ -55,30 +42,25 @@ GS_Fight.runState = function (GameStateManager, aggressor) {
                 "entity": "",
                 "content": "Attack the what? I don't know what the " + command.slice(2).join(" ") + " is."
               });
-            } else  */if (command.length > 2 && command.slice(1).join(" ") !== Creature.name) {
+            } else  */if (command.length > 2 && command.slice(1).join(" ") !== creature.name) {
               Output.addElement({
                 "entity": "",
                 "content": "There isn't a " + command.slice(1).join(" ") + " to attack!"
               });
             } else {
               // Is the creature alive?
-              if (Creature.attributes.currentHP > 0) {
-                playerAttack(Creature);
+              if (creature.attributes.currentHP > 0) {
+                playerAttack(creature);
                 // Is the creature still alive after player's attack?
-                if (Creature.attributes.currentHP <= 0) {
-                  CurrentMap[Player.position].creature = null;
-                  GameStateManager.emit("win", {
-                    player: Player,
-                    map: CurrentMap
-                  });
+                if (creature.attributes.currentHP <= 0) {
+                  GameData.getPlayerTile().creature = null;
+                  GameStateManager.emit("win");
 
                   Input_Text.removeEventListener("keydown", fightCommands);
                 } else {
-                  creatureAttack(Creature);
-                  if (Player.attributes.currentHP <= 0) {
-                    GameStateManager.emit("slain", {
-                      player: Player
-                    });
+                  creatureAttack(creature);
+                  if (GameData.player.attributes.currentHP <= 0) {
+                    GameStateManager.emit("slain");
 
                     Input_Text.removeEventListener("keydown", fightCommands);
                   }
@@ -88,11 +70,8 @@ GS_Fight.runState = function (GameStateManager, aggressor) {
                   "entity": "Error:",
                   "content": "It's already dead. Attacking it won't help."
                 });
-                CurrentMap[Player.position].creature = null;
-                GameStateManager.emit("win", {
-                  player: Player,
-                  map: CurrentMap
-                });
+                GameData.getPlayerTile().creature = null;
+                GameStateManager.emit("win");
 
                 Input_Text.removeEventListener("keydown", fightCommands);
               }/* 
@@ -119,67 +98,52 @@ GS_Fight.runState = function (GameStateManager, aggressor) {
             break;
           case "drink":
             drinkPotion();
-            if (Creature.attributes.currentHP > 0) {
-              creatureAttack(Creature);
-              if (Player.attributes.currentHP <= 0) {
-                GameStateManager.emit("slain", {
-                  player: Player
-                });
+            if (creature.attributes.currentHP > 0) {
+              creatureAttack(creature);
+              if (GameData.player.attributes.currentHP <= 0) {
+                GameStateManager.emit("slain");
 
                 Input_Text.removeEventListener("keydown", fightCommands);
               }
             } else {
-              CurrentMap[Player.position].creature = null;
-              GameStateManager.emit("win", {
-                player: Player,
-                map: CurrentMap
-              });
+              GameData.getPlayerTile().creature = null;
+              GameStateManager.emit("win");
 
               Input_Text.removeEventListener("keydown", fightCommands);
             }
             break;
           case "potion":
             drinkPotion();
-            if (Creature.attributes.currentHP > 0) {
-              creatureAttack(Creature);
-              if (Player.attributes.currentHP <= 0) {
-                GameStateManager.emit("slain", {
-                  player: Player
-                });
+            if (creature.attributes.currentHP > 0) {
+              creatureAttack(creature);
+              if (GameData.player.attributes.currentHP <= 0) {
+                GameStateManager.emit("slain");
 
                 Input_Text.removeEventListener("keydown", fightCommands);
               }
             } else {
-              CurrentMap[Player.position].creature = null;
-              GameStateManager.emit("win", {
-                player: Player,
-                map: CurrentMap
-              });
+              GameData.getPlayerTile().creature = null;
+              GameStateManager.emit("win");
 
               Input_Text.removeEventListener("keydown", fightCommands);
             }
             break;
           case "run":
-            if (Creature.attributes.aggressive && (2 * RNG(Creature.attributes.currentHP)) > RNG(Creature.attributes.totalHP)) {
+            if (creature.attributes.aggressive && (2 * RNG(creature.attributes.currentHP)) > RNG(creature.attributes.totalHP)) {
               Output.addElement({
                 "entity": "",
-                "content": "The " + Creature.name + " stops you from running away!"
+                "content": "The " + creature.name + " stops you from running away!"
               });
-              if (Creature.attributes.currentHP > 0) {
-                creatureAttack(Creature);
-                if (Player.attributes.currentHP <= 0) {
-                  GameStateManager.emit("slain", {
-                    player: Player
-                  });
+              if (creature.attributes.currentHP > 0) {
+                creatureAttack(creature);
+                if (GameData.player.attributes.currentHP <= 0) {
+                  GameStateManager.emit("slain");
 
                   Input_Text.removeEventListener("keydown", fightCommands);
                 }
               } else {
-                CurrentMap[Player.position].creature = null;
-                GameStateManager.emit("win", {
-                  player: Player,
-                  map: CurrentMap
-                });
+                GameData.getPlayerTile().creature = null;
+                GameStateManager.emit("win");
 
                 Input_Text.removeEventListener("keydown", fightCommands);
               }
@@ -190,11 +154,8 @@ GS_Fight.runState = function (GameStateManager, aggressor) {
               });
 
               // Stop creatures from regaining full HP after you run away
-              CurrentMap[Player.position].creature.attributes.currentHP = Creature.attributes.currentHP;
-              GameStateManager.emit("run", {
-                player: Player,
-                map: CurrentMap
-              });
+              GameData.getPlayerTile().creature.attributes.currentHP = creature.attributes.currentHP;
+              GameStateManager.emit("run");
 
               Input_Text.removeEventListener("keydown", fightCommands);
             }
@@ -218,25 +179,20 @@ GS_Fight.runState = function (GameStateManager, aggressor) {
   }
 
   if (aggressor === "player") {
-    if (Creature.attributes.currentHP > 0) {
-      playerAttack(Creature);
+    if (creature.attributes.currentHP > 0) {
+      playerAttack(creature);
       // Is the creature still alive after player's attack?
-      if (Creature.attributes.currentHP <= 0) {
-        CurrentMap[Player.position].creature = null;
-        GameStateManager.emit("win", {
-          player: Player,
-          map: CurrentMap
-        });
+      if (creature.attributes.currentHP <= 0) {
+        GameData.getPlayerTile().creature = null;
+        GameStateManager.emit("win");
       } else {
         Input_Text.addEventListener("keydown", fightCommands);
       }
     }
   } else { // Aggressor is creature
-    creatureAttack(Creature);
-    if (Player.attributes.currentHP <= 0) {
-      GameStateManager.emit("slain", {
-        player: Player
-      });
+    creatureAttack(creature);
+    if (GameData.player.attributes.currentHP <= 0) {
+      GameStateManager.emit("slain");
     } else {
       Input_Text.addEventListener("keydown", fightCommands);
     }
@@ -248,9 +204,9 @@ module.exports = GS_Fight;
 
 function playerAttack(creature) {
   // Player attack chance is based on level: (x + 2) / (x + 5) (Gives result from x=1, chance=0.5 to x->inf, chance->1), for chance=0.95, x=55
-  if (RNG() < ((Player.attributes.level + 2) / (Player.attributes.level + 5))) {
-    let levelDiff = Player.attributes.level - creature.level;
-    let calcDmgVal = RNG(1, ((Player.attributes.strength / 1.5) * Player.attributes.level));
+  if (RNG() < ((GameData.player.attributes.level + 2) / (GameData.player.attributes.level + 5))) {
+    let levelDiff = GameData.player.attributes.level - creature.level;
+    let calcDmgVal = RNG(1, ((GameData.player.attributes.strength / 1.5) * GameData.player.attributes.level));
     let damage;
     if (levelDiff > 0) {// Player is above creature level: levelDiff is positive
       damage = Math.round(calcDmgVal * (1.25 + Math.log2(levelDiff) / 4));
@@ -264,13 +220,13 @@ function playerAttack(creature) {
       "entity": "",
       "content": "You attack the " + creature.name + " for " + damage + "HP."
     });
-    Player.attributes.strEXP++;
-    while (Player.attributes.strEXP > Math.round(2 * Math.pow(Player.attributes.strength, 1.8))) {
-      Player.attributes.strEXP -= Math.round(2 * Math.pow(Player.attributes.strength, 1.8));
-      Player.attributes.strength++;
+    GameData.player.attributes.strEXP++;
+    while (GameData.player.attributes.strEXP > Math.round(2 * Math.pow(GameData.player.attributes.strength, 1.8))) {
+      GameData.player.attributes.strEXP -= Math.round(2 * Math.pow(GameData.player.attributes.strength, 1.8));
+      GameData.player.attributes.strength++;
       Output.addElement({
         "entity": "",
-        "content": "<span class='level-strength'>Congratulations!\nYour strength is now level " + Player.attributes.strength + ".</span>"
+        "content": "<span class='level-strength'>Congratulations!\nYour strength is now level " + GameData.player.attributes.strength + ".</span>"
       });
     }
   } else {
@@ -293,11 +249,11 @@ function creatureHPReport(creature) {
     let messagePicker = Math.round(RNG(creature.messages.onDeath.length - 1));
     Output.addElement({
       "entity": "",
-      "content": creature.messages.onDeath[messagePicker] + "\nYou have " + Player.attributes.currentHP + "HP remaining."
+      "content": creature.messages.onDeath[messagePicker] + "\nYou have " + GameData.player.attributes.currentHP + "HP remaining."
     });
-    if (creature !== "dragon") { Player.creaturesSlain.slainNonDragon = true; }
-    Player.creaturesSlain.total++;
-    Player.creaturesSlain.byType[creature.key]++;
+    if (creature !== "dragon") { GameData.player.creaturesSlain.slainNonDragon = true; }
+    GameData.player.creaturesSlain.total++;
+    GameData.player.creaturesSlain.byType[creature.key]++;
     creatureDrop(creature);
     playerExperienceGain(creature);
   }
@@ -311,14 +267,14 @@ function creatureDrop(creature) {
   if (RNG() <= creature.drops.gold.dropChance) {
     goldDrop = dimRNG(1, creature.drops.gold.max);
     // Player.inventory.gold += goldDrop;
-    CurrentMap[Player.position].items.push({ "key": "gold", "quantity": goldDrop, "stackValue": goldDrop * ItemDb["gold"].value });
+    GameData.getPlayerTile().items.push({ "key": "gold", "quantity": goldDrop, "stackValue": goldDrop * ItemDb["gold"].value });
   } else {
     goldDrop = false;
   }
   let potionDrop;
   if (RNG() <= creature.drops.potions.dropChance) {
     potionDrop = dimRNG(1, creature.drops.potions.max);
-    CurrentMap[Player.position].items.push({ "key": "potion", "quantity": potionDrop, "stackValue": potionDrop * ItemDb["potion"].value });
+    GameData.getPlayerTile().items.push({ "key": "potion", "quantity": potionDrop, "stackValue": potionDrop * ItemDb["potion"].value });
     // Player.inventory.potions += potionDrop;
   } else {
     potionDrop = false;
@@ -358,7 +314,7 @@ function creatureDrop(creature) {
   //   });
   // }
 
-  DisplayInventory(Player);
+  DisplayInventory(GameData.player);
 }
 
 function creatureHPBar(creature) {
@@ -435,9 +391,9 @@ function creatureAttack(creature) {
         "content": "The " + creature.name + "'s attack misses you."
       });
     }
-    playerHPReport(Player);
+    playerHPReport(GameData.player);
   } else {
-    let levelDiff = creature.level - Player.attributes.level;
+    let levelDiff = creature.level - GameData.player.attributes.level;
     let calcDmgVal = RNG(attack.minDamage, attack.maxDamage) * creature.level / 1.5;
     if (levelDiff > 0) {// Creature is above player level: levelDiff is positive
       damage = Math.round(calcDmgVal * (1.25 + Math.log2(levelDiff) / 4));
@@ -451,8 +407,8 @@ function creatureAttack(creature) {
       "entity": creature.name,
       "content": attack.messages[messagePicker] + damage + "HP."
     });
-    Player.attributes.currentHP -= damage;
-    playerHPReport(Player);
+    GameData.player.attributes.currentHP -= damage;
+    playerHPReport(GameData.player);
   }
 }
 
@@ -505,21 +461,21 @@ function playerHPBar(player) {
 }
 
 function drinkPotion() {
-  if (Player.attributes.currentHP >= Player.attributes.totalHP) {
+  if (GameData.player.isFullHealth) {
     Output.addElement({
       "entity": "",
       "content": "You already have full health!"
     });
   } else {
-    if (Player.inventory.getItem("potion").quantity > 0) {
-      let healing = (Math.min(Math.round(50 + Player.attributes.level * Player.attributes.level), Player.attributes.totalHP - Player.attributes.currentHP));
-      Player.attributes.currentHP += healing;
-      Player.inventory.getItem("potion").quantity--;
+    let potions = GameData.player.inventory.getItem("potion");
+    if (potions.quantity > 0) {
+      let amountHealed = GameData.player.heal(Math.round(50 + GameData.player.attributes.level * GameData.player.attributes.level));
+      potions.quantity--;
       Output.addElement({
         "entity": "",
-        "content": "You drink a potion, restoring " + healing + "HP. You have " + Player.inventory.getItem("potion").quantity + " potions remaining."
+        "content": "You drink a potion, restoring " + amountHealed + "HP. You have " + potions.quantity + " potions remaining."
       });
-      DisplayInventory(Player);
+      DisplayInventory(GameData.player);
     } else {
       Output.addElement({
         "entity": "",
@@ -527,23 +483,23 @@ function drinkPotion() {
       });
     }
   }
-  playerHPReport(Player);
+  playerHPReport(GameData.player);
 }
 
 function playerExperienceGain(creature) {
-  Player.attributes.experience += Math.round(creature.attributes.totalHP * 0.35)
-  while (Player.attributes.experience >= Math.round(50 * Math.pow(Player.attributes.level, 1.3))) {
-    Player.attributes.experience -= Math.round(50 * Math.pow(Player.attributes.level, 1.3));
-    let prevHP = Player.attributes.totalHP;
-    Player.attributes.totalHP = 5 * (Player.attributes.level * Player.attributes.level) + 95;
-    Player.attributes.currentHP += Player.attributes.totalHP - prevHP;
-    Player.attributes.level++;
+  GameData.player.attributes.experience += Math.round(creature.attributes.totalHP * 0.35)
+  while (GameData.player.attributes.experience >= Math.round(50 * Math.pow(GameData.player.attributes.level, 1.3))) {
+    GameData.player.attributes.experience -= Math.round(50 * Math.pow(GameData.player.attributes.level, 1.3));
+    let prevHP = GameData.player.attributes.totalHP;
+    GameData.player.attributes.totalHP = 5 * (GameData.player.attributes.level * GameData.player.attributes.level) + 95;
+    GameData.player.attributes.currentHP += GameData.player.attributes.totalHP - prevHP;
+    GameData.player.attributes.level++;
     Output.addElement({
       "entity": "",
-      "content": "<span class='level-up'>Congratulations!\nYou are now level " + Player.attributes.level + ".</span>"
+      "content": "<span class='level-up'>Congratulations!\nYou are now level " + GameData.player.attributes.level + ".</span>"
     });
   }
-  DisplayInventory(Player);
+  DisplayInventory(GameData.player);
 }
 
 function tabComplete(text) {

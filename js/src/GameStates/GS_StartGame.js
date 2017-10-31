@@ -1,3 +1,5 @@
+const GameState = require("./GameState.js");
+const GameData = require("../GameData.js");
 const EventEmitter = require("events");
 const Output = require("../../Output.js");
 const NewPlayer = require('../NewPlayer.js');
@@ -5,8 +7,7 @@ const Splash = require("../splash/Splash.json");
 const DisplayInventory = require("../DisplayInventory.js");
 const Input_Text = document.getElementById("input-text");
 
-var GS_StartGame = {};
-var Player;
+var GS_StartGame = new GameState("start");
 var Trymunx = Splash["TrymunxLarge"];
 
 
@@ -27,16 +28,16 @@ GS_StartGame.runState = function (GameStateManager) {
 
       let name = Input_Text.value;
       if (name) {
-        Player = NewPlayer(name)
+        GameData.player = NewPlayer(name)
         Output.addElement({
           "entity": "Welcome,",
           "content": name + "."
         });
       } else {
-        Player = NewPlayer();
+        GameData.player = NewPlayer();
         Output.addElement({
           "entity": "Welcome,",
-          "content": Player.name + "."
+          "content": GameData.player.name + "."
         });
       }
 
@@ -50,11 +51,9 @@ GS_StartGame.runState = function (GameStateManager) {
 
       Input_Text.removeEventListener("keydown", enterName);
 
-      DisplayInventory(Player);
+      DisplayInventory(GameData.player);
 
-      GameStateManager.emit("playerCreated", {
-        player: Player
-      });
+      GameStateManager.emit("playerCreated");
     }
   }
 
