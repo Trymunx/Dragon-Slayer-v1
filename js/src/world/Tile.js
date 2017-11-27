@@ -1,7 +1,7 @@
 const Chunk = require("./Chunk.js");
 
 class Tile {
-  constructor (x, y, chunk) {
+  constructor(x, y, chunk) {
     this.relx = x; // x relative to chunk
     this.rely = y; // y relative to chunk
     this.chunk = chunk;
@@ -10,14 +10,16 @@ class Tile {
     this.creatures = [];
     this.items = [];
     // this.structures = [];
-    // this.terrain = [];
+    this.terrain = "none";
     this.generators = [];
   }
-  get mapX () {
+  get mapX() {
     return this.chunk.x * Chunk.size + this.relx;
   }
-  get mapY () {
+  get mapY() {
     return this.chunk.y * Chunk.size + this.rely;
   }
 
 }
+
+module.exports = Tile;
