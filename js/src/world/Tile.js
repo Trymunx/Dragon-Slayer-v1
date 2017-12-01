@@ -1,25 +1,30 @@
 const Chunk = require("./Chunk.js");
 
 class Tile {
-  constructor(x, y, chunk) {
-    this.relx = x; // x relative to chunk
-    this.rely = y; // y relative to chunk
-    this.chunk = chunk;
-    this.playerHere = false;
+  constructor(/*x, y, chunk*/) {
+    // this.relx = x; // x relative to chunk
+    // this.rely = y; // y relative to chunk
+    // this.chunk = chunk;
+    // this.playerHere = false;
     this.playerHasSeen = true; // TODO: Make false to enable discovery fog
     this.creatures = [];
     this.items = [];
     // this.structures = [];
-    this.terrain = "none";
-    this.generators = [];
+    this.terrain = "none"; // No terrain features, eg. rivers or hills
+    this.display;
+    // this.generators = [];
+    this.spawnRateModifiers = new Map();
   }
-  get mapX() {
-    return this.chunk.x * Chunk.size + this.relx;
+
+  setSpawnRateMod (creature, spawnrate) {
+    this.spawnRateModifiers.set(creature, spawnrate);
   }
-  get mapY() {
-    return this.chunk.y * Chunk.size + this.rely;
+  
+  getSpawnRateMod (creature) {
+    return this.spawnRateModifiers.has(creature) ? this.spawnRateModifiers.get(creature) : 1;
   }
 
 }
 
 module.exports = Tile;
+

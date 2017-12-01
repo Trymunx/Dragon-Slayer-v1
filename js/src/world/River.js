@@ -18,15 +18,15 @@ class River extends Terrain {
 
     chunk = world.getChunkFromTile(this.originX, this.riverTop);
     // Set the first tile, one above the starting tile
-    firstX = x = lastX = Math.floor(RNG(this.originX-1, this.originX+1));
+    firstX = x = lastX = Math.round(RNG(this.originX-1, this.originX+1));
     do {
       tile = chunk.getTileFromWorldCoords(x, this.riverTop);
       tile.terrain = "river";
       this.riverTop--;
       if (lastX === SecLastX) {
-        x = Math.floor(RNG(lastX-1, lastX+1));
+        x = Math.round(RNG(lastX-1, lastX+1));
       } else {
-        x = Math.floor(RNG(2*lastX-SecLastX, lastX));
+        x = Math.round(RNG(2*lastX-SecLastX, lastX));
       }
       SecLastX = lastX;
       lastX = x;
@@ -41,9 +41,9 @@ class River extends Terrain {
       tile.terrain = "river";
       this.riverBottom++;
       if (lastX === SecLastX) {
-        x = Math.floor(RNG(lastX-1, lastX+1));
+        x = Math.round(RNG(lastX-1, lastX+1));
       } else {
-        x = Math.floor(RNG(2*lastX-SecLastX, lastX));
+        x = Math.round(RNG(2*lastX-SecLastX, lastX));
       }
       SecLastX = lastX;
       lastX = x;
