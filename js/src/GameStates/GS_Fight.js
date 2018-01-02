@@ -54,6 +54,7 @@ GS_Fight.runState = function (GameStateManager, data) {
                 // Is the creature still alive after player's attack?
                 if (creature.attributes.currentHP <= 0) {
                   GameData.getPlayerTile().creature = null;
+                  GameData.player.hasRested = false;
                   GameStateManager.emit("win");
 
                   Input_Text.removeEventListener("keydown", fightCommands);
@@ -71,6 +72,7 @@ GS_Fight.runState = function (GameStateManager, data) {
                   "content": "It's already dead. Attacking it won't help."
                 });
                 GameData.getPlayerTile().creature = null;
+                GameData.player.hasRested = false;
                 GameStateManager.emit("win");
 
                 Input_Text.removeEventListener("keydown", fightCommands);
@@ -107,6 +109,7 @@ GS_Fight.runState = function (GameStateManager, data) {
               }
             } else {
               GameData.getPlayerTile().creature = null;
+              GameData.player.hasRested = false;
               GameStateManager.emit("win");
 
               Input_Text.removeEventListener("keydown", fightCommands);
@@ -123,6 +126,7 @@ GS_Fight.runState = function (GameStateManager, data) {
               }
             } else {
               GameData.getPlayerTile().creature = null;
+              GameData.player.hasRested = false;
               GameStateManager.emit("win");
 
               Input_Text.removeEventListener("keydown", fightCommands);
@@ -143,6 +147,7 @@ GS_Fight.runState = function (GameStateManager, data) {
                 }
               } else {
                 GameData.getPlayerTile().creature = null;
+                GameData.player.hasRested = false;
                 GameStateManager.emit("win");
 
                 Input_Text.removeEventListener("keydown", fightCommands);
@@ -155,6 +160,7 @@ GS_Fight.runState = function (GameStateManager, data) {
 
               // Stop creatures from regaining full HP after you run away
               GameData.getPlayerTile().creature.attributes.currentHP = creature.attributes.currentHP;
+              GameData.player.hasRested = false;
               GameStateManager.emit("run");
 
               Input_Text.removeEventListener("keydown", fightCommands);
@@ -184,6 +190,7 @@ GS_Fight.runState = function (GameStateManager, data) {
       // Is the creature still alive after player's attack?
       if (creature.attributes.currentHP <= 0) {
         GameData.getPlayerTile().creature = null;
+        GameData.player.hasRested = false;
         GameStateManager.emit("win");
       } else {
         Input_Text.addEventListener("keydown", fightCommands);
