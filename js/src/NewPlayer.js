@@ -18,7 +18,7 @@ class Inventory {
     if (this.items[item.key]) { //TODO: check if that's how you find whether an item key is already present
       this.items[key].quantity += quantity;
     } else {
-      this.items[key] = Object.assign({"key": key, "quantity": quantity});
+      this.items[key] = Object.assign({ "key": key, "quantity": quantity });
     }
   }
   *[Symbol.iterator]() {
@@ -49,7 +49,7 @@ class Player {
     // TODO: Fix equipment list
     this.equipped = Object.assign({}, PlayerTemplate.equipped);
   }
-  get isFullHealth () {
+  get isFullHealth() {
     return this.attributes.currentHP >= this.attributes.totalHP;
   }
   heal(amount, simulate) {
@@ -64,11 +64,13 @@ class Player {
     } else {
       amountHealed = amount;
     }
-    if(!simulate)
-    {
+    if (!simulate) {
       this.attributes.currentHP = newHP;
     }
     return amountHealed;
+  }
+  get expToNextLevel() {
+    return Math.round(50 * Math.pow(this.attributes.level, 1.3));
   }
 }
 

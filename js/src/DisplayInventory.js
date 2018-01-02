@@ -1,13 +1,8 @@
 const ItemsDb = require("../db/Items.json");
+const toBar = require("./utils/CompletionBar.js");
 
 
 function DisplayInventory(player) {
-
-  // // Display item array with indentation
-  // var itemList = [""];
-  // for (let i in player.inventory.items) {
-  //   itemList[i] = "\n    " + player.inventory.items[i];
-  // }
 
   // Display inventory with indentation
   var inventoryString =
@@ -33,47 +28,38 @@ function DisplayInventory(player) {
   }
 
   var levelDisplay = "Level: " + player.attributes.level;
-  let totalExpBarLength = 30;
-  let expPercent = (player.attributes.experience / Math.round(50 * Math.pow(player.attributes.level, 1.3)));
-  let expBarLength = Math.round(expPercent * totalExpBarLength);
-  let emptyLength = totalExpBarLength - expBarLength;
-  var expBar = "[";
-  for (let i = 0; i < expBarLength; i++) {
-    expBar += "=";
-  };
-  expBar += ">";
-  for (let i = 0; i < emptyLength; i++) {
-    expBar += " ";
-  }
-  expBar += "]";
+  var expBar = toBar({
+    totalLength: 32,
+    value: player.attributes.experience,
+    totalValue: player.expToNextLevel,
+    leftEnd: "[",
+    rightEnd: "]",
+    char: "=",
+    endChar: ">"
+  });
 
-  var totalHPBarLength = 31;
-  var hpPercent = player.attributes.currentHP / player.attributes.totalHP;
-  var hpBarLength = Math.round(hpPercent * totalHPBarLength);
-  var emptyHPBarLength = totalHPBarLength - hpBarLength;
-  var hpBar = "[";
-  if (player.attributes.currentHP / player.attributes.totalHP > 0.25) {
-    for (let i = 0; i < hpBarLength; i++) {
-      hpBar += "<span class='hp-bar-player'>|</span>";
-    }
-  } else if (player.attributes.currentHP / player.attributes.totalHP > 0.1) {
-    for (let i = 0; i < hpBarLength; i++) {
-      hpBar += "<span class='hp-bar-warning'>|</span>";
-    }
+  let hpPC = player.attributes.currentHP / player.attributes.totalHP;
+  var hpChar;
+  if (hpPC > 0.25) {
+    hpChar = "<span class='hp-bar-player'>|</span>";
+  } else if (hpPC > 0.1) {
+    hpChar = "<span class='hp-bar-warning'>|</span>";
   } else {
-    for (let i = 0; i < hpBarLength; i++) {
-      hpBar += "<span class='hp-bar-foe'>|</span>";
-    }
+    hpChar = "<span class='hp-bar-foe'>|</span>";
   }
-  for (let i = 0; i < emptyHPBarLength; i++) {
-    hpBar += " ";
-  }
-  hpBar += "]";
+  var hpBar = toBar({
+    totalLength: 32,
+    value: player.attributes.currentHP,
+    totalValue: player.attributes.totalHP,
+    leftEnd: "[",
+    rightEnd: "]",
+    char: hpChar
+  });
 
   var HPDisplay;
-  if (player.attributes.currentHP / player.attributes.totalHP > 0.25) {
+  if (hpPC > 0.25) {
     HPDisplay = "HP: <span class='hp-bar-player'>" + player.attributes.currentHP + "</span> / <span class='hp-bar-player'>" + player.attributes.totalHP + "</span>";
-  } else if (player.attributes.currentHP / player.attributes.totalHP > 0.1) {
+  } else if (hpPC > 0.1) {
     HPDisplay = "HP: <span class='hp-bar-warning'>" + player.attributes.currentHP + "</span> / <span class='hp-bar-player'>" + player.attributes.totalHP + "</span>";
   } else if (player.attributes.currentHP > 0) {
     HPDisplay = "HP: <span class='hp-bar-foe'>" + player.attributes.currentHP + "</span> / <span class='hp-bar-player'>" + player.attributes.totalHP + "</span>";
