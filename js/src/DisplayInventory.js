@@ -29,7 +29,7 @@ function DisplayInventory(player) {
 
   var levelDisplay = "Level: " + player.attributes.level;
   var expBar = toBar({
-    totalLength: 32,
+    totalLength: 31,
     value: player.attributes.experience,
     totalValue: player.expToNextLevel,
     leftEnd: "[",
