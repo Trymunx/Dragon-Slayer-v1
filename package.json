@@ -9,7 +9,7 @@
   "author": "Trymunx",
   "license": "MIT",
   "dependencies": {
-    "electron": "^1.7.5",
+    "electron": "^1.8.1",
     "eslint": "^4.12.0"
   }
 }
