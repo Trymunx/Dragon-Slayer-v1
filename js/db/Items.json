@@ -8,5 +8,73 @@
     "name": "gold",
     "namePlural": "gold",
     "value": 1
+  },
+  "dagger": {
+    "name": "dagger",
+    "slots": [
+      "mainHand",
+      "offHand"
+    ],
+    "damage": 4
+  },
+  "shield": {
+    "name": "shield",
+    "slots": [
+      "offHand",
+      "mainHand"
+    ],
+    "armour": 7
+  },
+  "helmet": {
+    "name": "helmet",
+    "slots": [
+      "head"
+    ],
+    "armour": 4
+  },
+  "gloves": {
+    "name": "gloves",
+    "slots": [
+      "hands"
+    ],
+    "armour": 1
+  },
+  "boots": {
+    "name": "boots",
+    "slots": [
+      "feet"
+    ],
+    "armour": 1
+  },
+  "chainmail": {
+    "name": "chainmail",
+    "slots": [
+      "torso"
+    ],
+    "armour": 10
+  },
+  "breeches": {
+    "name": "breeches",
+    "slots": [
+      "legs"
+    ],
+    "armour": 5
+  },
+  "cloak": {
+    "name": "cloak",
+    "slots": [
+      "back"
+    ],
+    "armour": 0
+  },
+  "ring": {
+    "name": "ring",
+    "slots": [
+      "finger1",
+      "finger2",
+      "finger3",
+      "finger4"
+    ],
+    "bonus": "someMagicBonus"
   }
 }
