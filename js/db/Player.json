@@ -17,10 +17,12 @@
     "head": "None",
     "torso": "Tunic",
     "legs": "Trousers",
-    "rightHand": "Rusty dagger",
-    "leftHand": "Battered old shield",
-    "gloves": "None",
-    "boots": "Old shoes"
+    "mainHand": "dagger",
+    "offHand": "shield",
+    "gloves": "gloves",
+    "boots": "boots",
+    "back": "cloak",
+    "fingers": []
   },
   "creaturesSlain": {
     "slainNonDragon": false

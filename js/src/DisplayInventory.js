@@ -10,10 +10,11 @@ function DisplayInventory(player) {
     "  Head: " + player.equipped.head + "\n" +
     "  Torso: " + player.equipped.torso + "\n" +
     "  Legs: " + player.equipped.legs + "\n" +
-    "  Right hand: " + player.equipped.rightHand + "\n" +
-    "  Left hand: " + player.equipped.leftHand + "\n" +
+    "  Right hand: " + player.equipped.mainHand + "\n" +
+    "  Left hand: " + player.equipped.offHand + "\n" +
     "  Gloves: " + player.equipped.gloves + "\n" +
     "  Boots: " + player.equipped.boots + "\n" +
+    "  Back: " + player.equipped.back + "\n" +
     "\n" +
     "Inventory:\n";
   // "  Gold: <span class='gold'>" + player.inventory.gold + "</span>\n",

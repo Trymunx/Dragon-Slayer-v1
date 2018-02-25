@@ -35,14 +35,14 @@
   "gloves": {
     "name": "gloves",
     "slots": [
-      "hands"
+      "gloves"
     ],
     "armour": 1
   },
   "boots": {
     "name": "boots",
     "slots": [
-      "feet"
+      "boots"
     ],
     "armour": 1
   },

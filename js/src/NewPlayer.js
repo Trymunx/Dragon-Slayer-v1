@@ -88,29 +88,37 @@ class Player {
   }
 
   equipItem(item, slot) {
-    if (!slot) {
-      slot = item.equipSlots.find(slot => this.equipped[slot] === "None") || item.equipSlots[0];
-    }
-    if (!item.equipSlots.includes(slot)) {
+    if (this.items.getItem(item.name) === undefined) { // TODO: Fix key being item name, should be item key
       Output.addElement({
         "entity": "",
-        "content": "Item " + item.name + " won't fit in slot " + slot
+        "content": "You don't have a " + item.name + " in your inventory to equip."
       });
-    } else if (this.slotIsEmpty(slot)) {
-      this.equipped[slot] = item.name;
     } else {
-      Output.addElement({
-        "entity": "",
-        "content": "Replaced " + this.equipped[slot] + " with " + item.name
-      });
-      this.equipped[slot] = item.name;
+      if (!slot) {
+        slot = item.slots.find(slot => this.equipped[slot] === "None") || item.slots[0];
+      }
+      if (!item.slots.includes(slot)) {
+        Output.addElement({
+          "entity": "",
+          "content": "Item " + item.name + " won't fit in slot " + slot
+        });
+      } else if (this.slotIsEmpty(slot)) {
+        this.equipped[slot] = item.name;
+      } else {
+        Output.addElement({
+          "entity": "",
+          "content": "Replaced " + this.equipped[slot] + " with " + item.name
+        });
+        this.equipped[slot] = item.name;
+      }
+      this.removeItem(item);
     }
   }
 
   unequipItem(item, slot) {
     if (!slot) {
       // We reverse array to remove items from least important slot first
-      slot = item.equipSlots.slice(0).reverse().find(slot => this.equipped[slot] === item.name);
+      slot = item.slots.slice(0).reverse().find(slot => this.equipped[slot] === item.name);
     }
     if (!slot || this.equipped[slot] !== item.name) {
       Output.addElement({
