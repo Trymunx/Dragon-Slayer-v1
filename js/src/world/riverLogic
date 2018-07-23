@@ -1,0 +1,69 @@
+1. Find the tile
+2. Set tile to river
+3. set tile pointer coords to one of three tiles above river tile
+4. set tile to river
+5. check where tile two tiles below is:
+    - check below, then left, then right
+    - if left(y-1, x-1), check y-2( x-2 and x-1 )
+    - if below(y-1) check y-2( x-1, x, x+1)
+    - if right(y-1, x+1) check y-2( x, x+1)
+    
+
+EXAMPLE MAP:
+Y X─>
+v
+2      4 5|6|7 8
+3      4|5|6 7 8
+4      4|5|6 7 8
+5      4 5(6)7 8
+6      4 5 6|7|8 
+7      4 5 6 7 8 
+8      4 5 6 7 8 
+       
+this.originX === 6;
+this.riverTop === 4;
+this.riverBottom === 5;
+
+firstX = 5;   // randomly selected
+x = 5;
+lastX = 5;
+2lastX = 6;
+
+setRiver(x, riverTop);      // (5, 4)
+if (lastX === 2lastX) {     // 5 == 6
+  x = RNG(lastX-1, lastX+1)
+} else {
+  x = RNG(2 * lastX - 2lastX, lastX) // (4<=x<=5): x = 5
+}
+2lastX = lastX; // 2lastX = 5
+lastX = x;      // lastX = 5
+riverTop--      // riverTop = 3
+
+
+setRiver(x, riverTop); // (5, 3)
+if (lastX === 2lastX) { // 5 == 5
+  x = RNG(lastX-1, lastX+1)         // (4<x<6): x = 6
+} else {
+  x = RNG(2 * lastX - 2lastX, lastX)
+}
+2lastX = lastX; // 2lastX = 5
+lastX = x;      // lastX = 6
+riverTop--;     // riverTop = 2
+
+setRiver(x, riverTop); // (6, 2)
+
+x = 6;
+lastX = 6;
+2lastX = firstX;  // 2lastX = 5
+
+setRiver(x, riverBottom);     // (6, 5)
+if (lastX === 2lastX) {       // 6 == 5
+  x = RNG(lastX-1, lastX+1)
+} else {
+  x = RNG(2 * lastX - 2lastX, lastX);  // (6<x<7) x = 7
+}
+2lastX = lastX;     // 2lastX = 6
+lastX = x;          // lastX = 7
+riverBottom++;      // riverBottom = 6
+
+

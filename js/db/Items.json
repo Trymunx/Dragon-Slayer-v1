@@ -8,5 +8,61 @@
     "name": "gold",
     "namePlural": "gold",
     "value": 1
+  },
+  "dagger": [
+    {
+      "name": "rusty dagger",
+      "namePlural": "rusty daggers",
+      "value": 4,
+      "isWeapon": true,
+      "isArmour": false,
+      "statsBonus": {
+        "attack": 2,
+        "defence": 0,
+        "hitChance": 1
+      },
+      "canEquipIn": {
+        "head": false,
+        "torso": false,
+        "legs": false,
+        "rightHand": true,
+        "leftHand": true,
+        "gloves": false,
+        "boots": false
+      }
+    },
+    {
+      "name": "blunt dagger",
+      "namePlural": "blunt daggers",
+      "value": 6,
+      "isWeapon": true,
+      "isArmour": false,
+      "statsBonus": {
+        "attack": 3,
+        "defence": 0,
+        "hitChance": 1
+      },
+      "canEquipIn": {
+        "head": false,
+        "torso": false,
+        "legs": false,
+        "rightHand": true,
+        "leftHand": true,
+        "gloves": false,
+        "boots": false
+      }
+    }
+  ],
+  "shield0": {
+    "name": "battered old shield",
+    "namePlural": "battered old shields",
+    "value": 7,
+    "isWeapon": false,
+    "isArmour": true,
+    "statsBonus": {
+      "attack": 0,
+      "defence": 5,
+      "hitChance": 0
+    }
   }
 }

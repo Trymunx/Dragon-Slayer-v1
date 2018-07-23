@@ -27,6 +27,8 @@ var commands = [
   "look",
   "rest",
   "take",
+  "equip",
+  "unequip",
   "potion",
   "drink potion"
 ];
@@ -336,6 +338,37 @@ function commandParse(input, index) {
         });
       }
       DisplayInventory(GameData.player);
+      break;
+    case "equip":
+      let itemNames = [];
+      for (let item in GameData.player.inventory.items) {
+        itemNames.push(ItemDb[GameData.player.inventory.items[item].key].name);
+        itemNames.push(ItemDb[GameData.player.inventory.items[item].key].namePlural);
+      }
+      if (itemNames.includes(input[1])) {
+        let index = itemNames.indexOf(input[1]) % 2 === 0 ? itemNames.indexOf(input[1]) : itemNames.indexOf(input[1]) - 1;
+        console.log(GameData.player.inventory.items);
+        // let key = Player.inventory.items[index].key;
+        if (ItemDb[input[1]].isWeapon || ItemDb[input[1]].isArmour) {
+          // equip item
+          console.log("Equipping the " + input[1]);
+        } else {
+          Output.addElement({
+            "entity": "",
+            "content": "You cannot equip that."
+          });
+        }
+      } else if (!input[1]) {
+        Output.addElement({
+          "entity": "",
+          "content": "Equip what?"
+        });
+      } else {
+        Output.addElement({
+          "entity": "",
+          "content": "You can't equip something you don't have!"
+        });
+      }
       break;
     case "restart":
       Input_Text.removeEventListener("keydown", getInputAndParse);
